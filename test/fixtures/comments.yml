@@ -1,0 +1,6 @@
+#coding: utf8
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+test_comment:
+  title: "Хорошая цитата"
+  body: "**Путь программиста** - это осознание существующих абстракций и создание еще более абстрактных абстракций."
