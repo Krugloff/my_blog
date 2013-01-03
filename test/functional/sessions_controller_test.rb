@@ -1,19 +1,27 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
-  test "should get create" do
-    get :create
-    assert_response :success
+  test "create" do
+    post :create,
+      user: { name: "John", password: "a11ri9ht" }
+
+    assert session[:user_id]
+    assert_response :redirect
+    assert_redirected_to user_path
   end
 
-  test "should get update" do
-    get :update
-    assert_response :success
+  test "create: not authenticate" do
+    post :create,
+      user: { name: "John", password: "no" }
+
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 
-  test "should get destroy" do
-    get :destroy
-    assert_response :success
-  end
+  test "destroy" do
+    delete :destroy
 
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
 end

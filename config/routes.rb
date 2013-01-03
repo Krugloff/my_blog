@@ -3,7 +3,7 @@ MyBlog::Application.routes.draw do
 
   resource :user
 
-  resource :session, only: [ :create, :update, :destroy ]
+  resource :session, only: [ :create, :destroy ]
 
   resources :articles do
     resources :comments, only: [ :create, :update, :destroy ]

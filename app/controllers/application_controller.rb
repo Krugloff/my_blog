@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def login?
     unless @user = User.find_by_id(session[:user_id])
-      flash[:error] = "Требуется авторизация"
+      flash[:error] = "Требуется вход в систему"
       redirect_to root_path
     end
   end
