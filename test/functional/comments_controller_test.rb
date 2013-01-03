@@ -51,6 +51,19 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to @article
   end
 
+  test "update: user not author" do
+    login_as users(:hacker)
+
+    put :update,
+      id: @comment.id,
+      article_id: @article.id,
+      comment: { body: "I hate you!" }
+
+    assert_not_nil flash[:error]
+    assert_response :redirect
+    assert_redirected_to @article
+  end
+
   test "destroy" do
     login_as @user
 

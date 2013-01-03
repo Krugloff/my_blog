@@ -6,3 +6,6 @@
 #
 tester:
   name: John
+
+hacker:
+  name: Buddy

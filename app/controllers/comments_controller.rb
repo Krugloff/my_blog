@@ -1,5 +1,8 @@
+#encoding: utf-8
+
 class CommentsController < ApplicationController
   before_filter :login?
+  before_filter :authorization, except: "create"
 
   def create
     comment = Comment.new(params[:comment])
@@ -21,5 +24,14 @@ class CommentsController < ApplicationController
   def destroy
     Comment.destroy params[:id]
     redirect_to article_path(params[:article_id])
+  end
+
+  private
+
+  def authorization
+    unless @comment = @user.comments.find_by_id(params[:id])
+      flash[:error] = "Вы не можете изменить этот комментарий"
+      redirect_to article_path(params[:article_id])
+    end
   end
 end

@@ -68,6 +68,17 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to edit_article_path(@article.id)
   end
 
+  test "update: user not author" do
+    login_as users(:hacker)
+
+    put :update, id: @article.id,
+      article: { title: "I hate you!" }
+
+    assert_not_nil flash[:error]
+    assert_response :redirect
+    assert_redirected_to @article
+  end
+
   test "destroy" do
     login_as @user
 

@@ -1,9 +1,11 @@
+#encoding: utf-8
+
 class ArticlesController < ApplicationController
   before_filter :login?, except: %w( show index )
+  before_filter :authorization, only: %w( update destroy edit )
 
   def create
-    @article = Article.create params[:article]
-    @article.user = @user
+    @article = @user.articles.new params[:article]
 
     if @article.save
       redirect_to article_path(@article)
@@ -22,10 +24,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find params[:id]
-
     if @article.update_attributes params[:article]
-      redirect_to article_path(@article.id)
+      redirect_to @article
     else
       flash[:error] = @article.errors.full_messages
       redirect_to edit_article_path(@article.id)
@@ -46,6 +46,16 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find params[:id]
+  end
+
+  private
+
+  def authorization
+    @article = @user.articles.find_by_id(params[:id])
+
+    unless @article
+      flash[:error] = "Вы не можете изменить эту статью."
+      redirect_to article_path(params[:id])
+    end
   end
 end
