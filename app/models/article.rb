@@ -1,16 +1,22 @@
 class Article < ActiveRecord::Base
   attr_accessible :title, :body
 
-  # before_save :body_to_html
+  # TODO: before_save :body_to_html
 
   has_many :comments
+  belongs_to :user
 
-  validates_presence_of :title, :body
-  validates_length_of :title, maximum: 256
+  validates :title,
+    presence: true,
+    length: { maximum: 256 }
 
+  validates :body, :user,
+    presence: true
+  
   private
 
-  def body_to_html
-    # Redcarpet.handle(article.body)
-  end
+  # TODO
+  # def body_to_html
+  #   # Redcarpet.handle(article.body)
+  # end
 end

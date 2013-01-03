@@ -3,21 +3,12 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  def setup
-    @comment = comments(:test_comment)
-  end
-
   test "create" do
-    comment = Comment.new
-    comment.title = ""
-    comment.body = "Ура! Еще один зомби!"
-    comment.article = articles(:welcome)
-
-    assert comment.save
+    assert @comment.save
   end
 
   test "find" do
-    assert_nothing_raised { Comment.find @comment.id }
+    assert_not_nil Comment.find_by_id(@comment.id)
   end
 
   test "update" do
@@ -27,20 +18,26 @@ class CommentTest < ActiveSupport::TestCase
   test "destroy" do
     @comment.destroy
 
-    assert_raise(ActiveRecord::RecordNotFound) { Comment.find @comment.id }
+    assert_nil Comment.find_by_id(@comment.id)
   end
 
   test "body must be presence" do
     @comment.body = ""
-    assert !@comment.save
+    assert @comment.invalid?
   end
 
   test "title less or equal 256" do
     @comment.title = "?" * 257
-    assert !@comment.save
+    assert @comment.invalid?
   end
 
   test "article must be presence" do
-    assert !@comment.save
+    @comment.article = nil
+    assert @comment.invalid?
+  end
+
+  test "user must be presence" do
+    @comment.user = nil
+    assert @comment.invalid?
   end
 end

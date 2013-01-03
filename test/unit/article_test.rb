@@ -3,20 +3,12 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
-  setup do
-    @article = articles(:welcome)
-  end
-
   test "create" do
-    article = Article.new
-    article.title = "Welcome to my blog!"
-    article.body = File.read "test/fixtures/article.md"
-
-    assert article.save
+    assert @article.save
   end
 
   test "find" do
-    assert_nothing_raised { Article.find @article.id }
+    assert_not_nil Article.find_by_id(@article.id)
   end
 
   test "update" do
@@ -26,29 +18,26 @@ class ArticleTest < ActiveSupport::TestCase
   test "destroy" do
     @article.destroy
 
-    assert_raise(ActiveRecord::RecordNotFound) { Article.find @article.id }
-  end
-
-  test "comments" do 
-    @article.comments = [comments(:test_comment)]
-    @article.save
-    assert_nothing_raised { Comment.find @article.comment_ids }
+    assert_nil Article.find_by_id(@article.id)
   end
 
   test "title must be presence" do
-    article = Article.new
-    article.body = "This is my blog"
-    assert !article.save
+    @article.title = ""
+    assert @article.invalid?
   end
 
   test "body must be presence" do
-    article = Article.new
-    article.title = "Welcome"
-    assert !article.save
+    @article.body = ""
+    assert @article.invalid?
   end
 
   test "title less or equal 256" do
     @article.title = "?" * 257
-    assert !@article.save
+    assert @article.invalid?
+  end
+
+  test "user must be presence" do
+    @article.user = nil
+    assert @article.invalid?
   end
 end

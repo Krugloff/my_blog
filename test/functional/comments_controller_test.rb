@@ -1,68 +1,77 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  setup do
-    @comment = comments(:test_comment)
-    @article = articles(:welcome)
-    @article.comments << @comment
-  end
-
   test "create" do
+    login_as @user
+
     assert_difference( 'Comment.count', 1 ) do
       post :create,
-        article_id: @article.to_param,
+        article_id: @article,
         comment: { body: "This is comment." }
     end
 
     assert_response :redirect
-    assert_redirected_to article_path(@article)
+    assert_redirected_to @article
   end
 
-  test "create error" do
+  test "create: save error" do
+    login_as @user
+
     assert_no_difference( 'Comment.count' ) do
       post :create,
-        article_id: @article.to_param,
+        article_id: @article.id,
         comment: { title: "?" * 257 }
     end
-    
+
     assert_response :redirect
-    assert_redirected_to article_path(@article)
+    assert_redirected_to @article
   end
 
   test "update" do
+    login_as @user
+
     put :update,
-      id: @comment.to_param,
-      article_id: @article.to_param,
+      id: @comment.id,
+      article_id: @article.id,
       comment: { title: "Welcome" }
 
     assert_response :redirect
-    assert_redirected_to article_path(@article)
+    assert_redirected_to @article
   end
 
-  test "update error" do
+  test "update: save error" do
+    login_as @user
+
     put :update,
-      id: @comment.to_param,
-      article_id: @article.to_param,
+      id: @comment.id,
+      article_id: @article.id,
       comment: { body: "" }
 
     assert_response :redirect
-    assert_redirected_to article_path(@article)
+    assert_redirected_to @article
   end
 
   test "destroy" do
-    assert_nothing_raised { Comment.find(@comment.to_param) }
+    login_as @user
 
     assert_difference( "Comment.count", -1 ) do
       delete :destroy,
-        id: @comment.to_param,
-        article_id: @article.to_param
+        id: @comment.id,
+        article_id: @article.id
       end
-    
-    assert_response :redirect
-    assert_redirected_to article_path(@article)
 
-    assert_raise(ActiveRecord::RecordNotFound) do
-      Comment.find(@comment.to_param)
+    assert_response :redirect
+    assert_redirected_to @article
+  end
+
+  test "destroy: user not found" do
+    assert_no_difference "Comment.count" do
+      delete :destroy,
+        id: @comment.id,
+        article_id: @article.id
     end
+
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 end

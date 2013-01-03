@@ -1,26 +1,35 @@
 class ArticlesController < ApplicationController
+  before_filter :login?, except: %w( show index )
+
   def create
     @article = Article.create params[:article]
+    @article.user = @user
+
     if @article.save
       redirect_to article_path(@article)
     else
-      redirect_to new_article_path  
-    end    
+      flash[:error] = @article.errors.full_messages
+      redirect_to new_article_path
+    end
   end
 
   def show
-    @article = Article.find params[:id]
-    @comments = @article.comments
+    if @article = Article.find_by_id(params[:id])
+      @comments = @article.comments
+    else
+      render "public/404", status: 404
+    end
   end
 
   def update
     @article = Article.find params[:id]
-    
+
     if @article.update_attributes params[:article]
       redirect_to article_path(@article.id)
     else
-      redirect_to edit_article_path(@article.id)  
-    end    
+      flash[:error] = @article.errors.full_messages
+      redirect_to edit_article_path(@article.id)
+    end
   end
 
   def destroy

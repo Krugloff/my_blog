@@ -1,7 +1,12 @@
 MyBlog::Application.routes.draw do
+  root to: "articles#index"
+
+  resource :user
+
+  resource :session, only: [ :create, :update, :destroy ]
 
   resources :articles do
-    resources :comments
+    resources :comments, only: [ :create, :update, :destroy ]
   end
 
 

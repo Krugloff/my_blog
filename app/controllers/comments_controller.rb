@@ -1,18 +1,21 @@
 class CommentsController < ApplicationController
-  def create
-    article = Article.find params[:article_id]
-    comment = Comment.new(params[:comment])
+  before_filter :login?
 
-    article.comments << comment
-    redirect_to article_path(article)
+  def create
+    comment = Comment.new(params[:comment])
+    comment.article = Article.find params[:article_id]
+    comment.user = @user
+
+    flash[:errors] = comment.errors.full_messages unless comment.save
+
+    redirect_to article_path(params[:article_id])
   end
 
   def update
-    article = Article.find params[:article_id]
-    comment = article.comments.find params[:id]
+    comment = Comment.find params[:id]
     comment.update_attributes params[:comment]
 
-    redirect_to article_path(article)
+    redirect_to article_path(params[:article_id])
   end
 
   def destroy
