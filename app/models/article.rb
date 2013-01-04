@@ -12,7 +12,7 @@ class Article < ActiveRecord::Base
 
   validates :body, :user,
     presence: true
-  
+
   private
 
   # TODO

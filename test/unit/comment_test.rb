@@ -17,7 +17,6 @@ class CommentTest < ActiveSupport::TestCase
 
   test "destroy" do
     @comment.destroy
-
     assert_nil Comment.find_by_id(@comment.id)
   end
 

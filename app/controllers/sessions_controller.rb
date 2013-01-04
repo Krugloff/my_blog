@@ -7,11 +7,11 @@ class SessionsController < ApplicationController
 
     if user
       session[:user_id] = user.id
-      redirect_to user_path
     else
       flash[:error] = "Проверьте правильность введенных данных."
-      redirect_to root_path
     end
+
+    redirect_to user ? user_path : root_path
   end
 
   def destroy

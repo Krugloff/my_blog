@@ -1,35 +1,28 @@
 require 'test_helper'
 
 class ArticlesControllerTest < ActionController::TestCase
+  setup do
+    @article_attr = { title: "Welcome!", body: "This is my blog." }
+  end
+
   test "create" do
     login_as @user
 
-    assert_difference( 'Article.count', 1 ) do
-      post :create,
-        article: { title: "Welcome!", body: "This is my blog." }
-    end
-
+    assert_difference( 'Article.count', 1 ) {_post}
     assert_response :redirect
     assert_redirected_to assigns(:article)
   end
 
   test "create: save error" do
     login_as @user
+    @article_attr[:title] = "?" * 257
 
-    assert_no_difference( 'Article.count' ) do
-      post :create,
-        article: { title: "?" * 257, body: "This is my blog." }
-    end
-
+    assert_no_difference( 'Article.count' ) {_post}
     assert_redirected_to new_article_path
   end
 
   test "create: user not found" do
-    assert_no_difference( 'Article.count' ) do
-      post :create,
-        article: { title: "Welcome", body: "This is my blog." }
-    end
-
+    assert_no_difference( 'Article.count' ) {_post}
     assert_redirected_to root_path
   end
 
@@ -37,7 +30,6 @@ class ArticlesControllerTest < ActionController::TestCase
     get :show, id: @article.id
 
     assert assigns(:article)
-    assert assigns(:comments)
     assert_response :success
     assert_template 'show'
   end
@@ -50,9 +42,8 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "update" do
     login_as @user
-
-    put :update, id: @article.id,
-      article: { title: "Welcome to my blog!" }
+    @article_attr = { title: "Welcome to my blog!" }
+    _put
 
     assert_response :redirect
     assert_redirected_to assigns(:article)
@@ -60,19 +51,17 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "update: save error" do
     login_as @user
-
-    put :update, id: @article.id,
-      article: { title: "?" * 257 }
+    @article_attr = { title: "?" * 257 }
+    _put
 
     assert_response :redirect
-    assert_redirected_to edit_article_path(@article.id)
+    assert_redirected_to edit_article_path(assigns(:article).id)
   end
 
   test "update: user not author" do
     login_as users(:hacker)
-
-    put :update, id: @article.id,
-      article: { title: "I hate you!" }
+    @article_attr = { title: "I hate you!" }
+    _put
 
     assert_not_nil flash[:error]
     assert_response :redirect
@@ -113,5 +102,18 @@ class ArticlesControllerTest < ActionController::TestCase
     assert assigns(:article)
     assert_response :success
     assert_template 'edit'
+  end
+
+  private
+
+  def _post
+    post :create,
+      article: @article_attr
+  end
+
+  def _put
+    put :update,
+      id: @article.id,
+      article: @article_attr
   end
 end

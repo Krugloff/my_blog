@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
     @comment.save
   end
 
-  def login_as(an_user)
-    session[:user_id] = an_user.id
+  def login_as(a_user)
+    session[:user_id] = a_user.id
   end
 end

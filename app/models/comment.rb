@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
 
   validates :body, :article, :user,
     presence: true
-  
+
   validates :title,
     length: { maximum: 256 }
 

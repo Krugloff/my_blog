@@ -15,7 +15,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "destroy" do
     @user.destroy
-
     assert_nil User.find_by_id(@user.id)
   end
 
@@ -30,16 +29,15 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name must be uniq" do
-    user = User.new 
-    user.name = "joHn"
-    user.password = "yes"
-    user.password_confirmation = "yes"
-    
+    user = User.new( name: "joHn",
+                     password: "yes",
+                     password_confirmation: "yes" )
+
     assert user.invalid?
   end
 
   test "password must be presence" do
     @user.password = ""
     assert @user.invalid?
-  end  
+  end
 end

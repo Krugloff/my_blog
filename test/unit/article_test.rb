@@ -17,7 +17,6 @@ class ArticleTest < ActiveSupport::TestCase
 
   test "destroy" do
     @article.destroy
-
     assert_nil Article.find_by_id(@article.id)
   end
 

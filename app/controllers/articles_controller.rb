@@ -1,34 +1,28 @@
 #encoding: utf-8
 
 class ArticlesController < ApplicationController
-  before_filter :login?, except: %w( show index )
-  before_filter :authorization, only: %w( update destroy edit )
+  before_filter :login?,
+    except: %w( show index )
+
+  before_filter :authorization,
+    only: %w( update destroy edit )
 
   def create
-    @article = @user.articles.new params[:article]
+    @article = @user.articles.new(params[:article])
 
-    if @article.save
-      redirect_to article_path(@article)
-    else
-      flash[:error] = @article.errors.full_messages
-      redirect_to new_article_path
-    end
+    @article.save ? redirect_to(@article) : _errors_to(new_article_path)
   end
 
   def show
-    if @article = Article.find_by_id(params[:id])
-      @comments = @article.comments
-    else
-      render "public/404", status: 404
-    end
+    @article = Article.find_by_id(params[:id])
+    render( "public/404", status: 404 ) unless @article
   end
 
   def update
     if @article.update_attributes params[:article]
       redirect_to @article
     else
-      flash[:error] = @article.errors.full_messages
-      redirect_to edit_article_path(@article.id)
+      _errors_to edit_article_path(@article.id)
     end
   end
 
@@ -51,11 +45,14 @@ class ArticlesController < ApplicationController
   private
 
   def authorization
-    @article = @user.articles.find_by_id(params[:id])
-
-    unless @article
+    unless @article = @user.articles.find_by_id(params[:id])
       flash[:error] = "Вы не можете изменить эту статью."
       redirect_to article_path(params[:id])
     end
+  end
+
+  def _errors_to(path)
+    flash[:errors] = @article.errors.full_messages
+    redirect_to path
   end
 end

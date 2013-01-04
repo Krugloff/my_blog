@@ -7,7 +7,7 @@
 
 <section>
   <h1>Комментарии:</h1>
-  <% @comments.each do |comment| %>
+  <% @article.comments.each do |comment| %>
     <div>
       <h2><%= comment.title %></h2>
       <%= comment.body %>
@@ -17,7 +17,7 @@
 
 <section>
   <h1>Добавить комментарий:</h1>
-  <%= form_for [ @article, @comments.build ] do |form| %>
+  <%= form_for [ @article, @article.comments.new ] do |form| %>
     <%= form.text_field :title, placeholder: "Заголовок комментария" %>
     <%= form.text_area  :body, placeholder: "Тело комментария" %>
     <%= form.submit %>

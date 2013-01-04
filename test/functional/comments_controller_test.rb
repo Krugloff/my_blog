@@ -3,37 +3,26 @@ require 'test_helper'
 class CommentsControllerTest < ActionController::TestCase
   test "create" do
     login_as @user
+    @comment_attr = { body: "This is comment." }
 
-    assert_difference( 'Comment.count', 1 ) do
-      post :create,
-        article_id: @article,
-        comment: { body: "This is comment." }
-    end
-
+    assert_difference( 'Comment.count', 1 ) {_post}
     assert_response :redirect
     assert_redirected_to @article
   end
 
   test "create: save error" do
     login_as @user
+    @comment_attr = { title: "?" * 257 }
 
-    assert_no_difference( 'Comment.count' ) do
-      post :create,
-        article_id: @article.id,
-        comment: { title: "?" * 257 }
-    end
-
+    assert_no_difference( 'Comment.count' ) {_post}
     assert_response :redirect
     assert_redirected_to @article
   end
 
   test "update" do
     login_as @user
-
-    put :update,
-      id: @comment.id,
-      article_id: @article.id,
-      comment: { title: "Welcome" }
+    @comment_attr = { title: "Welcome" }
+    _put
 
     assert_response :redirect
     assert_redirected_to @article
@@ -41,11 +30,8 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "update: save error" do
     login_as @user
-
-    put :update,
-      id: @comment.id,
-      article_id: @article.id,
-      comment: { body: "" }
+    @comment_attr = { body: "" }
+    _put
 
     assert_response :redirect
     assert_redirected_to @article
@@ -53,11 +39,8 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "update: user not author" do
     login_as users(:hacker)
-
-    put :update,
-      id: @comment.id,
-      article_id: @article.id,
-      comment: { body: "I hate you!" }
+    @comment_attr = { body: "I hate you!" }
+    _put
 
     assert_not_nil flash[:error]
     assert_response :redirect
@@ -67,24 +50,37 @@ class CommentsControllerTest < ActionController::TestCase
   test "destroy" do
     login_as @user
 
-    assert_difference( "Comment.count", -1 ) do
-      delete :destroy,
-        id: @comment.id,
-        article_id: @article.id
-      end
+    assert_difference( "Comment.count", -1 ) {_delete}
 
     assert_response :redirect
     assert_redirected_to @article
   end
 
   test "destroy: user not found" do
-    assert_no_difference "Comment.count" do
-      delete :destroy,
-        id: @comment.id,
-        article_id: @article.id
-    end
+    assert_no_difference("Comment.count") {_delete}
 
     assert_response :redirect
     assert_redirected_to root_path
+  end
+
+  private
+
+  def _post
+    post :create,
+      article_id: @article.id,
+      comment: @comment_attr
+  end
+
+  def _put
+    put :update,
+      id: @comment.id,
+      article_id: @article.id,
+      comment: @comment_attr
+  end
+
+  def _delete
+    delete :destroy,
+      id: @comment.id,
+      article_id: @article.id
   end
 end
