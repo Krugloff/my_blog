@@ -1,8 +1,8 @@
 #encoding: utf-8
 
 class CommentsController < ApplicationController
-  before_filter :login?
-  before_filter :authorization,
+  before_filter :search_user
+  before_filter :search_your_comment,
     except: "create"
 
   def create
@@ -26,11 +26,12 @@ class CommentsController < ApplicationController
 
   private
 
-  def authorization
-    unless @comment = @user.comments.find_by_id( params[:id] )
-      flash[:error] = "Вы не можете изменить этот комментарий"
+  def search_your_comment
+    @comment = @user.comments.find( params[:id] )
+
+    rescue ::ActiveRecord::RecordNotFound
+      flash[:error] = "Вы не можете изменить этот комментарий."
       _redirect
-    end
   end
 
   def _redirect

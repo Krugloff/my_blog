@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login?,
+  before_filter :search_user,
     except: %w( create new )
 
   def create
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes( params[:user] )
       redirect_to user_path
     else
       _errors_to(edit_user_path)

@@ -55,7 +55,7 @@ class ArticlesControllerTest < ActionController::TestCase
     _put
 
     assert_response :redirect
-    assert_redirected_to edit_article_path(assigns(:article).id)
+    assert_redirected_to edit_article_path( assigns(:article).id )
   end
 
   test "update: user not author" do

@@ -1,14 +1,14 @@
 #encoding: utf-8
 
 class ArticlesController < ApplicationController
-  before_filter :login?,
+  before_filter :search_user,
     except: %w( show index )
 
-  before_filter :authorization,
+  before_filter :search_your_article,
     only: %w( update destroy edit )
 
   def create
-    @article = @user.articles.new(params[:article])
+    @article = @user.articles.new( params[:article] )
 
     @article.save ? redirect_to(@article) : _errors_to(new_article_path)
   end
@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update_attributes params[:article]
+    if @article.update_attributes( params[:article] )
       redirect_to @article
     else
       _errors_to edit_article_path(@article.id)
@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    Article.destroy params[:id]
+    @article.destroy
     redirect_to articles_path
   end
 
@@ -44,11 +44,12 @@ class ArticlesController < ApplicationController
 
   private
 
-  def authorization
-    unless @article = @user.articles.find_by_id(params[:id])
+  def search_your_article
+    @article = @user.articles.find( params[:id] )
+
+    rescue ::ActiveRecord::RecordNotFound
       flash[:error] = "Вы не можете изменить эту статью."
-      redirect_to article_path(params[:id])
-    end
+      redirect_to article_path( params[:id] )
   end
 
   def _errors_to(path)

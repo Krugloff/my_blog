@@ -5,10 +5,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def login?
-    unless @user = User.find_by_id(session[:user_id])
+  def search_user
+    @user = User.find(session[:user_id])
+
+    rescue ::ActiveRecord::RecordNotFound
       flash[:error] = "Требуется вход в систему."
       redirect_to root_path
-    end
   end
 end
