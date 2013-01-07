@@ -1,3 +1,14 @@
+<nav>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Article</a></li>
+    <li><%= link_to( article_comments_path @article ) do %>
+          Comments (<%= @article.comments.count %>)
+        <% end %>
+    </li>
+    <li><a href="#">User</a></li>
+  </ul>
+</nav>
+
 <article>
   <a class="created_at pull-right" href="#">
     <div><%= @article.created_at.strftime "%^h" %></div>

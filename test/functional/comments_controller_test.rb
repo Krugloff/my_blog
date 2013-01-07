@@ -63,6 +63,21 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
+  test "index" do
+    get :index, article_id: @article.id
+
+    assert assigns(:article)
+    assert assigns(:comments)
+    assert_response :success
+    assert_template "index"
+  end
+
+  test "index: article not found" do
+    get :index, article_id: 125
+
+    assert_response :missing
+  end
+
   private
 
   def _post

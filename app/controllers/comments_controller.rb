@@ -1,9 +1,18 @@
 #encoding: utf-8
 
 class CommentsController < ApplicationController
-  before_filter :search_user
+  before_filter :search_user,
+    except: "index"
   before_filter :search_your_comment,
-    except: "create"
+    except: %w(create index)
+
+  def index
+    @article = Article.find(params[:article_id])
+    @comments = @article.comments
+
+    rescue ::ActiveRecord::RecordNotFound
+      render( "public/404", layout: false, status: 404 )
+  end
 
   def create
     comment = Comment.new(params[:comment])

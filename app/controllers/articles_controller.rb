@@ -14,8 +14,10 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find_by_id(params[:id])
-    render( "public/404", status: 404 ) unless @article
+    @article = Article.find(params[:id])
+
+    rescue ::ActiveRecord::RecordNotFound
+      render( "public/404", status: 404 )
   end
 
   def update
