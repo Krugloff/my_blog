@@ -6,7 +6,7 @@ MyBlog::Application.routes.draw do
   resource :session, only: [ :create, :destroy ]
 
   resources :articles do
-    resources :comments, only: [ :create, :update, :destroy ]
+    resources :comments, only: [ :create, :update, :destroy, :index ]
   end
 
 

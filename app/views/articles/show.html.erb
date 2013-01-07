@@ -1,25 +1,20 @@
-<section>
+<nav>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Article</a></li>
+    <li><%= link_to( article_comments_path @article ) do %>
+          Comments (<%= @article.comments.count %>)
+        <% end %>
+    </li>
+    <li><a href="#">User</a></li>
+  </ul>
+</nav>
+
+<article>
+  <a class="created_at pull-right" href="#">
+    <div><%= @article.created_at.strftime "%^h" %></div>
+    <div><%= @article.created_at.day %></div>
+  </a>
+
   <h1><%= @article.title %></h1>
-  <article>
-    <%= @article.body %>
-  </article>
-</section>
-
-<section>
-  <h1>Комментарии:</h1>
-  <% @article.comments.each do |comment| %>
-    <div>
-      <h2><%= comment.title %></h2>
-      <%= comment.body %>
-    </div>
-  <% end %>
-</section>
-
-<section>
-  <h1>Добавить комментарий:</h1>
-  <%= form_for [ @article, @article.comments.new ] do |form| %>
-    <%= form.text_field :title, placeholder: "Заголовок комментария" %>
-    <%= form.text_area  :body, placeholder: "Тело комментария" %>
-    <%= form.submit %>
-  <% end %>
-</section>
+  <div><%= @article.body %></div>
+</article>

@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MyBlog</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
+<body>
+  <section class="row-fluid">
+    <section class="base span7">
+      <%= yield %>
+    </section>
+
+    <% if @last_articles %>
+      <aside class="span4 offset1">
+        <% @last_articles.each do |article| %>
+          <%= link_to(article) do %>
+            <h6><%= article.title %></h6>
+            <p><%= article.body %></p>
+          <% end %>
+        <% end %>
+      </aside>
+    <% end %>
+
+  </section>
 
 </body>
+
 </html>
