@@ -1,3 +1,23 @@
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+article a.created_at {
+  display: inline-block;
+  background: #666666;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  margin-top: -20px;
+  border-radius: 0 0 10px 10px;
+
+  color: white;
+  font-size: 11px;
+  padding: 3px;
+  text-align: center;
+
+  &:hover {
+    background: #81030A;
+    text-decoration: none;
+  };
+
+  div:first-child {border-bottom: 1px solid; };
+}
