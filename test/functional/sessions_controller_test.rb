@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   test "create" do
     post :create,
-      user: { name: "John", password: "a11ri9ht" }
+      name: "John", password: "a11ri9ht"
 
     assert session[:user_id]
     assert_response :redirect
@@ -12,7 +12,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "create: not authenticate" do
     post :create,
-      user: { name: "John", password: "no" }
+      name: "John", password: "no"
 
     assert_response :redirect
     assert_redirected_to root_path
@@ -23,5 +23,12 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_redirected_to root_path
+  end
+
+  test 'new' do
+    get :new
+
+    assert_response :success
+    assert_template :new
   end
 end
