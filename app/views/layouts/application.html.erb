@@ -12,24 +12,12 @@
 <body>
   <section class="row-fluid">
     <section class="base span7">
-
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
       <%= yield %>
-
     </section>
 
-    <% if @last_articles %>
-      <aside class="span4 offset1">
-        <% @last_articles.each do |article| %>
-          <%= link_to(article) do %>
-            <h6><%= article.title %></h6>
-            <p><%= truncate(article.body, length: 100) %></p>
-          <% end %>
-        <% end %>
-      </aside>
-    <% end %>
-
+    <%= render('layouts/aside') if @last_articles %>
   </section>
 
 </body>
