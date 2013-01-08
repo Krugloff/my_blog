@@ -1,5 +1,7 @@
 <% @comments.each do |comment| %>
+  <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
   <div class="comment">
+
     <h4><%= comment.user.name.capitalize %>: <%= comment.title %></h4>
     <p><%= comment.body %></p>
   </div>
