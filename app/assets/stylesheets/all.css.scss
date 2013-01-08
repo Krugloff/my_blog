@@ -9,8 +9,8 @@ body {
 }
 
 $main-color: #EEEEEE;
-$grey: #333333;
-$border-shadow: 1px solid rgba(0,0,0,0.2);
+$grey: #666666;
+$border-shadow: 1px solid rgba(0,0,0,0.1);
 
 .base, aside {
   background: $main-color;
@@ -52,17 +52,17 @@ aside {
 }
 
 .nav-tabs {
-  li a {
-    border-radius: 0 50% 0 0;
-    color: $grey;
+  li {
+    margin: -1px;
+    a {
+      border-radius: 0 50% 0 0;
+      color: $grey;
 
-    &:hover {
-      border: {
-        top: $border-shadow;
-        right: $border-shadow;
-      };
-    }
-  };
+      &:hover {
+        color: black;
+        };
+    };
+  }
 
   li.active a {
     background: $main-color;
