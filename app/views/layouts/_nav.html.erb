@@ -5,12 +5,10 @@
     <%= tab_for "Comments (#{@article.comments.count})",
       article_comments_path(@article) %>
 
-    <%= tab_for 'User', '#' %>
-    
-<!--     <% if @user.try('persisted?') %>
+    <% if @user.try('persisted?') %>
       <%= tab_for @user.name, user_path %>
     <% else %>
       <%= tab_for 'Login', new_session_path %>
-    <% end %> -->
+    <% end %>
   </ul>
 </nav>

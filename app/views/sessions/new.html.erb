@@ -1,17 +1,25 @@
 <%= form_tag session_path, class: 'form-horizontal' do %>
   <div class="control-group">
-    <%= label_tag 'Name', class: 'control-label' %>
+    <%= label_tag 'Name', nil, class: 'control-label' %>
     <div class="controls">
-      <%= text_field_tag :name, placeholder: 'Name' %>
+      <%= text_field_tag :name, nil,
+        placeholder: 'Name',
+        required: true %>
     </div>
   </div>
 
   <div class="control-group">
-    <%= label_tag 'Name', class: 'control-label' %>
+    <%= label_tag 'Password', nil, class: 'control-label' %>
     <div class="controls">
-      <%= password_field_tag :password, placeholder: 'Password' %>
+      <%= password_field_tag :password, nil,
+        placeholder: 'Password',
+        required: true %>
     </div>
   </div>
 
-  <%= submit_tag 'Login', class: 'btn' %>
+  <div class="control-group">
+    <div class="controls">
+      <%= submit_tag 'Login', class: 'btn' %>
+    </div>
+  </div>
 <% end %>
