@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 tester:
-  name: John
+  name: Krugloff
 
 hacker:
   name: Buddy

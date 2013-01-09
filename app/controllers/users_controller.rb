@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :search_user,
+  before_filter :require_authentication,
     except: %w( create new )
 
   def create
@@ -38,8 +38,7 @@ class UsersController < ApplicationController
 
   private
 
-  def _errors_to(path)
-    flash[:errors] = @user.errors.full_messages
-    redirect_to path
-  end
+    def _errors_to(path)
+      redirect_to path, alert: @user.errors.full_messages
+    end
 end

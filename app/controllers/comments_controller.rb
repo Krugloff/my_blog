@@ -1,9 +1,9 @@
 #encoding: utf-8
 
 class CommentsController < ApplicationController
-  before_filter :search_user,
+  before_filter :require_authentication,
     except: "index"
-  before_filter :search_your_comment,
+  before_filter :require_owner,
     except: %w(create index)
 
   def index
@@ -35,15 +35,16 @@ class CommentsController < ApplicationController
 
   private
 
-  def search_your_comment
-    @comment = @user.comments.find( params[:id] )
+    def require_owner
+      @comment = Comment.find( params[:id] )
 
-    rescue ::ActiveRecord::RecordNotFound
-      flash[:error] = "Вы не можете изменить этот комментарий."
-      _redirect
-  end
+      unless ( @user.owner? @comment ) || _me?
+        flash[:alert] = ['Вы не можете изменить этот комментарий.']
+        _redirect
+      end
+    end
 
-  def _redirect
-    redirect_to article_path( params[:article_id] )
-  end
+    def _redirect
+      redirect_to article_path( params[:article_id] )
+    end
 end

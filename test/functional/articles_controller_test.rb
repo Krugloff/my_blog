@@ -26,6 +26,13 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
+  test "create: user not admin" do
+    login_as users(:hacker)
+
+    assert_no_difference( 'Article.count' ) {_post}
+    assert_redirected_to root_path
+  end
+
   test "show" do
     get :show, id: @article.id
 
@@ -63,7 +70,7 @@ class ArticlesControllerTest < ActionController::TestCase
     @article_attr = { title: "I hate you!" }
     _put
 
-    assert_not_nil flash[:error]
+    assert_not_nil flash[:alert]
     assert_response :redirect
     assert_redirected_to @article
   end

@@ -5,15 +5,25 @@ class ApplicationController < ActionController::Base
 
   before_filter do
     @last_articles = Article.last(7) if Article.many?
+    @user = User.where(id: session[:user_id]).last
   end
 
   private
 
-  def search_user
-    @user = User.find(session[:user_id])
+    def require_authentication
+      unless @user
+        redirect_to root_path,
+          alert: 'Для этого действия требуется вход в систему.'
+      end
+    end
 
-    rescue ::ActiveRecord::RecordNotFound
-      flash[:error] = "Требуется вход в систему."
-      redirect_to root_path
-  end
+    def _me?
+      @user.name == 'Krugloff'
+    end
+
+    def require_authorization
+      unless _me?
+        redirect_to root_path, alert: 'Вы не можете выполнить это действие.'
+      end
+    end
 end

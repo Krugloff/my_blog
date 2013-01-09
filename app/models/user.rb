@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
     length: { maximum: 42 },
     presence: true,
     uniqueness: { case_sensitive: false }
+
+  def owner?(a_model)
+    a_model.user == self
+  end
 end

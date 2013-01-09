@@ -1,11 +1,14 @@
 #encoding: utf-8
 
 class ArticlesController < ApplicationController
-  before_filter :search_user,
+  before_filter :require_authentication,
     except: %w( show index )
 
-  before_filter :search_your_article,
+  before_filter :require_owner,
     only: %w( update destroy edit )
+
+  before_filter :require_authorization,
+    only: 'create'
 
   def create
     @article = @user.articles.new( params[:article] )
@@ -46,16 +49,16 @@ class ArticlesController < ApplicationController
 
   private
 
-  def search_your_article
-    @article = @user.articles.find( params[:id] )
+    def require_owner
+      @article = Article.find( params[:id] )
 
-    rescue ::ActiveRecord::RecordNotFound
-      flash[:error] = "Вы не можете изменить эту статью."
-      redirect_to article_path( params[:id] )
-  end
+      unless ( @user.owner? @article ) || _me?
+        flash[:alert] = ['Вы не можете изменить эту статью.']
+        redirect_to article_path( params[:id] )
+      end
+    end
 
-  def _errors_to(path)
-    flash[:errors] = @article.errors.full_messages
-    redirect_to path
-  end
+    def _errors_to(path)
+      redirect_to path, alert: @article.errors.full_messages
+    end
 end

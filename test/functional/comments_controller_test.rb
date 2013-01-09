@@ -42,7 +42,7 @@ class CommentsControllerTest < ActionController::TestCase
     @comment_attr = { body: "I hate you!" }
     _put
 
-    assert_not_nil flash[:error]
+    assert_not_nil flash[:alert]
     assert_response :redirect
     assert_redirected_to @article
   end

@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   test "create" do
     post :create,
-      name: "John", password: "a11ri9ht"
+      name: "Krugloff", password: "a11ri9ht"
 
     assert session[:user_id]
     assert_response :redirect
