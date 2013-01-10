@@ -1,4 +1,8 @@
-<section>
+<section class='user'>
   <h1><%= @user.name %></h1>
   Welcome to my blog!
 </section>
+
+<% if @user.name == 'Krugloff'
+     concat link_to 'New Article', new_article_path, class: 'btn'
+   end %>
