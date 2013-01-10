@@ -7,3 +7,7 @@
   <h1><%= @article.title %></h1>
   <div><%= @article.body %></div>
 </article>
+
+<% if @user.try( 'owner?', @article )
+     concat link_to 'Edit', edit_article_path(@article), class: 'btn'
+   end %>

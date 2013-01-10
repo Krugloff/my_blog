@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def tab_for( content, path )
+  def tab( content, path )
     content_tag 'li', link_to( content, path ), class: _active?(path)
   end
 
