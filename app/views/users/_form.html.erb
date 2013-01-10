@@ -1,10 +1,10 @@
 <%= form_for @user, url: user_path do |form| %>
   <%= form.text_field :name, placeholder: "Имя пользователя" %>
-  
+
   <%= form.password_field :password, placeholder: "Введите пароль" %>
-  
+
   <%= form.password_field :password_confirmation,
     placeholder: "Повторите пароль" %>
-  
+
   <%= form.submit %>
 <% end %>
