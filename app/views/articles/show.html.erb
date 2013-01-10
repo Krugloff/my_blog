@@ -8,6 +8,7 @@
   <div><%= @article.body %></div>
 </article>
 
-<% if @user.try( 'owner?', @article )
-     concat link_to 'Edit', edit_article_path(@article), class: 'btn'
-   end %>
+<% if @user.try( 'owner?', @article ) %>
+  <%= link_to 'Edit', edit_article_path(@article), class: 'btn' %>
+  <%= link_to 'Delete', @article, method: 'delete', class: 'btn' %>
+<% end %>
