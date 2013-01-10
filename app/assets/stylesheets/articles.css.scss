@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// # show
 article a.created_at {
   display: inline-block;
   background: #666666;
@@ -20,4 +21,25 @@ article a.created_at {
   };
 
   div:first-child {border-bottom: 1px solid; };
+}
+
+// #index
+a.preview {
+  display: block;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: inherit;
+  margin-bottom: 5%;
+  padding: 2%;
+  color: black;
+
+  &:hover {
+    background: white;
+    border: 1px solid black;
+    text-decoration: none;
+  };
+}
+
+// To align with the <select>.
+.form_inline .btn {
+  margin-bottom: 10px;
 }

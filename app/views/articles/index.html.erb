@@ -1,0 +1,15 @@
+<form action='/articles' class='form_inline'>
+  <%= select_month @date, { use_short_month: true },
+    class: 'span2', name: 'month' %>
+  <%= select_year @date,
+    { start_year: 2013, end_year: Date.current.year },
+    class: 'span2', name: 'year' %>
+  <%= button_tag 'OK', name: '', class: 'btn' %>
+</form>
+
+<% @articles.each do |article| %>
+  <%= link_to( article, class: 'preview' ) do %>
+    <h6><%= article.title %></h6>
+    <p><%= truncate( article.body, length: 300 ) %></p>
+  <% end %>
+<% end %>

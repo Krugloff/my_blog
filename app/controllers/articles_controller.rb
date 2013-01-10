@@ -37,7 +37,12 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    month = params['month'].to_i
+    year  = params['year'].to_i
+    @date = ( Date.new year, month rescue Date.current.beginning_of_month )
+
+    @articles = Article.where created_at: @date..@date.end_of_month
+    flash.now[:alert] = ['Articles not found'] if @articles.empty?
   end
 
   def new
