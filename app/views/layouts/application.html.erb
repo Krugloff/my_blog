@@ -12,6 +12,14 @@
 <body>
   <section class="row-fluid">
     <section class="base span7">
+      <% if @user.try('persisted?')
+          concat link_to glyphicon('icon-off'), session_path,
+            method: 'delete', class: 'pull-right'
+         else
+          concat link_to glyphicon('icon-plus-sign'), new_user_path,
+            class: 'pull-right'
+         end %>
+
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
       <%= yield %>

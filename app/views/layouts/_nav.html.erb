@@ -6,9 +6,9 @@
       article_comments_path(@article) %>
 
     <% if @user.try('persisted?')
-         concat tab @user.name, user_path
-       else
-         concat tab 'Login', new_session_path
-       end %>
+        concat tab @user.name, user_path
+      else
+        concat tab 'Login', new_session_path
+      end %>
   </ul>
 </nav>
