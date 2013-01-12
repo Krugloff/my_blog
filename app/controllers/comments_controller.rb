@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 
   def create
     comment = Comment.new(params[:comment])
-    comment.article_id = params[:article_id]
+    comment.article = Article.find params[:article_id]
     comment.user = @user
 
     flash[:errors] = comment.errors.full_messages unless comment.save

@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// #index
 div.comment {
   border: 1px solid rgba(0,0,0,.1);
   border-radius: inherit;
@@ -13,3 +14,10 @@ div.comment {
     border: 1px solid black;
   };
 };
+
+// #_new
+.new_comment {
+  padding-right: 5%;
+
+  #comment_body {width: 100%;}
+}

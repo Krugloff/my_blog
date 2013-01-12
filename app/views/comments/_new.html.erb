@@ -1,0 +1,6 @@
+<%= form_tag article_comments_path(@article), class: 'new_comment' do %>
+  <%= text_field_tag 'comment[title]', nil, placeholder: 'Title' %>
+  <%= text_area_tag 'comment[body]', nil,
+    placeholder: 'Body', required: true %>
+  <%= submit_tag 'Add comment', class: 'btn' %>
+<% end %>

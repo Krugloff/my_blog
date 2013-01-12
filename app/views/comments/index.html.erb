@@ -1,3 +1,5 @@
+<%= render 'new' %>
+
 <% @comments.each do |comment| %>
   <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
   <div class="comment">
