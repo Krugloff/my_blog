@@ -6,3 +6,11 @@
 .user {
   margin-bottom: 20px;
 }
+
+// #new
+.new_user {
+  #user_name, #user_password, #user_password_confirmation {
+    display: block;
+    width: 40%;
+  }
+}
