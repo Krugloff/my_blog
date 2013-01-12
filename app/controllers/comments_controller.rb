@@ -45,6 +45,6 @@ class CommentsController < ApplicationController
     end
 
     def _redirect
-      redirect_to article_path( params[:article_id] )
+      redirect_to article_comments_path( params[:article_id] )
     end
 end

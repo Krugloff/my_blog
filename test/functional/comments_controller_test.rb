@@ -7,7 +7,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference( 'Comment.count', 1 ) {_post}
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "create: save error" do
@@ -16,7 +16,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_no_difference( 'Comment.count' ) {_post}
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "update" do
@@ -25,7 +25,7 @@ class CommentsControllerTest < ActionController::TestCase
     _put
 
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "update: save error" do
@@ -34,7 +34,7 @@ class CommentsControllerTest < ActionController::TestCase
     _put
 
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "update: user not author" do
@@ -44,7 +44,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_not_nil flash[:alert]
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "destroy" do
@@ -53,7 +53,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert_difference( "Comment.count", -1 ) {_delete}
 
     assert_response :redirect
-    assert_redirected_to @article
+    assert_redirected_to article_comments_path(@article)
   end
 
   test "destroy: user not found" do
