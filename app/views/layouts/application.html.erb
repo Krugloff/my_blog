@@ -12,6 +12,7 @@
 <body>
   <section class="row-fluid">
     <section class="base span7">
+
       <% if @user.try('persisted?')
           concat link_to glyphicon('icon-off'), session_path,
             method: 'delete', class: 'pull-right'
@@ -19,6 +20,16 @@
           concat link_to glyphicon('icon-plus-sign'), new_user_path,
             class: 'pull-right'
          end %>
+
+      <% if flash[:alert] %>
+        <% flash[:alert].each do |message| %>
+          <div class="alert alert-error">
+            <%= button_tag glyphicon('icon-remove'),
+              class: 'close', 'data-dismiss' => 'alert' %>
+            <%= message %>
+          </div>
+        <% end %>
+      <% end %>
 
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
