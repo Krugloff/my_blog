@@ -6,3 +6,6 @@
 <% if @user.name == 'Krugloff'
      concat link_to 'New Article', new_article_path, class: 'btn'
    end %>
+
+<%= link_to 'Edit', edit_user_path, class: 'btn' %>
+<%= link_to 'Delete', @user, class: 'btn', method: 'delete' %>
