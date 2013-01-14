@@ -1,5 +1,8 @@
 <article>
-  <a class="created_at pull-right" href="#">
+  <a class="created_at pull-right"
+     href='<%= articles_path month: @article.created_at.month,
+                             year: @article.created_at.year %>' >
+
     <div><%= @article.created_at.strftime "%^h" %></div>
     <div><%= @article.created_at.day %></div>
   </a>
