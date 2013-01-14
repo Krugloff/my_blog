@@ -20,22 +20,22 @@ class ArticleTest < ActiveSupport::TestCase
     assert Article.where(id: @article.id).empty?
   end
 
-  test "title must be presence" do
+  test "title: must be presence" do
     @article.title = ""
     assert @article.invalid?
   end
 
-  test "body must be presence" do
+  test "body: must be presence" do
     @article.body = ""
     assert @article.invalid?
   end
 
-  test "title less or equal 256" do
+  test "title: lenght <= 42" do
     @article.title = "?" * 257
     assert @article.invalid?
   end
 
-  test "user must be presence" do
+  test "user: must be presence" do
     @article.user = nil
     assert @article.invalid?
   end

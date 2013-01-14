@@ -20,22 +20,22 @@ class CommentTest < ActiveSupport::TestCase
     assert Comment.where(id: @comment.id).empty?
   end
 
-  test "body must be presence" do
+  test "body: must be presence" do
     @comment.body = ""
     assert @comment.invalid?
   end
 
-  test "title less or equal 256" do
+  test "title: lenght <= 256" do
     @comment.title = "?" * 257
     assert @comment.invalid?
   end
 
-  test "article must be presence" do
+  test "article: must be presence" do
     @comment.article = nil
     assert @comment.invalid?
   end
 
-  test "user must be presence" do
+  test "user: must be presence" do
     @comment.user = nil
     assert @comment.invalid?
   end
