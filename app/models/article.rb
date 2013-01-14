@@ -8,7 +8,8 @@ class Article < ActiveRecord::Base
 
   validates :title,
     presence: true,
-    length: { maximum: 256 }
+    length: { maximum: 42 },
+    format: { with: /^[[:print:]]+$/ }
 
   validates :body, :user,
     presence: true
