@@ -1,4 +1,4 @@
-#coding: utf-8
+#encoding: utf-8
 
 require 'test_helper'
 
@@ -8,7 +8,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   test "find" do
-    assert_not_nil Article.find_by_id(@article.id)
+    assert Article.find(@article.id)
   end
 
   test "update" do
@@ -17,7 +17,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   test "destroy" do
     @article.destroy
-    assert_nil Article.find_by_id(@article.id)
+    assert Article.where(id: @article.id).empty?
   end
 
   test "title must be presence" do

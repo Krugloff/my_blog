@@ -8,7 +8,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "find" do
-    assert_not_nil User.find_by_id(@user.id)
+    assert User.find(@user.id)
   end
 
   test "update" do
@@ -17,7 +17,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "destroy" do
     @user.destroy
-    assert_nil User.find_by_id(@user.id)
+    assert User.where(id: @user.id).empty?
   end
 
   test "name: must be presence" do

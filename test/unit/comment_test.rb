@@ -1,4 +1,4 @@
-#coding: utf-8
+#encoding: utf-8
 
 require 'test_helper'
 
@@ -8,7 +8,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "find" do
-    assert_not_nil Comment.find_by_id(@comment.id)
+    assert Comment.find(@comment.id)
   end
 
   test "update" do
@@ -17,7 +17,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test "destroy" do
     @comment.destroy
-    assert_nil Comment.find_by_id(@comment.id)
+    assert Comment.where(id: @comment.id).empty?
   end
 
   test "body must be presence" do
