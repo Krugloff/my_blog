@@ -114,14 +114,14 @@ class ArticlesControllerTest < ActionController::TestCase
 
   private
 
-  def _post
-    post :create,
-      article: @article_attr
-  end
+    def _post
+      post :create,
+        article: @article_attr
+    end
 
-  def _put
-    put :update,
-      id: @article.id,
-      article: @article_attr
-  end
+    def _put
+      put :update,
+        id: @article.id,
+        article: @article_attr
+    end
 end

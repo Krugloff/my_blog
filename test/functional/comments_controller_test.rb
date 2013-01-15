@@ -83,22 +83,22 @@ class CommentsControllerTest < ActionController::TestCase
 
   private
 
-  def _post
-    post :create,
-      article_id: @article.id,
-      comment: @comment_attr
-  end
+    def _post
+      post :create,
+        article_id: @article.id,
+        comment: @comment_attr
+    end
 
-  def _put
-    put :update,
-      id: @comment.id,
-      article_id: @article.id,
-      comment: @comment_attr
-  end
+    def _put
+      put :update,
+        id: @comment.id,
+        article_id: @article.id,
+        comment: @comment_attr
+    end
 
-  def _delete
-    delete :destroy,
-      id: @comment.id,
-      article_id: @article.id
-  end
+    def _delete
+      delete :destroy,
+        id: @comment.id,
+        article_id: @article.id
+    end
 end

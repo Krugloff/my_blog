@@ -83,13 +83,13 @@ class UsersControllerTest < ActionController::TestCase
 
   private
 
-  def _post
-    post :create,
-      user: @user_attr
-  end
+    def _post
+      post :create,
+        user: @user_attr
+    end
 
-  def _put
-    put :update,
-      user: @user_attr
-  end
+    def _put
+      put :update,
+        user: @user_attr
+    end
 end
