@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter do
     @last_articles = Article.last(7) if Article.many?
-    @user = User.where(id: session[:user_id]).first
+    @user ||= User.where(id: session[:user_id]).first
   end
 
   private
