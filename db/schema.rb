@@ -11,21 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230111111) do
+ActiveRecord::Schema.define(:version => 20130115143741) do
 
   create_table "articles", :force => true do |t|
-    t.string   "title",      :limit => 256, :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.text     "body",                      :null => false
+    t.string   "title",      :limit => 42, :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.text     "body",                     :null => false
     t.integer  "user_id"
   end
 
   create_table "comments", :force => true do |t|
-    t.string   "title",      :limit => 256
-    t.text     "body",                      :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.string   "title",      :limit => 42
+    t.text     "body",                     :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "article_id"
     t.integer  "user_id"
   end
