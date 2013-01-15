@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     only: %w( update destroy edit )
 
   before_filter :require_authorization,
-    only: 'create'
+    only: %w( create new )
 
   def create
     @article = @user.articles.new( params[:article] )
@@ -34,6 +34,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
+    @redirect_path = articles_path
     month = params['month'].to_i
     year  = params['year'].to_i
     @date = ( Date.new year, month rescue Date.current.beginning_of_month )

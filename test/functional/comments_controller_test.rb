@@ -63,7 +63,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to root_path
+    assert_redirected_to new_session_path
   end
 
   test "index" do

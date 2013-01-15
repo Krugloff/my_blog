@@ -34,7 +34,7 @@ class UsersControllerTest < ActionController::TestCase
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to root_path
+    assert_redirected_to new_session_path
   end
 
   test "update" do
@@ -62,7 +62,7 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_difference( 'User.count', -1 ) {delete :destroy}
     assert_response :redirect
-    assert_redirected_to root_path
+    assert_redirected_to new_user_path
   end
 
   test "new" do

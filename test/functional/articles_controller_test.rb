@@ -24,7 +24,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "create: user not found" do
     assert_no_difference( 'Article.count' ) {_post}
-    assert_redirected_to root_path
+    assert_redirected_to new_session_path
   end
 
   test "create: user not admin" do

@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
   private
 
     def require_authentication
-      redirect_to root_path, alert: ['You should be login'] unless @user
+      unless @user
+        redirect_to new_session_path, alert: ['You should be login']
+      end
     end
 
     def _me?

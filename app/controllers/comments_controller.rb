@@ -7,13 +7,13 @@ class CommentsController < ApplicationController
     except: %w(create index)
 
   def index
-    @article = Article.find(params[:article_id])
+    @article = Article.find( params[:article_id] )
     @comments = @article.comments
   end
 
   def create
-    @comment = Comment.new(params[:comment])
-    @comment.article = Article.find params[:article_id]
+    @comment = Comment.new( params[:comment] )
+    @comment.article = Article.find( params[:article_id] )
     @comment.user = @user
 
     _render_errors unless @comment.save
