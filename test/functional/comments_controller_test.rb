@@ -76,9 +76,9 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "index: article not found" do
-    get :index, article_id: 125
-
-    assert_response :missing
+    assert_raise(::ActionController::RoutingError) do
+      get :show, article_id: 125
+    end
   end
 
   private

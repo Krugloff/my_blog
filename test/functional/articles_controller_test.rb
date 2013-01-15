@@ -44,9 +44,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "show: article not found" do
-    get :show, id: -1
-
-    assert_response :missing
+    assert_raise(::ActiveRecord::RecordNotFound) { get :show, id: -1 }
   end
 
   test "update" do

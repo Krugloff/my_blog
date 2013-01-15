@@ -9,9 +9,6 @@ class CommentsController < ApplicationController
   def index
     @article = Article.find(params[:article_id])
     @comments = @article.comments
-
-    rescue ::ActiveRecord::RecordNotFound
-      render( "public/404", layout: false, status: 404 )
   end
 
   def create
