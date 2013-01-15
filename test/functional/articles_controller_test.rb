@@ -18,6 +18,7 @@ class ArticlesControllerTest < ActionController::TestCase
     @article_attr[:title] = "?" * 257
 
     assert_no_difference( 'Article.count' ) {_post}
+    assert flash.alert
     assert_redirected_to new_article_path
   end
 
@@ -30,6 +31,7 @@ class ArticlesControllerTest < ActionController::TestCase
     login_as users(:hacker)
 
     assert_no_difference( 'Article.count' ) {_post}
+    assert flash.alert
     assert_redirected_to root_path
   end
 
@@ -61,6 +63,7 @@ class ArticlesControllerTest < ActionController::TestCase
     @article_attr = { title: "?" * 257 }
     _put
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to edit_article_path( assigns(:article).id )
   end
@@ -70,7 +73,7 @@ class ArticlesControllerTest < ActionController::TestCase
     @article_attr = { title: "I hate you!" }
     _put
 
-    assert_not_nil flash[:alert]
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to @article
   end

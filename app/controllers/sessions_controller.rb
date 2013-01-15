@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
     else
-      flash[:error] = "Проверьте правильность введенных данных."
+      flash.alert = ['Incorrect name or password']
     end
 
     redirect_to user ? user_path : root_path

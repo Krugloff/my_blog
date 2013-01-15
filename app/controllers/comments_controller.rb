@@ -15,16 +15,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(params[:comment])
-    comment.article = Article.find params[:article_id]
-    comment.user = @user
+    @comment = Comment.new(params[:comment])
+    @comment.article = Article.find params[:article_id]
+    @comment.user = @user
 
-    flash[:errors] = comment.errors.full_messages unless comment.save
+    _render_errors unless @comment.save
     _redirect
   end
 
   def update
-    @comment.update_attributes( params[:comment] )
+    _render_errors unless @comment.update_attributes( params[:comment] )
     _redirect
   end
 
@@ -39,12 +39,16 @@ class CommentsController < ApplicationController
       @comment = Comment.find( params[:id] )
 
       unless ( @user.owner? @comment ) || _me?
-        flash[:alert] = ['Вы не можете изменить этот комментарий.']
+        flash.alert = ["You can't edit this comment"]
         _redirect
       end
     end
 
     def _redirect
       redirect_to article_comments_path( params[:article_id] )
+    end
+
+    def _render_errors
+      flash.alert = @comment.errors.full_messages
     end
 end

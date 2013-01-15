@@ -15,6 +15,7 @@ class CommentsControllerTest < ActionController::TestCase
     @comment_attr = { title: "?" * 257 }
 
     assert_no_difference( 'Comment.count' ) {_post}
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to article_comments_path(@article)
   end
@@ -33,6 +34,7 @@ class CommentsControllerTest < ActionController::TestCase
     @comment_attr = { body: "" }
     _put
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to article_comments_path(@article)
   end
@@ -42,7 +44,7 @@ class CommentsControllerTest < ActionController::TestCase
     @comment_attr = { body: "I hate you!" }
     _put
 
-    assert_not_nil flash[:alert]
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to article_comments_path(@article)
   end
@@ -59,6 +61,7 @@ class CommentsControllerTest < ActionController::TestCase
   test "destroy: user not found" do
     assert_no_difference("Comment.count") {_delete}
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to root_path
   end

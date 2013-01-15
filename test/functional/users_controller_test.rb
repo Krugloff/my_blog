@@ -15,6 +15,7 @@ class UsersControllerTest < ActionController::TestCase
     @user_attr = { name: "John" }
 
     assert_no_difference( 'User.count' ) {_post}
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to new_user_path
   end
@@ -31,6 +32,7 @@ class UsersControllerTest < ActionController::TestCase
   test "show: user not found" do
     get :show
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to root_path
   end
@@ -50,6 +52,7 @@ class UsersControllerTest < ActionController::TestCase
     @user_attr = { name: "?" * 257 }
     _put
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to edit_user_path
   end

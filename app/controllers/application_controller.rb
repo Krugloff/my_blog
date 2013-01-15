@@ -5,16 +5,13 @@ class ApplicationController < ActionController::Base
 
   before_filter do
     @last_articles = Article.last(7) if Article.many?
-    @user = User.where(id: session[:user_id]).last
+    @user = User.where(id: session[:user_id]).first
   end
 
   private
 
     def require_authentication
-      unless @user
-        redirect_to root_path,
-          alert: 'Для этого действия требуется вход в систему.'
-      end
+      redirect_to root_path, alert: ['You should be login'] unless @user
     end
 
     def _me?
@@ -22,8 +19,6 @@ class ApplicationController < ActionController::Base
     end
 
     def require_authorization
-      unless _me?
-        redirect_to root_path, alert: 'Вы не можете выполнить это действие.'
-      end
+      redirect_to root_path, alert: ["You can't do it"] unless _me?
     end
 end

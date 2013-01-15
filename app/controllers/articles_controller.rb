@@ -58,7 +58,7 @@ class ArticlesController < ApplicationController
       @article = Article.find( params[:id] )
 
       unless ( @user.owner? @article ) || _me?
-        flash[:alert] = ['Вы не можете изменить эту статью.']
+        flash.alert = ["You can't edit this article"]
         redirect_to article_path( params[:id] )
       end
     end

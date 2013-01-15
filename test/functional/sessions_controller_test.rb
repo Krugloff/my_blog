@@ -14,6 +14,7 @@ class SessionsControllerTest < ActionController::TestCase
     post :create,
       name: "John", password: "no"
 
+    assert flash.alert
     assert_response :redirect
     assert_redirected_to root_path
   end
