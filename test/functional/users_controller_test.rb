@@ -1,27 +1,27 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  test "create" do
-    @user_attr = { name: "Mike",
-                   password: "yes",
-                   password_confirmation: "yes" }
+  models 'users'
 
-    assert_difference( 'User.count', 1 ) {_post}
+  test "create" do
+    ingots 'users'
+
+    assert_difference( 'User.count', 1 ) { _post users('valid') }
     assert_response :redirect
     assert_redirected_to user_path
   end
 
   test "create: save error" do
-    @user_attr = { name: "John" }
+    ingots 'users'
 
-    assert_no_difference( 'User.count' ) {_post}
+    assert_no_difference( 'User.count' ) {_post users('small_name')}
     assert flash.alert
     assert_response :redirect
     assert_redirected_to new_user_path
   end
 
   test "show" do
-    login_as @user
+    login_as users('valid')
     get :show
 
     assert assigns(:user)
@@ -38,9 +38,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "update" do
-    login_as @user
-    @user_attr = { name: "Mike" }
-    _put
+    login_as users('valid')
+    _put name: "Mike"
 
     assert assigns(:user)
     assert_response :redirect
@@ -48,9 +47,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "update: save error" do
-    login_as @user
-    @user_attr = { name: "?" * 257 }
-    _put
+    login_as users('valid')
+    _put name: "?" * 257
 
     assert flash.alert
     assert_response :redirect
@@ -58,9 +56,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as @user
+    login_as users('valid')
 
-    assert_difference( 'User.count', -1 ) {delete :destroy}
+    assert_difference( 'User.count', -1 ) { delete :destroy }
     assert_response :redirect
     assert_redirected_to new_user_path
   end
@@ -73,7 +71,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "edit" do
-    login_as @user
+    login_as users('valid')
     get :edit
 
     assert assigns(:user)
@@ -83,13 +81,13 @@ class UsersControllerTest < ActionController::TestCase
 
   private
 
-    def _post
+    def _post(params)
       post :create,
-        user: @user_attr
+        user: params
     end
 
-    def _put
+    def _put(params)
       put :update,
-        user: @user_attr
+        user: params
     end
 end

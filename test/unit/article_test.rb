@@ -3,40 +3,40 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
+  models :articles
+
   test "create" do
-    assert @article.save
+    ingots 'articles'
+    assert Article.create articles('valid'), without_protection: true
   end
 
   test "find" do
-    assert Article.find(@article.id)
+    assert Article.find articles('valid')
   end
 
   test "update" do
-    assert @article.update_attribute( :title, "Welcome to my superblog!" )
+    assert articles('valid')
+      .update_attribute( :title, "Welcome to my superblog!" )
   end
 
   test "destroy" do
-    @article.destroy
-    assert Article.where(id: @article.id).empty?
+    articles('valid').destroy
+    assert Article.where( id: articles('valid').id ).empty?
   end
 
   test "title: must be presence" do
-    @article.title = ""
-    assert @article.invalid?
+    assert articles('blank_title').invalid?
   end
 
   test "body: must be presence" do
-    @article.body = ""
-    assert @article.invalid?
+    assert articles('blank_body').invalid?
   end
 
   test "title: lenght <= 42" do
-    @article.title = "?" * 257
-    assert @article.invalid?
+    assert articles('big_title').invalid?
   end
 
   test "user: must be presence" do
-    @article.user = nil
-    assert @article.invalid?
+    assert articles('no_user').invalid?
   end
 end

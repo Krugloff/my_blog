@@ -1,8 +1,8 @@
 GIT
   remote: http://github.com/Krugloff/smeltery.git
-  revision: 1071643e53265a3c49445106e876da74dc0b195a
+  revision: 90c529b226102a8c84da1e3513c991a87ba5f070
   specs:
-    smeltery (0.2.0)
+    smeltery (0.2.3)
       activesupport (>= 3.2)
 
 GEM
@@ -62,7 +62,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
-    multi_json (1.5.0)
+    multi_json (1.6.1)
     polyglot (0.3.3)
     rack (1.4.3)
     rack-cache (1.2)

@@ -1,42 +1,47 @@
 require 'test_helper'
 
 class ArticlesControllerTest < ActionController::TestCase
-  setup do
-    @article_attr = { title: "Welcome!", body: "This is my blog." }
-  end
+  models 'users', 'articles'
 
   test "create" do
-    login_as @user
+    ingots 'articles'
+    login_as users('valid')
 
-    assert_difference( 'Article.count', 1 ) {_post}
+    assert_difference( 'Article.count', 1 ) { _post articles('new') }
     assert_response :redirect
     assert_redirected_to assigns(:article)
   end
 
   test "create: save error" do
-    login_as @user
-    @article_attr[:title] = "?" * 257
+    ingots 'articles'
+    login_as users('valid')
 
-    assert_no_difference( 'Article.count' ) {_post}
+    assert_no_difference( 'Article.count' ) do
+      _post articles('invalid_new')
+    end
+
     assert flash.alert
     assert_redirected_to new_article_path
   end
 
   test "create: user not found" do
-    assert_no_difference( 'Article.count' ) {_post}
+    ingots 'articles'
+
+    assert_no_difference( 'Article.count' ) { _post articles('new') }
     assert_redirected_to new_session_path
   end
 
   test "create: user not admin" do
-    login_as users(:hacker)
+    ingots 'articles'
+    login_as users('not_admin')
 
-    assert_no_difference( 'Article.count' ) {_post}
+    assert_no_difference( 'Article.count' ) { _post articles('new') }
     assert flash.alert
     assert_redirected_to root_path
   end
 
   test "show" do
-    get :show, id: @article.id
+    get :show, id: articles('valid').id
 
     assert assigns(:article)
     assert_response :success
@@ -48,18 +53,16 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "update" do
-    login_as @user
-    @article_attr = { title: "Welcome to my blog!" }
-    _put
+    login_as users('valid')
+    _put title: "Welcome to my blog!"
 
     assert_response :redirect
     assert_redirected_to assigns(:article)
   end
 
   test "update: save error" do
-    login_as @user
-    @article_attr = { title: "?" * 257 }
-    _put
+    login_as users('valid')
+    _put title: '?' * 257
 
     assert flash.alert
     assert_response :redirect
@@ -67,9 +70,8 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "update: user not author" do
-    login_as users(:hacker)
-    @article_attr = { title: "I hate you!" }
-    _put
+    login_as users('not_admin')
+    _put title: "I hate you!"
 
     assert flash.alert
     assert_response :redirect
@@ -77,10 +79,10 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as @user
+    login_as users('valid')
 
     assert_difference( 'Article.count', -1 ) do
-      delete :destroy, id: @article.id
+      delete :destroy, id: articles('valid').id
     end
 
     assert_response :redirect
@@ -96,7 +98,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "new" do
-    login_as @user
+    login_as users('valid')
     get :new
 
     assert_response :success
@@ -104,8 +106,8 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "edit" do
-    login_as @user
-    get :edit, id: @article.id
+    login_as users('valid')
+    get :edit, id: articles('valid').id
 
     assert assigns(:article)
     assert_response :success
@@ -114,14 +116,14 @@ class ArticlesControllerTest < ActionController::TestCase
 
   private
 
-    def _post
+    def _post(params)
       post :create,
-        article: @article_attr
+        article: params
     end
 
-    def _put
+    def _put(params)
       put :update,
-        id: @article.id,
-        article: @article_attr
+        id: articles('valid').id,
+        article: params
     end
 end

@@ -3,40 +3,39 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
+  models :comments
+
   test "create" do
-    assert @comment.save
+    ingots 'comments'
+    assert Comment.create comments('valid'), without_protection: true
   end
 
   test "find" do
-    assert Comment.find(@comment.id)
+    assert Comment.find comments('valid')
   end
 
   test "update" do
-    assert @comment.update_attribute( :title, "Приветствие" )
+    assert comments('valid').update_attribute( :title, "Приветствие" )
   end
 
   test "destroy" do
-    @comment.destroy
-    assert Comment.where(id: @comment.id).empty?
+    comments('valid').destroy
+    assert Comment.where( id: comments('valid').id ).empty?
   end
 
   test "body: must be presence" do
-    @comment.body = ""
-    assert @comment.invalid?
+    assert comments('blank_body').invalid?
   end
 
   test "title: lenght <= 256" do
-    @comment.title = "?" * 257
-    assert @comment.invalid?
+    assert comments('big_title').invalid?
   end
 
   test "article: must be presence" do
-    @comment.article = nil
-    assert @comment.invalid?
+    assert comments('no_article').invalid?
   end
 
   test "user: must be presence" do
-    @comment.user = nil
-    assert @comment.invalid?
+    assert comments('no_user').invalid?
   end
 end

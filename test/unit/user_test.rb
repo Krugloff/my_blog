@@ -3,69 +3,63 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  models :users
+
   test "create" do
-    assert @user.save
+    ingots('users')
+    assert User.create users('valid'), without_protection: true
   end
 
   test "find" do
-    assert User.find(@user.id)
+    assert User.find users('valid').id
   end
 
   test "update" do
-    assert @user.update_attribute( :name, "Mihael" )
+    assert users('valid').update_attribute( :name, "Mihael" )
   end
 
   test "destroy" do
-    @user.destroy
-    assert User.where(id: @user.id).empty?
+    users('valid').destroy
+    assert User.where( id: users('valid').id ).empty?
   end
 
   test "name: must be presence" do
-    @user.name = ""
-    assert @user.invalid?
+    assert users('blank_name').invalid?
   end
 
   test "name: 3 <= length <= 42" do
-    @user.name = "?" * 257
-    assert @user.invalid?
-
-    @user.name = 'xx'
-    assert @user.invalid?
+    assert users('big_name').invalid?
+    assert users('small_name').invalid?
   end
 
   test "name: must be uniq" do
-    user = User.new( name: "krugloFF",
-                     password: "yes",
-                     password_confirmation: "yes" )
-
-    assert user.invalid?
+    assert users('not_uniq').invalid?
   end
 
   test 'name: format' do
-    @user.name = "O'Konnel"
-    assert @user.valid?, @user.name
+    users('valid').name = "O'Konnel"
+    assert users('valid').valid?, users('valid').name
 
-    @user.name = 'Mr. Dreams'
-    assert @user.valid?, @user.name
+    users('valid').name = 'Mr. Dreams'
+    assert users('valid').valid?, users('valid').name
 
-    @user.name = 'Симпсон'
-    assert @user.valid?, @user.name
+    users('valid').name = 'Симпсон'
+    assert users('valid').valid?, users('valid').name
 
-    @user.name = 'Mr, Dreams'
-    assert @user.invalid?, @user.name
+    users('valid').name = 'Mr, Dreams'
+    assert users('valid').invalid?, users('valid').name
 
-    @user.name = ';DROP DATABASE where user.*'
-    assert @user.invalid?, @user.name
+    users('valid').name = ';DROP DATABASE where user.*'
+    assert users('valid').invalid?, users('valid').name
 
-    @user.name = "<<\n>>"
-    assert @user.invalid?, @user.name
+    users('valid').name = "<<\n>>"
+    assert users('valid').invalid?, users('valid').name
 
-    @user.name = '>>>>'
-    assert @user.invalid?, @user.name
+    users('valid').name = '>>>>'
+    assert users('valid').invalid?, users('valid').name
   end
 
   test "password: must be presence" do
-    @user.password = ""
-    assert @user.invalid?
+    assert users('blank_password').invalid?
   end
 end

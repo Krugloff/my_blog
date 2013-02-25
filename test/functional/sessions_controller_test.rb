@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
+  models 'users'
+
   test "create" do
     post :create,
       name: "Krugloff", password: "a11ri9ht"

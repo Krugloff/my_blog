@@ -1,6 +1,0 @@
-#coding: utf8
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-welcome:
-  title: Welcome to my blog!
-  body: "<%= File.read 'test/fixtures/article.md' %>"

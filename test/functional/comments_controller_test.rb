@@ -1,65 +1,64 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  test "create" do
-    login_as @user
-    @comment_attr = { body: "This is comment." }
+  models 'users', 'comments', 'articles'
 
-    assert_difference( 'Comment.count', 1 ) {_post}
+  test "create" do
+    ingots 'comments'
+    login_as users('valid')
+
+    assert_difference( 'Comment.count', 1 ) { _post comments 'new' }
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "create: save error" do
-    login_as @user
-    @comment_attr = { title: "?" * 257 }
+    ingots 'comments'
+    login_as users('valid')
 
-    assert_no_difference( 'Comment.count' ) {_post}
+    assert_no_difference( 'Comment.count' ) { _post comments 'invalid_new' }
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "update" do
-    login_as @user
-    @comment_attr = { title: "Welcome" }
-    _put
+    login_as users('valid')
+    _put title: "Welcome"
 
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "update: save error" do
-    login_as @user
-    @comment_attr = { body: "" }
-    _put
+    login_as users('valid')
+    _put body: ""
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "update: user not author" do
-    login_as users(:hacker)
-    @comment_attr = { body: "I hate you!" }
-    _put
+    login_as users('not_admin')
+    _put body: "I hate you!"
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "destroy" do
-    login_as @user
+    login_as users('valid')
 
-    assert_difference( "Comment.count", -1 ) {_delete}
+    assert_difference( "Comment.count", -1 ) { _delete }
 
     assert_response :redirect
-    assert_redirected_to article_comments_path(@article)
+    assert_redirected_to article_comments_path( articles 'valid' )
   end
 
   test "destroy: user not found" do
-    assert_no_difference("Comment.count") {_delete}
+    assert_no_difference("Comment.count") { _delete }
 
     assert flash.alert
     assert_response :redirect
@@ -67,7 +66,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "index" do
-    get :index, article_id: @article.id
+    get :index, article_id: articles('valid')
 
     assert assigns(:article)
     assert assigns(:comments)
@@ -83,22 +82,22 @@ class CommentsControllerTest < ActionController::TestCase
 
   private
 
-    def _post
+    def _post(params)
       post :create,
-        article_id: @article.id,
-        comment: @comment_attr
+        article_id: articles('valid').id,
+        comment: params
     end
 
-    def _put
+    def _put(params)
       put :update,
-        id: @comment.id,
-        article_id: @article.id,
-        comment: @comment_attr
+        id: comments('valid').id,
+        article_id: articles('valid').id,
+        comment: params
     end
 
     def _delete
       delete :destroy,
-        id: @comment.id,
-        article_id: @article.id
+        id: comments('valid').id,
+        article_id: articles('valid').id
     end
 end
