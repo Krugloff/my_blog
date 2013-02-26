@@ -1,13 +1,13 @@
 #encoding: utf-8
 
 class ArticlesController < ApplicationController
-  before_filter :require_authentication,
+  before_filter :require_user,
     except: %w( show index )
 
   before_filter :require_owner,
     only: %w( update destroy edit )
 
-  before_filter :require_authorization,
+  before_filter :require_me,
     only: %w( create new )
 
   def create

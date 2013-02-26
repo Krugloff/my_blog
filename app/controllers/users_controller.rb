@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_authentication,
+  before_filter :require_user,
     except: %w( create new )
 
   def create

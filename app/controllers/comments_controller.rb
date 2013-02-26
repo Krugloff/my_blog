@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 class CommentsController < ApplicationController
-  before_filter :require_authentication,
+  before_filter :require_user,
     except: "index"
   before_filter :require_owner,
     except: %w(create index)
