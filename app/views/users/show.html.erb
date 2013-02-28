@@ -3,9 +3,9 @@
   Welcome to my blog!
 </section>
 
-<% if @user.name == 'Krugloff'
-     concat link_to 'New Article', new_article_path, class: 'btn'
-   end %>
+<%= if @user.name == 'Krugloff'
+      link_to 'New Article', new_article_path, class: 'btn'
+    end %>
 
 <%= link_to 'Edit', edit_user_path, class: 'btn' %>
-<%= link_to 'Delete', @user, class: 'btn', method: 'delete' %>
+<%= link_to 'Delete', user_path, class: 'btn', method: 'delete' %>

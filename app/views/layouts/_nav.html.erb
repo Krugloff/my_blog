@@ -3,12 +3,10 @@
     <%= tab 'Article', article_path(@article) %>
 
     <%= tab "Comments (#{@article.comments.count})",
-      article_comments_path(@article) %>
+          article_comments_path(@article) %>
 
-    <% if @user.try('persisted?')
-        concat tab @user.name, user_path
-      else
-        concat tab 'Login', new_session_path
-      end %>
+    <%= @user.try('persisted?') ?
+        tab( @user.name, user_path )  :
+        tab( 'Login', new_session_path ) %>
   </ul>
 </nav>

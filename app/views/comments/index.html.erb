@@ -3,11 +3,11 @@
 <% @comments.each do |comment| %>
   <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
 
-  <% if @user.try( 'owner?', comment )
-    concat link_to content_tag('i', nil, class: 'icon-remove'),
-      article_comment_path( @article, comment ),
-      method: 'delete', class: 'delete pull-right', title: 'Delete comment'
-   end %>
+  <%= if @user.try( 'owner?', comment )
+        link_to glyphicon('icon-remove'),
+          article_comment_path( @article, comment ),
+          method: 'delete', class: 'delete pull-right', title: 'Delete comment'
+      end %>
 
   <div class="comment">
     <h6><%= comment.user.name.titleize %>: <%= comment.title %></h6>

@@ -1,6 +1,5 @@
-<%= form_tag article_comments_path(@article), class: 'new_comment' do %>
-  <%= text_field_tag 'comment[title]', nil, placeholder: 'Title' %>
-  <%= text_area_tag 'comment[body]', nil,
-    placeholder: 'Body', required: true %>
-  <%= submit_tag 'Add comment', class: 'btn' %>
+<%= form_for [@article, Comment.new] do |form| %>
+  <%= form.text_field :title, placeholder: 'Title' %>
+  <%= form.text_area  :body , placeholder: 'Body' , rows: 5  %>
+  <%= form.submit class: 'btn' %>
 <% end %>
