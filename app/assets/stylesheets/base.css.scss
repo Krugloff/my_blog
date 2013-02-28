@@ -1,16 +1,29 @@
-body {
-  background: url(jeans_pattern.png) #131B40 repeat;
-  padding: {
-    top: 5%;
-    bottom: 5%;
-    right: 3%;
-    left: 3%;
-  }
-}
-
 $main-color: #EEEEEE;
 $grey: #666666;
 $border-shadow: 1px solid rgba(0,0,0,0.1);
+
+@mixin small-block {
+  border: $border-shadow;
+  border-radius: inherit;
+  margin-bottom: 5%;
+  padding: 2%;
+
+  &:hover {
+    background: white;
+    border: 1px solid black;
+    text-decoration: none;
+  };
+}
+
+@import 'articles';
+@import 'comments';
+@import 'users';
+@import 'sessions';
+
+body {
+  background: url(jeans_pattern.png) #131B40 repeat;
+  padding: 4%;
+}
 
 .base, aside {
   background: $main-color;
@@ -25,7 +38,6 @@ aside {
 
   a {
     display: block;
-    border-radius: 10px 10px 10px 10px;
     overflow: hidden;
     height: 2em;
     color: $grey;
@@ -54,27 +66,25 @@ aside {
 .nav-tabs {
   li {
     margin: -1px;
+
     a {
       border-radius: 0 50% 0 0;
       color: $grey;
 
-      &:hover {
-        color: black;
-        };
+      &:hover { color: black; };
     };
   }
+
+@mixin tab {
+  background: $main-color;
+  color: green;
+}
 
   li.active a {
-    background: $main-color;
-    color: green;
+    @include tab;
 
-    &:hover {
-      background: $main-color;
-      color: green;
-    };
+    &:hover { @include tab; };
   }
 }
 
-div.alert {
-  width: 50%;
-}
+div.alert { width: 50%; }

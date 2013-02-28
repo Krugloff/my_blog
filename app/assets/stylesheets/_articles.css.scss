@@ -4,29 +4,19 @@
 
 // #index
 a.preview {
-  display: block;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: inherit;
-  margin-bottom: 5%;
-  padding: 2%;
-  color: black;
+  @include small-block;
 
-  &:hover {
-    background: white;
-    border: 1px solid black;
-    text-decoration: none;
-  };
+  display: block;
+  color: black;
 }
 
 // To align with the <select>.
-.form_inline .btn {
-  margin-bottom: 10px;
-}
+.form_inline .btn { margin-bottom: 10px; }
 
 // # show
 article a.created_at {
   display: inline-block;
-  background: #666666;
+  background: $grey;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   margin-top: -20px;
   border-radius: 0 0 10px 10px;
@@ -41,7 +31,7 @@ article a.created_at {
     text-decoration: none;
   };
 
-  div:first-child {border-bottom: 1px solid; };
+  div:first-child { border-bottom: 1px solid; };
 }
 
 article {
@@ -52,7 +42,5 @@ article {
 .edit_article, .new_article {
   padding-right: 10%;
 
-  #article_body, #article_title {
-    width: 100%;
-  };
+  #article_body, #article_title { width: 100%; };
 }
