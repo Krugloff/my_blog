@@ -78,12 +78,13 @@ aside {
 @mixin tab {
   background: $main-color;
   color: green;
+  outline: none;
 }
 
   li.active a {
     @include tab;
 
-    &:hover { @include tab; };
+    &:hover, &:active, &:focus { @include tab; };
   }
 }
 
