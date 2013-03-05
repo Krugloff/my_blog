@@ -1,1 +1,5 @@
-<%= render 'form' %>
+<%= form_for @article do |form| %>
+  <%= form.text_field :title, placeholder: "Заголовок статьи" %>
+  <%= form.text_area  :body , placeholder: "Тело статьи" %>
+  <%= form.submit class: 'btn' %>
+<% end %>

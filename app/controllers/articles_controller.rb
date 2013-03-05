@@ -46,9 +46,11 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    _respond_to_ajax
   end
 
   def edit
+    _respond_to_ajax
   end
 
   private
