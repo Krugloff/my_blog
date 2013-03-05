@@ -2,7 +2,11 @@
   <ul class="nav nav-tabs">
     <%= tab 'Article', article_path(@article) %>
 
-    <%= tab "Comments (#{@article.comments.count})",
+    <% comments_count = capture do %>
+      <span id=comments_count><%= @article.comments.count %></span>
+    <% end %>
+
+    <%= tab raw("Comments (#{comments_count.strip})"),
           article_comments_path(@article) %>
 
     <%= @user.try('persisted?') ?

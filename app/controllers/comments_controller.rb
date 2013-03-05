@@ -15,11 +15,25 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new( params[:comment] )
-    @comment.article = Article.find( params[:article_id] )
+    @article = @comment.article = Article.find( params[:article_id] )
     @comment.user = @user
 
-    _render_errors unless @comment.save
-    _redirect
+    respond_to do |format|
+      format.html do
+        _save_errors unless @comment.save
+        _redirect
+      end
+
+      format.js do
+        if @comment.save
+          @comment_html = render_to_string(@comment)
+        else
+          @alert_html = render_to_string partial: "layouts/alert",
+            collection: @comment.errors.full_messages
+        end
+        render partial: 'add_comment'
+      end
+    end
   end
 
   def update
@@ -47,7 +61,7 @@ class CommentsController < ApplicationController
       redirect_to article_comments_path( params[:article_id] )
     end
 
-    def _render_errors
+    def _save_errors
       flash.alert = @comment.errors.full_messages
     end
 end

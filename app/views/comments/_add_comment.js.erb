@@ -1,0 +1,13 @@
+(function(){
+  $('div.alert').remove();
+
+  var alert = '<%= escape_javascript raw @alert_html %>';
+  var comment = '<%= escape_javascript raw @comment_html %>';
+
+  if (alert)
+    $('.new_comment').before(alert);
+  else {
+    $('.new_comment').before(comment);
+    $('#comments_count').replaceWith('<%= @article.comments.count %>');
+  }
+})();
