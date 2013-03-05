@@ -23,4 +23,15 @@ class ApplicationController < ActionController::Base
     def _me?
       @user.name == 'Krugloff'
     end
+
+    def _respond_to_ajax
+      respond_to do |format|
+        format.html
+        format.js do
+          @file = controller_name + '/' + action_name
+          @location = request.fullpath
+          render 'layouts/ajax'
+        end
+      end
+    end
 end

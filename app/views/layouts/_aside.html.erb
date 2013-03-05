@@ -1,6 +1,6 @@
 <aside class="span4 offset1">
   <% @last_articles.each do |article| %>
-    <%= link_to(article) do %>
+    <%= link_to( article ) do %>
       <h6><%= article.title %></h6>
       <p><%= truncate( article.body, length: 100 ) %></p>
     <% end %>

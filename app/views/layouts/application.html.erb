@@ -14,8 +14,11 @@
     <section class="base span7">
       <%= @user.try('persisted?') ? logout_link : registration_link %>
       <%= render('layouts/nav') if @article.try('persisted?') %>
-      <%= render partial: 'layouts/alert', collection: flash[:alert] %>
-      <%= yield %>
+
+      <section class="content">
+        <%= render partial: 'layouts/alert', collection: flash[:alert] %>
+        <%= yield %>
+      </section>
     </section>
 
     <%= render('layouts/aside') if @last_articles %>

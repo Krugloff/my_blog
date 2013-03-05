@@ -20,5 +20,6 @@ class SessionsController < ApplicationController
   end
 
   def new
+    _respond_to_ajax
   end
 end

@@ -9,6 +9,8 @@ class CommentsController < ApplicationController
   def index
     @article = Article.find( params[:article_id] )
     @comments = @article.comments
+
+    _respond_to_ajax
   end
 
   def create

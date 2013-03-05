@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    _respond_to_ajax
   end
 
   def update

@@ -6,3 +6,9 @@
 jQuery ->
   $('a.preview').tooltip
     animation: false
+
+# Переключение активной вкладки.
+jQuery ->
+  $('.nav > li').click ->
+    $('.nav > li').removeClass('active')
+    $(this).addClass('active')

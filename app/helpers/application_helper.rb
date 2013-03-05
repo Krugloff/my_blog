@@ -13,7 +13,8 @@ module ApplicationHelper
   end
 
   def tab( content, path )
-    content_tag 'li', link_to( content, path ), class: _active?(path)
+    content_tag 'li', link_to( content, path, remote: true ),
+      class: _active?(path)
   end
 
   private
