@@ -1,11 +1,14 @@
-<%= if @user.try( 'owner?', comment )
-      link_to glyphicon('icon-remove'),
-        article_comment_path( @article, comment ),
-        method: 'delete', class: 'delete pull-right', title: 'Delete comment'
-    end %>
+<section>
+  <%= if @user.try( 'owner?', comment )
+        link_to glyphicon('icon-remove'),
+          article_comment_path( @article, comment ),
+          method: 'delete', class: 'delete_comment pull-right',
+          remote: true, title: 'Delete comment'
+      end %>
 
-<span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
-<div class="comment">
-  <h6><%= comment.user.name.titleize %>: <%= comment.title %></h6>
-  <p><%= comment.body %></p>
-</div>
+  <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
+  <%= div_for comment do %>
+    <h6><%= comment.user.name.titleize %>: <%= comment.title %></h6>
+    <p><%= comment.body %></p>
+  <% end %>
+</section>

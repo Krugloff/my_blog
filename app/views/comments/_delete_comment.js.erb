@@ -1,0 +1,4 @@
+(function(){
+    $('#comments_count').html('<%= @comments_count %>');
+    $('#comment_<%= @id %>').parent().remove();
+})();

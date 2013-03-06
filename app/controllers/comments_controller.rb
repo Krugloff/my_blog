@@ -43,7 +43,15 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    _redirect
+
+    respond_to do |format|
+      format.html { _redirect }
+      format.js do
+        @comments_count = @comment.article.comments.count
+        @id = @comment.id
+        render partial: 'delete_comment'
+      end
+    end
   end
 
   private
