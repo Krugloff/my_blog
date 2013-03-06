@@ -10,7 +10,7 @@
           article_comments_path(@article) %>
 
     <%= @user.try('persisted?') ?
-        tab( @user.name, user_path )  :
-        tab( 'Login', new_session_path ) %>
+        tab( @user.name, user_path, false )  :
+        tab( 'Login', new_session_path, false ) %>
   </ul>
 </nav>

@@ -12,8 +12,8 @@ module ApplicationHelper
     content_tag( 'i', nil, class: name )
   end
 
-  def tab( content, path )
-    content_tag 'li', link_to( content, path, remote: true ),
+  def tab( content, path, is_remote = true )
+    content_tag 'li', link_to( content, path, remote: is_remote ),
       class: _active?(path)
   end
 
