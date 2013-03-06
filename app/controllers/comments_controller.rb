@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    _render_errors unless @comment.update_attributes( params[:comment] )
+    _save_errors unless @comment.update_attributes( params[:comment] )
     _redirect
   end
 
