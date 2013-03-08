@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     @article = Article.find( params[:article_id] )
     @comments = @article.comments
 
-    _respond_to_ajax
+    _respond_to_xhr_with_change_history
   end
 
   def create
@@ -18,21 +18,25 @@ class CommentsController < ApplicationController
     @article = @comment.article = Article.find( params[:article_id] )
     @comment.user = @user
 
-    respond_to do |format|
-      format.html do
-        _save_errors unless @comment.save
-        _redirect
+    unless request.xhr?
+      # create_comment_on_post
+      _save_errors unless @comment.save
+      _redirect
+    else
+      # create_comment_on_xhr
+      if @comment.save
+        template = escape_javascript render_to_string(@comment)
+        script = "$('#comments_count').html('#{@article.comments.count}');"
+      else
+        template = escape_javascript render_to_string partial: 'layouts/alert',
+          collection: @comment.errors.full_messages
+        script = ""
       end
-
-      format.js do
-        if @comment.save
-          @comment_html = render_to_string(@comment)
-        else
-          @alert_html = render_to_string partial: "layouts/alert",
-            collection: @comment.errors.full_messages
-        end
-        render partial: 'add_comment'
-      end
+      script += <<-SCRIPT
+        $('div.alert').remove();
+        $('.new_comment').before('#{template}');
+      SCRIPT
+      render js: _js_function(script)
     end
   end
 

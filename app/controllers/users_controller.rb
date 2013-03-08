@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    _respond_to_ajax
   end
 
   def update

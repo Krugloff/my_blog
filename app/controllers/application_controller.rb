@@ -1,6 +1,8 @@
 #encoding: utf-8
 
 class ApplicationController < ActionController::Base
+  include Blinks
+
   protect_from_forgery
 
   before_filter do
@@ -24,14 +26,16 @@ class ApplicationController < ActionController::Base
       @user.name == 'Krugloff'
     end
 
-    def _respond_to_ajax
-      respond_to do |format|
-        format.html
-        format.js do
-          @file = controller_name + '/' + action_name
-          @location = request.fullpath
-          render 'layouts/ajax'
-        end
+    def _respond_to_xhr_with_change_history(*template)
+      with = yield if block_given?
+      respond_to_xhr(*template, {html: '.blinks'}) do
+        change_history + with.to_s
       end
+    end
+
+    def _render_alert
+      html = render_to_string partial: "layouts/alert",
+                              collection: flash[:alert]
+      "$('.content').prepend('#{escape_javascript html}');"
     end
 end

@@ -15,7 +15,7 @@
       <%= @user.try('persisted?') ? logout_link : registration_link %>
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
-      <section class="content">
+      <section class="blinks">
         <%= render partial: 'layouts/alert', collection: flash[:alert] %>
         <%= yield %>
       </section>

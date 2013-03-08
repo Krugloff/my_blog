@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    _respond_to_ajax
+    _respond_to_xhr_with_change_history
   end
 
   def update
@@ -46,11 +46,11 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    _respond_to_ajax
+    _respond_to_xhr_with_change_history
   end
 
   def edit
-    _respond_to_ajax
+    _respond_to_xhr_with_change_history
   end
 
   private
