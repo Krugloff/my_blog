@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+
 <%= form_tag session_path, class: 'form-horizontal' do %>
   <%= control_group 'Name',
         text_field_tag( :name, nil, placeholder: 'Name', required: true ) %>

@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+
 <form action='/articles' class='form_inline'>
   <%= select_month @date,
         { use_short_month: true },

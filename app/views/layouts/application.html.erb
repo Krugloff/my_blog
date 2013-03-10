@@ -16,7 +16,6 @@
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
       <section class="blinks">
-        <%= render partial: 'layouts/alert', collection: flash[:alert] %>
         <%= yield %>
       </section>
     </section>

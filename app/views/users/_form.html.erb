@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+
 <%= form_for @user, url: user_path do |form| %>
   <!-- <legend>Add new user</legend> -->
 
