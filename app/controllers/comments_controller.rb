@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     @article = Article.find( params[:article_id] )
     @comments = @article.comments
 
-    _respond_to_xhr_with_change_history
+    respond_to_xhr_with_change_history
   end
 
   def create

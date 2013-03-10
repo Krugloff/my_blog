@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 class ApplicationController < ActionController::Base
-  include Blinks
+  include Ajax
 
   protect_from_forgery
 
@@ -24,13 +24,6 @@ class ApplicationController < ActionController::Base
 
     def _me?
       @user.name == 'Krugloff'
-    end
-
-    def _respond_to_xhr_with_change_history(*template)
-      with = yield if block_given?
-      respond_to_xhr(*template, {html: '.blinks'}) do
-        change_history + with.to_s
-      end
     end
 
     def _render_alert
