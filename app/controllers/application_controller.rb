@@ -25,10 +25,4 @@ class ApplicationController < ActionController::Base
     def _me?
       @user.name == 'Krugloff'
     end
-
-    def _render_alert
-      html = render_to_string partial: "layouts/alert",
-                              collection: flash[:alert]
-      "$('.content').prepend('#{escape_javascript html}');"
-    end
 end

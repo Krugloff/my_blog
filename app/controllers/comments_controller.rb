@@ -18,25 +18,15 @@ class CommentsController < ApplicationController
     @article = @comment.article = Article.find( params[:article_id] )
     @comment.user = @user
 
-    unless request.xhr?
-      # create_comment_on_post
-      _save_errors unless @comment.save
-      _redirect
-    else
-      # create_comment_on_xhr
-      if @comment.save
-        template = escape_javascript render_to_string(@comment)
-        script = "$('#comments_count').html('#{@article.comments.count}');"
-      else
-        template = escape_javascript render_to_string partial: 'layouts/alert',
-          collection: @comment.errors.full_messages
-        script = ""
+    respond_to do |format|
+      format.html do
+        _save_errors unless @comment.save
+        _redirect
       end
-      script += <<-SCRIPT
-        $('div.alert').remove();
-        $('.new_comment').before('#{template}');
-      SCRIPT
-      render js: _js_function(script)
+
+      format.js do
+        @comment.save ? add_new_comment : add_alerts
+      end
     end
   end
 
@@ -51,9 +41,10 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { _redirect }
       format.js do
-        @comments_count = @comment.article.comments.count
-        @id = @comment.id
-        render partial: 'delete_comment'
+        @article = @comment.article
+        script =  "$('#comment_#{@comment.id}').parent().remove();" +
+                  change_comments_count
+        render js: script
       end
     end
   end
