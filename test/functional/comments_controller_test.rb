@@ -95,7 +95,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert_no_difference( 'Comment.count' ) do
       _xhr_post comments 'invalid_new'
     end
-    assert assigns('alert_html')
+    assert !assigns('comment').errors.empty?
     assert_response :success
   end
 
