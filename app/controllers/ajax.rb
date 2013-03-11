@@ -4,9 +4,7 @@ module Ajax
   include Blinks
 
   def respond_to_xhr_for_nav
-    respond_to_xhr(html: '.content') do
-      reload_nav
-    end
+    respond_to_xhr(html: '.content') { reload_nav }
   end
 
   def reload_nav
