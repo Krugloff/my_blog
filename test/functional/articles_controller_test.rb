@@ -114,6 +114,62 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  test "ajax show" do
+    xhr :get, :show, id: articles('valid').id
+
+    assert assigns(:article)
+    assert_response :success
+    assert_template 'show'
+  end
+
+  test "ajax show: article not found" do
+    assert_raise(::ActiveRecord::RecordNotFound) { xhr :get, :show, id: -1 }
+  end
+
+  test "ajax update" do
+    login_as users('valid')
+    _xhr_put title: "Welcome to my blog!"
+
+    assert_response :redirect
+    assert_redirected_to assigns(:article)
+  end
+
+  test "ajax update: save error" do
+    login_as users('valid')
+    _xhr_put title: '?' * 257
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to edit_article_path( assigns(:article).id )
+  end
+
+  test "ajax update: user not author" do
+    login_as users('not_admin')
+    _xhr_put title: "I hate you!"
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to @article
+  end
+
+  test "ajax new" do
+    login_as users('valid')
+    xhr :get, :new
+
+    assert assigns 'article'
+    assert_response :success
+    assert_template 'new'
+  end
+
+  test "ajax edit" do
+    login_as users('valid')
+    xhr :get, :edit, id: articles('valid').id
+
+    assert assigns(:article)
+    assert_response :success
+    assert_template 'edit'
+  end
+
   private
 
     def _post(params)
@@ -123,6 +179,12 @@ class ArticlesControllerTest < ActionController::TestCase
 
     def _put(params)
       put :update,
+        id: articles('valid').id,
+        article: params
+    end
+
+    def _xhr_put(params)
+      xhr :put, :update,
         id: articles('valid').id,
         article: params
     end
