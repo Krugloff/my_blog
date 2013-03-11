@@ -4,7 +4,13 @@ module Ajax
   include Blinks
 
   def respond_to_xhr_for_nav
-    respond_to_xhr(html: '.content')
+    respond_to_xhr(html: '.content') do
+      reload_nav
+    end
+  end
+
+  def reload_nav
+    render_file( { partial: 'layouts/nav' }, replaceWith: 'nav' )
   end
 
   def add_new_comment
