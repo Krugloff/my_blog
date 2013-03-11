@@ -86,6 +86,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference( 'Comment.count', 1 ) { _xhr_post comments 'new' }
     assert_response :success
+    assert_template partial: '_comment'
   end
 
   test "ajax create: save error" do
@@ -97,6 +98,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
     assert !assigns('comment').errors.empty?
     assert_response :success
+    assert_template partial: 'layouts/_alert'
   end
 
   test "ajax destroy" do
@@ -120,6 +122,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert assigns(:article)
     assert assigns(:comments)
     assert_response :success
+    assert_template 'index'
   end
 
   test "ajax index: article not found" do
