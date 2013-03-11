@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    respond_to_xhr_with_change_history
+    respond_to_xhr_for_nav
   end
 
   def update
@@ -46,11 +46,11 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    respond_to_xhr_with_change_history
+    respond_to_xhr_for_nav
   end
 
   def edit
-    respond_to_xhr_with_change_history
+    respond_to_xhr_for_nav
   end
 
   private

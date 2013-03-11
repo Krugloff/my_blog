@@ -3,11 +3,8 @@
 module Ajax
   include Blinks
 
-  def respond_to_xhr_with_change_history(*template)
-    with = yield if block_given?
-    respond_to_xhr(*template, {html: '.content'}) do
-      change_history + with.to_s
-    end
+  def respond_to_xhr_for_nav
+    respond_to_xhr(html: '.content')
   end
 
   def add_new_comment
@@ -28,5 +25,9 @@ module Ajax
     respond_to_xhr( { partial: 'layouts/alert',
                       collection: @comment.errors.full_messages },
                     before: '.new_comment' )
+  end
+
+  def delete_comment_view
+    "$('#comment_#{@comment.id}').parent().remove();"
   end
 end

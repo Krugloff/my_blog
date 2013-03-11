@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     @article = Article.find( params[:article_id] )
     @comments = @article.comments
 
-    respond_to_xhr_with_change_history
+    respond_to_xhr_for_nav
   end
 
   def create
@@ -42,9 +42,7 @@ class CommentsController < ApplicationController
       format.html { _redirect }
       format.js do
         @article = @comment.article
-        script =  "$('#comment_#{@comment.id}').parent().remove();" +
-                  change_comments_count
-        render js: script
+        render js: delete_comment_view + change_comments_count
       end
     end
   end

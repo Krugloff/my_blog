@@ -21,10 +21,6 @@ module Blinks
     "$('#{selector}').#{js_method}('#{escape_javascript html}');"
   end
 
-  def change_history
-    "history.pushState(null, null, '#{request.fullpath}');"
-  end
-
   def js_function(content)
     "(function(){#{content}})();"
   end
