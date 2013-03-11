@@ -4,7 +4,8 @@
 </section>
 
 <%= if @user.name == 'Krugloff'
-      link_to 'New Article', new_article_path, class: 'btn', remote: true
+      link_to 'New Article', new_article_path,
+        class: 'btn new-article', remote: true
     end %>
 
 <%= link_to 'Edit', edit_user_path, class: 'btn' %>

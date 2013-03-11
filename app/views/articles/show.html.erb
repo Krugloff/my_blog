@@ -11,6 +11,6 @@
 
 <% if @user.try( 'owner?', @article ) %>
   <%= link_to 'Edit', edit_article_path(@article),
-        class: 'btn', remote: true %>
+        class: 'btn edit-article', remote: true %>
   <%= link_to 'Delete', @article, method: 'delete', class: 'btn' %>
 <% end %>

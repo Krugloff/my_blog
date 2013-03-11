@@ -1,8 +1,9 @@
 # Handle back and forward.
 jQuery ->
   $(window).bind 'popstate', ->
-    $.getScript history.location
+    $.getScript history.location || document.location
 
 jQuery ->
-  $(document).on 'click', '.nav > li > a', ->
+  selectors = '.nav > li > a, a.edit-article, a.new-article'
+  $(document).on 'click', selectors, ->
     history.pushState null, null, this.href

@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    respond_to_xhr html: '.content'
   end
 
   def update
