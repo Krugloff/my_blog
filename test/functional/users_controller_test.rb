@@ -79,6 +79,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  test "ajax show" do
+    login_as users('valid')
+    xhr :get, :show
+
+    assert assigns(:user)
+    assert_response :success
+    assert_template 'show'
+  end
+
+
   private
 
     def _post(params)
