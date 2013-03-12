@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   def index
     @article = Article.find( params[:article_id] )
     @comments = @article.comments
+    @title = 'Comments'
 
     respond_to_xhr_for_nav
   end

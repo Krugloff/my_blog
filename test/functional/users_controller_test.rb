@@ -25,6 +25,7 @@ class UsersControllerTest < ActionController::TestCase
     get :show
 
     assert assigns(:user)
+    assert assigns(:title)
     assert_response :success
     assert_template 'show'
   end
@@ -66,6 +67,8 @@ class UsersControllerTest < ActionController::TestCase
   test "new" do
     get :new
 
+    assert assigns(:user)
+    assert assigns(:title)
     assert_response :success
     assert_template 'new'
   end
@@ -75,6 +78,7 @@ class UsersControllerTest < ActionController::TestCase
     get :edit
 
     assert assigns(:user)
+    assert assigns(:title)
     assert_response :success
     assert_template 'edit'
   end
@@ -84,10 +88,10 @@ class UsersControllerTest < ActionController::TestCase
     xhr :get, :show
 
     assert assigns(:user)
+    assert assigns(:title)
     assert_response :success
     assert_template 'show'
   end
-
 
   private
 

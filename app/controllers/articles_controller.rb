@@ -30,6 +30,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @title = @article.title
     cookies[:article_id] = params[:id] if cookies[:article_id] != params[:id]
     respond_to_xhr_for_nav
   end
@@ -48,7 +49,8 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @redirect_path = articles_path
+    @title = 'Articles'
+
     month = params['month'].to_i
     year  = params['year'].to_i
     @date = ( Date.new year, month rescue Date.current.beginning_of_month )
@@ -59,10 +61,12 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @title = 'New article'
     respond_to_xhr html: '.content'
   end
 
   def edit
+    @title = 'Edit article'
     respond_to_xhr_for_nav
   end
 

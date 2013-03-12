@@ -4,11 +4,15 @@ module Ajax
   include Blinks
 
   def respond_to_xhr_for_nav
-    respond_to_xhr(html: '.content') { reload_nav }
+    respond_to_xhr(html: '.content') { reload_nav + change_title }
   end
 
   def reload_nav
     render_file( { partial: 'layouts/nav' }, replaceWith: 'nav' )
+  end
+
+  def change_title
+    "$('head > title').html('#{@title}');"
   end
 
   #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.

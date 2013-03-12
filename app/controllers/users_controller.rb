@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @title = @user.name
     respond_to_xhr html: '.content'
   end
 
@@ -32,9 +33,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @title = 'New user'
   end
 
   def edit
+    @title = 'Edit user'
   end
 
   private

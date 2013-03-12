@@ -70,6 +70,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert assigns(:article)
     assert assigns(:comments)
+    assert assigns(:title)
     assert_response :success
     assert_template "index"
   end
@@ -121,6 +122,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert assigns(:article)
     assert assigns(:comments)
+    assert assigns(:title)
     assert_response :success
     assert_template 'index'
   end
