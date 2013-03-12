@@ -1,5 +1,5 @@
 MyBlog::Application.routes.draw do
-  root to: "articles#index"
+  root to: "articles#last"
 
   resource :user
 
