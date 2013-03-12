@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_filter :require_user,
-    except: %w( show index )
+    except: %w( show index last )
 
   before_filter :require_owner,
     only: %w( update destroy edit )
@@ -63,6 +63,11 @@ class ArticlesController < ApplicationController
 
   def edit
     respond_to_xhr_for_nav
+  end
+
+  def last
+    @article = Article.last
+    redirect_to @article || articles_path
   end
 
   private

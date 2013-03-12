@@ -114,6 +114,23 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  test 'last' do
+    get :last
+
+    assert assigns(:article), assigns.inspect
+    assert_response :redirect
+    assert_redirected_to articles('valid')
+  end
+
+  test 'last: no article' do
+    ingots('articles')
+    get :last
+
+    assert_nil assigns(:article), assigns.inspect
+    assert_response :redirect
+    assert_redirected_to articles_path
+  end
+
   test "ajax show" do
     xhr :get, :show, id: articles('valid').id
 
