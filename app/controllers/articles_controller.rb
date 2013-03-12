@@ -30,6 +30,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    cookies[:article_id] = params[:id] if cookies[:article_id] != params[:id]
     respond_to_xhr_for_nav
   end
 

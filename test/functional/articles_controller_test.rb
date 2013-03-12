@@ -44,6 +44,8 @@ class ArticlesControllerTest < ActionController::TestCase
     get :show, id: articles('valid').id
 
     assert assigns(:article)
+    assert  cookies[:article_id],
+            cookies.instance_variable_get(:@cookies).inspect
     assert_response :success
     assert_template 'show'
   end
