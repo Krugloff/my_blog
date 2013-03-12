@@ -44,6 +44,7 @@ class ArticlesControllerTest < ActionController::TestCase
     get :show, id: articles('valid').id
 
     assert assigns(:article)
+    assert assigns(:title)
     assert  cookies[:article_id],
             cookies.instance_variable_get(:@cookies).inspect
     assert_response :success
@@ -95,6 +96,7 @@ class ArticlesControllerTest < ActionController::TestCase
     get :index
 
     assert assigns(:articles)
+    assert assigns(:title)
     assert_response :success
     assert_template 'index'
   end
@@ -103,6 +105,8 @@ class ArticlesControllerTest < ActionController::TestCase
     login_as users('valid')
     get :new
 
+    assert assigns(:article)
+    assert assigns(:title)
     assert_response :success
     assert_template 'new'
   end
@@ -112,6 +116,7 @@ class ArticlesControllerTest < ActionController::TestCase
     get :edit, id: articles('valid').id
 
     assert assigns(:article)
+    assert assigns(:title)
     assert_response :success
     assert_template 'edit'
   end
@@ -137,6 +142,7 @@ class ArticlesControllerTest < ActionController::TestCase
     xhr :get, :show, id: articles('valid').id
 
     assert assigns(:article)
+    assert assigns(:title)
     assert_response :success
     assert_template 'show'
   end
@@ -175,7 +181,8 @@ class ArticlesControllerTest < ActionController::TestCase
     login_as users('valid')
     xhr :get, :new
 
-    assert assigns 'article'
+    assert assigns(:article)
+    assert assigns(:title)
     assert_response :success
     assert_template 'new'
   end
@@ -185,6 +192,7 @@ class ArticlesControllerTest < ActionController::TestCase
     xhr :get, :edit, id: articles('valid').id
 
     assert assigns(:article)
+    assert assigns(:title)
     assert_response :success
     assert_template 'edit'
   end
