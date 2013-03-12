@@ -20,5 +20,6 @@ class SessionsController < ApplicationController
   end
 
   def new
+    @title = 'Login'
   end
 end

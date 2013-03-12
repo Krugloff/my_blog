@@ -31,6 +31,7 @@ class SessionsControllerTest < ActionController::TestCase
   test 'new' do
     get :new
 
+    assert assigns(:title)
     assert_response :success
     assert_template :new
   end
