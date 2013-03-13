@@ -3,7 +3,9 @@ MyBlog::Application.routes.draw do
 
   resource :user
 
-  resource :session, only: [ :create, :destroy, :new ]
+  resource( :session, only: [ :create, :destroy, :new ] ) do
+    get ':provider/new', :action => 'create', :on => :collection
+  end
 
   resources :articles do
     resources :comments, only: [ :create, :update, :destroy, :index ]
