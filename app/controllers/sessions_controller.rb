@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
     # end
 
     # redirect_to @user ? user_path : new_session_path
-    render text: 'Params:' + params.inspect + "\n"
-      + 'Request:' + request.env['omniauth.auth'].inspect
+    render text: 'Params:' + params.inspect + "\n" +
+      'Request:' + request.env['omniauth.auth'].inspect
   end
 
   def destroy
