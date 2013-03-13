@@ -72,8 +72,11 @@ GEM
     mime-types (1.21)
     multi_json (1.6.1)
 <<<<<<< HEAD
+<<<<<<< HEAD
     pg (0.14.1)
 =======
+=======
+>>>>>>> omniauth
     multipart-post (1.2.0)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -90,6 +93,9 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+<<<<<<< HEAD
+>>>>>>> omniauth
+=======
 >>>>>>> omniauth
     polyglot (0.3.3)
     rack (1.4.5)
@@ -156,7 +162,11 @@ DEPENDENCIES
   coffee-rails
   jquery-rails
 <<<<<<< HEAD
+<<<<<<< HEAD
   pg
+=======
+  omniauth-github
+>>>>>>> omniauth
 =======
   omniauth-github
 >>>>>>> omniauth
