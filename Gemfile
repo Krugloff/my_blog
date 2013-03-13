@@ -7,6 +7,9 @@ gem 'rails', '3.2.12'
 
 gem 'sqlite3'
 
+group :oauth do
+  gem 'omniauth-github'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
