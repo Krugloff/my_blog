@@ -1,8 +1,8 @@
 GIT
   remote: http://github.com/Krugloff/smeltery.git
-  revision: 90c529b226102a8c84da1e3513c991a87ba5f070
+  revision: 665c885c3ded520a343aee787df4cbc055a6067d
   specs:
-    smeltery (0.2.3)
+    smeltery (0.2.4)
       activesupport (>= 3.2)
 
 GEM
@@ -55,7 +55,7 @@ GEM
     hashie (1.2.0)
     hike (1.2.1)
     httpauth (0.2.0)
-    i18n (0.6.2)
+    i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
