@@ -4,7 +4,8 @@ require 'omniauth'
 require 'omniauth-github'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
+  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'],
+    callback_path: '/session/github/new'
 end
 
 OmniAuth.config.logger = Rails.logger
