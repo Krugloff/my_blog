@@ -1,7 +1,7 @@
 MyBlog::Application.routes.draw do
   root to: "articles#last"
 
-  resource :user
+  resource :user, only: %w( show destroy )
 
   resource( :session, only: [ :create, :destroy, :new ] ) do
     get ':provider/new', :action => 'create', :on => :collection

@@ -12,7 +12,7 @@
 <body>
   <section class="row-fluid">
     <section class="base span7">
-      <%= @user.try('persisted?') ? logout_link : registration_link %>
+      <%= logout_link if @user.try('persisted?') %>
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
       <section class="content">
