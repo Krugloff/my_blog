@@ -1,7 +1,13 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
-<%= link_to 'GitHub', '/session/new/github', class: 'btn' %>
+<h3>Войти с помощью:</h3>
+
+<%= link_to '/session/new/github', class: 'btn', title: 'GitHub' do
+      image_tag 'github.png', size: '30x30'
+    end %>
 
 <%= unless Rails.env.production?
-      link_to( 'Developer', '/session/new/developer', class: 'btn' )
+      link_to '/session/new/developer', class: 'btn', title: 'Developer' do
+        image_tag 'developer.png', size: '30x30'
+      end
     end %>
