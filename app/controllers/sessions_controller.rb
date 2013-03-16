@@ -2,18 +2,26 @@
 
 class SessionsController < ApplicationController
   def create
-    # @user = User.find_by_name(params[:name])
-    #   .try(:authenticate, params[:password])
+    auth_hash = request.env['omniauth.auth']
+    account_hash = auth_hash.slice :uid, :provider
+    user_name = auth_hash[:info][:nickname] || auth_hash[:info][:name]
 
-    # if @user
-    #   session[:user_id] = @user.id
-    # else
-    #   flash.alert = ['Incorrect name or password']
-    # end
+    @account = Account.where(account_hash).first
 
-    # redirect_to @user ? user_path : new_session_path
-    render text: 'Params:' + params.inspect + "\n" +
-      'Request:' + request.env['omniauth.auth'].inspect
+    if @account
+      ( @user = @account.user ).update_attribute :name, user_name
+    else
+      @user = User.create!(name: user_name)
+      @user.accounts.new(account_hash).save!
+    end
+
+    session[:user_id] = @user.id
+    render 'users/show'
+
+    rescue
+      @user.try(:delete)
+      flash.alert = ["You don't login"]
+      redirect_to new_session_path
   end
 
   def destroy
@@ -25,3 +33,4 @@ class SessionsController < ApplicationController
     @title = 'Login'
   end
 end
+

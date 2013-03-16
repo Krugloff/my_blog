@@ -1,16 +1,15 @@
 MyBlog::Application.routes.draw do
   root to: "articles#last"
 
-  resource :user
+  resource :user, only: %w( show destroy )
 
   resource( :session, only: [ :create, :destroy, :new ] ) do
-    get ':provider/new', :action => 'create', :on => :collection
+    match ':provider/new', :action => 'create', :on => :collection
   end
 
   resources :articles do
     resources :comments, only: [ :create, :update, :destroy, :index ]
   end
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

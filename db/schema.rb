@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115143741) do
+ActiveRecord::Schema.define(:version => 20130316150529) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "provider"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "uid"
+  end
+
+  add_index "accounts", ["uid"], :name => "index_accounts_on_uid"
+  add_index "accounts", ["user_id"], :name => "index_accounts_on_user_id"
 
   create_table "articles", :force => true do |t|
     t.string   "title",      :limit => 42, :null => false
@@ -31,12 +42,11 @@ ActiveRecord::Schema.define(:version => 20130115143741) do
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.string   "name",            :limit => 42, :null => false
-    t.string   "password_digest"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
-  add_index "users", ["name"], :name => "index_users_on_name", :unique => true
+  add_index "users", ["name"], :name => "index_users_on_name"
 
 end
