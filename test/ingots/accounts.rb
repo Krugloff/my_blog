@@ -1,8 +1,9 @@
 #encoding: utf-8
 
-@valid =  { provider: 'development',
+@valid =  { uid: 1234567890,
+            provider: 'development',
             user: users('valid') }
 
-@blank_uid      = @valid.except :uid
+@no_uid         = @valid.except :uid
 @blank_provider = @valid.merge provider: ''
 @no_user        = @valid.except :user

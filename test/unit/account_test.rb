@@ -26,6 +26,10 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test "user: must be presence" do
-    assert  accounts('no_user').invalid?
+    assert accounts('no_user').invalid?
+  end
+
+  test 'uid: must be presence' do
+    assert accounts('no_uid').invalid?
   end
 end
