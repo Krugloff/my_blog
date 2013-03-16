@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
     end
 
     def _me?
+      Rails.env.production? ?
+      @user.accounts.exists?( uid: '1621036', provider: 'github' ) :
       @user.name == 'Krugloff'
     end
 end

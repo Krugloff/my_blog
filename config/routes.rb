@@ -4,7 +4,7 @@ MyBlog::Application.routes.draw do
   resource :user, only: %w( show destroy )
 
   resource( :session, only: [ :create, :destroy, :new ] ) do
-    get ':provider/new', :action => 'create', :on => :collection
+    match ':provider/new', :action => 'create', :on => :collection
   end
 
   resources :articles do

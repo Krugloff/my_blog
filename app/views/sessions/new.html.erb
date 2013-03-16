@@ -1,14 +1,7 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
-<%= form_tag session_path, class: 'form-horizontal' do %>
-  <%= control_group 'Name',
-        text_field_tag( :name, nil, placeholder: 'Name', required: true ) %>
+<%= link_to 'GitHub', '/session/new/github', class: 'btn' %>
 
-  <%= control_group 'Password',
-        password_field_tag( :password, nil, placeholder: 'Password',
-          required: true ) %>
-
-  <%= control_group nil, submit_tag( 'Login', class: 'btn' ) %>
-<% end %>
-
-<%= link_to 'GitHub', '/session/new/github' %>
+<%= unless Rails.env.production?
+      link_to( 'Developer', '/session/new/developer', class: 'btn' )
+    end %>
