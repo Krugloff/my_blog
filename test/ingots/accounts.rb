@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 @valid =  { uid: 1234567890,
-            provider: 'development',
+            provider: 'developer',
             user: users('valid') }
 
 @no_uid         = @valid.except :uid
