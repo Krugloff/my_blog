@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-@valid =  { uid: 1234567890,
+@valid =  { uid: '1234567890',
             provider: 'developer',
             user: users('valid') }
 

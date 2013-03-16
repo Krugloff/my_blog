@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20130316150529) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "uid"
+    t.string   "uid"
   end
 
   add_index "accounts", ["uid"], :name => "index_accounts_on_uid"

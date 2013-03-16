@@ -7,7 +7,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
   unless Rails.env.production?
     provider  :developer,
-              uid_field: 1234567890,
+              uid_field: '1234567890',
               fields: %w(name),
               callback_path: '/session/developer/new'
   end
