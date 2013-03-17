@@ -8,7 +8,12 @@ jQuery ->
               a.edit-article,
               a.new-article,
               aside > a,
-              a.preview'
+              a.preview,
+              a.created_at'
 
   $(document).on 'click', selectors, ->
     history.pushState null, null, this.href
+
+jQuery ->
+  $(document).on 'ajax:beforeSend', 'form.change-date', (_, __, settings) ->
+    history.pushState null, null, settings.url

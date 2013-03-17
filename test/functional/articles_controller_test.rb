@@ -101,6 +101,15 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
+  test "ajax index" do
+    xhr :get, :index
+
+    assert assigns(:articles)
+    assert assigns(:title)
+    assert_response :success
+    assert_template 'index'
+  end
+
   test "new" do
     login_as users('valid')
     get :new
