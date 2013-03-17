@@ -8,7 +8,8 @@ module Ajax
   end
 
   def reload_nav
-    render_file( { partial: 'layouts/nav' }, replaceWith: 'nav' )
+    return "" unless @article.try(:persisted?)
+    render_file( { partial: 'layouts/nav' }, replaceWith: 'nav' ) if @article
   end
 
   def change_title

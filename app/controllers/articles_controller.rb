@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     @title = 'New article'
-    respond_to_xhr html: '.content'
+    respond_to_xhr_for_nav
   end
 
   def edit
