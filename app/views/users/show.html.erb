@@ -3,7 +3,7 @@
   Welcome to my blog!
 </section>
 
-<%= if @user.name == 'Krugloff'
+<%= if me?
       link_to 'New Article', new_article_path,
         class: 'btn new-article', remote: true
     end %>

@@ -69,7 +69,7 @@ class ArticlesController < ApplicationController
     def require_owner
       @article = Article.find( params[:id] )
 
-      unless ( @user.owner? @article ) || _me?
+      unless ( @user.owner? @article ) || me?
         flash.alert = ["You can't edit this article"]
         redirect_to article_path( params[:id] )
       end

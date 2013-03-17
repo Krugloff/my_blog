@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  models 'users', 'comments', 'articles'
+  models 'users', 'comments', 'articles', 'accounts'
 
   test "create" do
     ingots 'comments'
