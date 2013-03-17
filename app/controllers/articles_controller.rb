@@ -12,20 +12,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = @user.articles.new( params[:article] )
-
-    # respond_to do |format|
-      # format.html do
-        @article.save ? redirect_to(@article) : _errors_to(new_article_path)
-      # end
-
-    #   format.js do
-    #     @article.save ?
-    #     redirect_to(@article) : #! должно присутствовать меню навигации.
-    #     respond_to_xhr( { partial: 'layouts/alert',
-    #                       collection: @article.errors.full_messages },
-    #                     before: '.new_article' )
-    #   end
-    # end
+    @article.save ? redirect_to(@article) : _errors_to(new_article_path)
   end
 
   def show
