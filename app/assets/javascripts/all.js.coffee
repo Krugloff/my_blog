@@ -4,6 +4,11 @@ jQuery ->
     $.getScript history.location || document.location
 
 jQuery ->
-  selectors = '.nav > li > a, a.edit-article, a.new-article, aside > a'
+  selectors = '.nav > li > a,
+              a.edit-article,
+              a.new-article,
+              aside > a,
+              a.preview'
+
   $(document).on 'click', selectors, ->
     history.pushState null, null, this.href

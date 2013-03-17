@@ -17,6 +17,7 @@
 
   <%= link_to( article,
         class: 'preview',
+        remote: true,
         title: pluralize(article.comments.count, 'comment') ) do %>
 
     <h6><%= article.title %></h6>
