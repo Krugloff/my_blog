@@ -8,8 +8,8 @@ class SessionsControllerTest < ActionController::TestCase
     assert_no_difference('User.count') { get :create }
 
     assert session[:user_id]
-    assert_response :success
-    assert_template 'users/show'
+    assert_response :redirect
+    assert_redirected_to user_path
   end
 
   test "create: new user" do
@@ -19,8 +19,8 @@ class SessionsControllerTest < ActionController::TestCase
     assert_difference( 'User.count', 1 ) { get :create }
 
     assert session[:user_id]
-    assert_response :success
-    assert_template 'users/show'
+    assert_response :redirect
+    assert_redirected_to user_path
   end
 
   test "create: error" do

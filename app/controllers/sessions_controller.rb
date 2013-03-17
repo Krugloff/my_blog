@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     end
 
     session[:user_id] = @user.id
-    render 'users/show'
+    redirect_to user_path
 
     rescue
       @user.try(:delete)
