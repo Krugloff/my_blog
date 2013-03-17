@@ -48,6 +48,14 @@ class SessionsControllerTest < ActionController::TestCase
     assert_template :new
   end
 
+  test 'ajax new' do
+    xhr :get, :new
+
+    assert assigns(:title)
+    assert_response :success
+    assert_template :new
+  end
+
   private
 
     def _prepare_request(account_hash, user_hash)

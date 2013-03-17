@@ -11,6 +11,6 @@
 
     <%= @user.try('persisted?') ?
         tab( @user.name, user_path, false )  :
-        tab( 'Login', new_session_path, false ) %>
+        tab( 'Login', new_session_path ) %>
   </ul>
 </nav>
