@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @title = @user.name
-    respond_to_xhr html: '.content'
+    respond_to_xhr_for_nav
   end
 
   def destroy
