@@ -1,6 +1,4 @@
-<%= render partial: 'layouts/alert', collection: flash[:alert] %>
-
-<form action='/articles' class='form_inline'>
+<form action='/articles' class='form_inline change-date' data-remote='true'>
   <%= select_month @date,
         { use_short_month: true },
         class: 'span2', name: 'month' %>
@@ -12,11 +10,14 @@
   <%= button_tag 'OK', name: '', class: 'btn' %>
 </form>
 
+<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+
 <% @articles.each do |article| %>
   <span><%= article.created_at.getlocal.strftime "%D %R" %></span>
 
   <%= link_to( article,
         class: 'preview',
+        remote: true,
         title: pluralize(article.comments.count, 'comment') ) do %>
 
     <h6><%= article.title %></h6>

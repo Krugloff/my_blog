@@ -1,6 +1,6 @@
 <article>
   <%= link_to( articles_path( with_date @article.created_at ),
-        class: 'created_at pull-right' ) do %>
+        class: 'created_at pull-right', remote: true ) do %>
     <div><%= @article.created_at.strftime "%^h" %></div>
     <div><%= @article.created_at.day %></div>
   <% end %>
