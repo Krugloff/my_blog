@@ -12,4 +12,11 @@ class User < ActiveRecord::Base
   def owner?(a_model)
     a_model.user == self
   end
+
+  def me?
+    return @me unless @me.nil?
+    @me = Rails.env.production? ?
+    accounts.exists?( uid: '1621036', provider: 'github' ) :
+    accounts.exists?( uid: '1234567890', provider: 'developer' )
+  end
 end

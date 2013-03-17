@@ -53,7 +53,7 @@ class CommentsController < ApplicationController
     def require_owner
       @comment = Comment.find( params[:id] )
 
-      unless ( @user.owner? @comment ) || _me?
+      unless ( @user.owner? @comment ) || me?
         flash.alert = ["You can't edit this comment"]
         _redirect
       end

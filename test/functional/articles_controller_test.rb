@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ArticlesControllerTest < ActionController::TestCase
-  models 'users', 'articles'
+  models 'users', 'accounts', 'articles'
 
   test "create" do
     ingots 'articles'
@@ -37,7 +37,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
     assert_no_difference( 'Article.count' ) { _post articles('new') }
     assert flash.alert
-    assert_redirected_to root_path
+    assert_redirected_to new_session_path
   end
 
   test "show" do

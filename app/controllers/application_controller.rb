@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :me?
+
   private
 
     def require_user
@@ -23,12 +25,10 @@ class ApplicationController < ActionController::Base
     end
 
     def require_me
-      redirect_to root_path, alert: ["You can't do it"] unless _me?
+      redirect_to new_session_path, alert: ["You can't do it"] unless me?
     end
 
-    def _me?
-      Rails.env.production? ?
-      @user.accounts.exists?( uid: '1621036', provider: 'github' ) :
-      @user.name == 'Krugloff'
+    def me?
+      @user.me?
     end
 end
