@@ -7,9 +7,10 @@ class CommentsController < ApplicationController
     except: %w(create index)
 
   def index
-    @article = Article.find( params[:article_id] )
+    @article  = Article.find( params[:article_id] )
     @comments = @article.comments
-    @title = 'Comments'
+    @comment  = Comment.new
+    @title    = 'Comments'
 
     respond_to_xhr_for_nav
   end
