@@ -7,20 +7,20 @@ class UserTest < ActiveSupport::TestCase
 
   test "create" do
     ingots('users')
-    assert User.create users('valid'), without_protection: true
+    assert User.create users('admin'), without_protection: true
   end
 
   test "find" do
-    assert User.find users('valid').id
+    assert User.find users('admin').id
   end
 
   test "update" do
-    assert users('valid').update_attribute( :name, "Mihael" )
+    assert users('admin').update_attribute( :name, "Mihael" )
   end
 
   test "destroy" do
-    users('valid').destroy
-    assert User.where( id: users('valid').id ).empty?
+    users('admin').destroy
+    assert User.where( id: users('admin').id ).empty?
   end
 
   test "name: must be presence" do

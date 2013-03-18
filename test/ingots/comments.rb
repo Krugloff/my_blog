@@ -5,7 +5,7 @@
 
 @invalid_new = @new.merge title: '?' * 257
 
-@valid  = @new.merge  user: users('valid'),
+@valid  = @new.merge  user: users('admin'),
                       article: articles('valid')
 
 @blank_body   = @valid.merge body: ''

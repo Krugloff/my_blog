@@ -5,7 +5,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "create" do
     ingots 'comments'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'Comment.count', 1 ) { _post comments 'new' }
     assert_response :redirect
@@ -14,7 +14,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "create: save error" do
     ingots 'comments'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_no_difference( 'Comment.count' ) { _post comments 'invalid_new' }
     assert flash.alert
@@ -23,7 +23,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "update" do
-    login_as users('valid')
+    login_as users('admin')
     _put title: "Welcome"
 
     assert_response :redirect
@@ -31,7 +31,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "update: save error" do
-    login_as users('valid')
+    login_as users('admin')
     _put body: ""
 
     assert flash.alert
@@ -40,7 +40,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "update: user not author" do
-    login_as users('not_admin')
+    login_as users('client')
     _put body: "I hate you!"
 
     assert flash.alert
@@ -49,7 +49,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( "Comment.count", -1 ) { _delete }
 
@@ -83,7 +83,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "ajax create" do
     ingots 'comments'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'Comment.count', 1 ) { _xhr_post comments 'new' }
     assert_response :success
@@ -92,7 +92,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "ajax create: save error" do
     ingots 'comments'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_no_difference( 'Comment.count' ) do
       _xhr_post comments 'invalid_new'
@@ -103,7 +103,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "ajax destroy" do
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( "Comment.count", -1 ) { _xhr_delete }
     assert_response :success

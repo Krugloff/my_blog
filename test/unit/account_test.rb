@@ -5,20 +5,20 @@ class AccountTest < ActiveSupport::TestCase
 
   test "create" do
     ingots 'accounts'
-    assert Account.create accounts('valid'), without_protection: true
+    assert Account.create accounts('admin'), without_protection: true
   end
 
   test "find" do
-    assert Account.find accounts('valid').id
+    assert Account.find accounts('admin').id
   end
 
   test "update" do
-    assert accounts('valid').update_attribute( :provider, "github" )
+    assert accounts('admin').update_attribute( :provider, "github" )
   end
 
   test "destroy" do
-    accounts('valid').destroy
-    assert Account.where( id: accounts('valid').id ).empty?
+    accounts('admin').destroy
+    assert Account.where( id: accounts('admin').id ).empty?
   end
 
   test "provider: must be presence" do

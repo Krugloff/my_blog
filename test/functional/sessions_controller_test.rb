@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   test "create: old user" do
     models 'users', 'accounts'
-    _prepare_request accounts('valid').attributes, users('valid').attributes
+    _prepare_request accounts('admin').attributes, users('admin').attributes
 
     assert_no_difference('User.count') { get :create }
     _assert_for_create
@@ -11,7 +11,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "create: new user" do
     ingots 'accounts', 'users'
-    _prepare_request accounts('valid'), users('valid')
+    _prepare_request accounts('admin'), users('admin')
 
     assert_difference( 'User.count', 1 ) { get :create }
     _assert_for_create
@@ -29,7 +29,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "destroy" do
     models 'users', 'accounts'
-    login_as users('valid')
+    login_as users('admin')
 
     delete :destroy
 

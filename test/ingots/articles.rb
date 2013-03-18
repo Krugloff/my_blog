@@ -4,7 +4,7 @@
 @invalid_new =  { title: '?' * 257,
                   body: File.read('test/ingots/article.md') }
 
-@valid  = @new.merge user: users('valid')
+@valid  = @new.merge user: users('admin')
 
 @blank_title  = @valid.merge title: ''
 @blank_body   = @valid.merge title: ''

@@ -4,7 +4,7 @@ class UsersControllerTest < ActionController::TestCase
   models 'users'
 
   test "show" do
-    login_as users('valid')
+    login_as users('admin')
     get :show
 
     assert assigns(:user)
@@ -22,7 +22,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'User.count', -1 ) { delete :destroy }
     assert_response :redirect
@@ -30,7 +30,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "ajax show" do
-    login_as users('valid')
+    login_as users('admin')
     xhr :get, :show
 
     assert assigns(:user)

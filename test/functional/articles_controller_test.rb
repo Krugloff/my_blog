@@ -5,7 +5,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "create" do
     ingots 'articles'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'Article.count', 1 ) { _post articles('new') }
     assert_response :redirect
@@ -14,7 +14,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "create: save error" do
     ingots 'articles'
-    login_as users('valid')
+    login_as users('admin')
 
     assert_no_difference( 'Article.count' ) do
       _post articles('invalid_new')
@@ -33,7 +33,7 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "create: user not admin" do
     ingots 'articles'
-    login_as users('not_admin')
+    login_as users('client')
 
     assert_no_difference( 'Article.count' ) { _post articles('new') }
     assert flash.alert
@@ -56,7 +56,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "update" do
-    login_as users('valid')
+    login_as users('admin')
     _put title: "Welcome to my blog!"
 
     assert_response :redirect
@@ -64,7 +64,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "update: save error" do
-    login_as users('valid')
+    login_as users('admin')
     _put title: '?' * 257
 
     assert flash.alert
@@ -73,7 +73,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "update: user not author" do
-    login_as users('not_admin')
+    login_as users('client')
     _put title: "I hate you!"
 
     assert flash.alert
@@ -82,7 +82,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'Article.count', -1 ) do
       delete :destroy, id: articles('valid').id
@@ -111,7 +111,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "new" do
-    login_as users('valid')
+    login_as users('admin')
     get :new
 
     assert assigns(:article)
@@ -121,7 +121,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "edit" do
-    login_as users('valid')
+    login_as users('admin')
     get :edit, id: articles('valid').id
 
     assert assigns(:article)
@@ -161,7 +161,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "ajax update" do
-    login_as users('valid')
+    login_as users('admin')
     _xhr_put title: "Welcome to my blog!"
 
     assert_response :redirect
@@ -169,7 +169,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "ajax update: save error" do
-    login_as users('valid')
+    login_as users('admin')
     _xhr_put title: '?' * 257
 
     assert flash.alert
@@ -178,7 +178,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "ajax update: user not author" do
-    login_as users('not_admin')
+    login_as users('client')
     _xhr_put title: "I hate you!"
 
     assert flash.alert
@@ -187,7 +187,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "ajax new" do
-    login_as users('valid')
+    login_as users('admin')
     xhr :get, :new
 
     assert assigns(:article)
@@ -197,7 +197,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test "ajax edit" do
-    login_as users('valid')
+    login_as users('admin')
     xhr :get, :edit, id: articles('valid').id
 
     assert assigns(:article)
