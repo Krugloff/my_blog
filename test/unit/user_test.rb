@@ -24,6 +24,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name: must be presence" do
-    assert users('blank_name').invalid?
+    assert users('no_name').invalid?
   end
 end
