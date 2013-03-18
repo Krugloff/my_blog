@@ -51,13 +51,34 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_template 'show'
   end
 
+  test "ajax show" do
+    xhr :get, :show, id: articles('valid').id
+
+    assert assigns(:article)
+    assert assigns(:title)
+    assert_response :success
+    assert_template 'show'
+  end
+
   test "show: article not found" do
     assert_raise(::ActiveRecord::RecordNotFound) { get :show, id: -1 }
+  end
+
+  test "ajax show: article not found" do
+    assert_raise(::ActiveRecord::RecordNotFound) { xhr :get, :show, id: -1 }
   end
 
   test "update" do
     login_as users('admin')
     _put title: "Welcome to my blog!"
+
+    assert_response :redirect
+    assert_redirected_to assigns(:article)
+  end
+
+  test "ajax update" do
+    login_as users('admin')
+    _xhr_put title: "Welcome to my blog!"
 
     assert_response :redirect
     assert_redirected_to assigns(:article)
@@ -72,9 +93,27 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to edit_article_path( assigns(:article).id )
   end
 
+  test "ajax update: save error" do
+    login_as users('admin')
+    _xhr_put title: '?' * 257
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to edit_article_path( assigns(:article).id )
+  end
+
   test "update: user not author" do
     login_as users('client')
     _put title: "I hate you!"
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to @article
+  end
+
+  test "ajax update: user not author" do
+    login_as users('client')
+    _xhr_put title: "I hate you!"
 
     assert flash.alert
     assert_response :redirect
@@ -120,9 +159,29 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  test "ajax new" do
+    login_as users('admin')
+    xhr :get, :new
+
+    assert assigns(:article)
+    assert assigns(:title)
+    assert_response :success
+    assert_template 'new'
+  end
+
   test "edit" do
     login_as users('admin')
     get :edit, id: articles('valid').id
+
+    assert assigns(:article)
+    assert assigns(:title)
+    assert_response :success
+    assert_template 'edit'
+  end
+
+  test "ajax edit" do
+    login_as users('admin')
+    xhr :get, :edit, id: articles('valid').id
 
     assert assigns(:article)
     assert assigns(:title)
@@ -145,65 +204,6 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_nil assigns(:article), assigns.inspect
     assert_response :redirect
     assert_redirected_to articles_path
-  end
-
-  test "ajax show" do
-    xhr :get, :show, id: articles('valid').id
-
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
-  end
-
-  test "ajax show: article not found" do
-    assert_raise(::ActiveRecord::RecordNotFound) { xhr :get, :show, id: -1 }
-  end
-
-  test "ajax update" do
-    login_as users('admin')
-    _xhr_put title: "Welcome to my blog!"
-
-    assert_response :redirect
-    assert_redirected_to assigns(:article)
-  end
-
-  test "ajax update: save error" do
-    login_as users('admin')
-    _xhr_put title: '?' * 257
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to edit_article_path( assigns(:article).id )
-  end
-
-  test "ajax update: user not author" do
-    login_as users('client')
-    _xhr_put title: "I hate you!"
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to @article
-  end
-
-  test "ajax new" do
-    login_as users('admin')
-    xhr :get, :new
-
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'new'
-  end
-
-  test "ajax edit" do
-    login_as users('admin')
-    xhr :get, :edit, id: articles('valid').id
-
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'edit'
   end
 
   private

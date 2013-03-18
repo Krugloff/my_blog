@@ -12,6 +12,15 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to article_comments_path( articles 'valid' )
   end
 
+  test "ajax create" do
+    ingots 'comments'
+    login_as users('admin')
+
+    assert_difference( 'Comment.count', 1 ) { _xhr_post comments 'new' }
+    assert_response :success
+    assert_template partial: '_comment'
+  end
+
   test "create: save error" do
     ingots 'comments'
     login_as users('admin')
@@ -20,6 +29,18 @@ class CommentsControllerTest < ActionController::TestCase
     assert flash.alert
     assert_response :redirect
     assert_redirected_to article_comments_path( articles 'valid' )
+  end
+
+  test "ajax create: save error" do
+    ingots 'comments'
+    login_as users('admin')
+
+    assert_no_difference( 'Comment.count' ) do
+      _xhr_post comments 'invalid_new'
+    end
+    assert !assigns('comment').errors.empty?
+    assert_response :success
+    assert_template partial: 'layouts/_alert'
   end
 
   test "update" do
@@ -57,8 +78,23 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to article_comments_path( articles 'valid' )
   end
 
+  test "ajax destroy" do
+    login_as users('admin')
+
+    assert_difference( "Comment.count", -1 ) { _xhr_delete }
+    assert_response :success
+  end
+
   test "destroy: user not found" do
     assert_no_difference("Comment.count") { _delete }
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to new_session_path
+  end
+
+  test "ajax destroy: user not found" do
+    assert_no_difference("Comment.count") { _xhr_delete }
 
     assert flash.alert
     assert_response :redirect
@@ -75,48 +111,6 @@ class CommentsControllerTest < ActionController::TestCase
     assert_template "index"
   end
 
-  test "index: article not found" do
-    assert_raise(::ActiveRecord::RecordNotFound) do
-      get :index, article_id: 125
-    end
-  end
-
-  test "ajax create" do
-    ingots 'comments'
-    login_as users('admin')
-
-    assert_difference( 'Comment.count', 1 ) { _xhr_post comments 'new' }
-    assert_response :success
-    assert_template partial: '_comment'
-  end
-
-  test "ajax create: save error" do
-    ingots 'comments'
-    login_as users('admin')
-
-    assert_no_difference( 'Comment.count' ) do
-      _xhr_post comments 'invalid_new'
-    end
-    assert !assigns('comment').errors.empty?
-    assert_response :success
-    assert_template partial: 'layouts/_alert'
-  end
-
-  test "ajax destroy" do
-    login_as users('admin')
-
-    assert_difference( "Comment.count", -1 ) { _xhr_delete }
-    assert_response :success
-  end
-
-  test "ajax destroy: user not found" do
-    assert_no_difference("Comment.count") { _xhr_delete }
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to new_session_path
-  end
-
   test "ajax index" do
     xhr :get, :index, article_id: articles('valid')
 
@@ -125,6 +119,12 @@ class CommentsControllerTest < ActionController::TestCase
     assert assigns(:title)
     assert_response :success
     assert_template 'index'
+  end
+
+  test "index: article not found" do
+    assert_raise(::ActiveRecord::RecordNotFound) do
+      get :index, article_id: 125
+    end
   end
 
   test "ajax index: article not found" do

@@ -13,6 +13,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_template 'show'
   end
 
+  test "ajax show" do
+    login_as users('admin')
+    xhr :get, :show
+
+    assert assigns(:user)
+    assert assigns(:title)
+    assert_response :success
+    assert_template 'show'
+  end
+
   test "show: user not found" do
     get :show
 
@@ -27,15 +37,5 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference( 'User.count', -1 ) { delete :destroy }
     assert_response :redirect
     assert_redirected_to new_session_path
-  end
-
-  test "ajax show" do
-    login_as users('admin')
-    xhr :get, :show
-
-    assert assigns(:user)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
   end
 end
