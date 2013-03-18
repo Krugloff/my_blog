@@ -25,6 +25,11 @@ body {
   padding: 4%;
 }
 
+a {
+  outline: none;
+  &:hover, &:active, &:focus { outline: none; };
+}
+
 .base, aside {
   background: $main-color;
   padding: 2%;
@@ -75,11 +80,10 @@ aside {
     };
   }
 
-@mixin tab {
-  background: $main-color;
-  color: green;
-  outline: none;
-}
+  @mixin tab {
+    background: $main-color;
+    color: green;
+  }
 
   li.active a {
     @include tab;
