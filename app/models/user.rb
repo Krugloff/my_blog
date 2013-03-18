@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
     a_model.user == self
   end
 
+
+  #! Проверка выполняется только один раз. Поэтому требуемый аккаунт к данному моменту уже должен существовать. Его добавление не даст ожилаемого результата.
   def me?
     return @me unless @me.nil?
     @me = Rails.env.production? ?
