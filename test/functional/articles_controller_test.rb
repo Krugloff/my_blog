@@ -110,6 +110,7 @@ class ArticlesControllerTest < ActionController::TestCase
       delete :destroy, id: articles('valid').id
     end
 
+    assert_nil cookies[:article_id]
     assert_response :redirect
     assert_redirected_to articles_path
   end

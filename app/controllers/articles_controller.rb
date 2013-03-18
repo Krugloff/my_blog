@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    cookies.delete :article_id
     redirect_to articles_path
   end
 
