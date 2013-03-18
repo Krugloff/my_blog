@@ -7,20 +7,14 @@ class UsersControllerTest < ActionController::TestCase
     login_as users('admin')
     get :show
 
-    assert assigns(:user)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
+    _asserts_for_show
   end
 
   test "ajax show" do
     login_as users('admin')
     xhr :get, :show
 
-    assert assigns(:user)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
+    _asserts_for_show
   end
 
   test "show: user not found" do
@@ -38,4 +32,13 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to new_session_path
   end
+
+  private
+
+    def _asserts_for_show
+      assert assigns(:user)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'show'
+    end
 end

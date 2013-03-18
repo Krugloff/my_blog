@@ -87,38 +87,22 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "destroy: user not found" do
     assert_no_difference("Comment.count") { _delete }
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to new_session_path
+    _asserts_for_destroy_not_found_user
   end
 
   test "ajax destroy: user not found" do
     assert_no_difference("Comment.count") { _xhr_delete }
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to new_session_path
+    _asserts_for_destroy_not_found_user
   end
 
   test "index" do
     get :index, article_id: articles('valid')
-
-    assert assigns(:article)
-    assert assigns(:comments)
-    assert assigns(:title)
-    assert_response :success
-    assert_template "index"
+    _asserts_for_index
   end
 
   test "ajax index" do
     xhr :get, :index, article_id: articles('valid')
-
-    assert assigns(:article)
-    assert assigns(:comments)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'index'
+    _asserts_for_index
   end
 
   test "index: article not found" do
@@ -164,5 +148,19 @@ class CommentsControllerTest < ActionController::TestCase
       xhr :delete, :destroy,
         id: comments('valid').id,
         article_id: articles('valid').id
+    end
+
+    def _asserts_for_destroy_not_found_user
+      assert flash.alert
+      assert_response :redirect
+      assert_redirected_to new_session_path
+    end
+
+    def _asserts_for_index
+      assert assigns(:article)
+      assert assigns(:comments)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'index'
     end
 end

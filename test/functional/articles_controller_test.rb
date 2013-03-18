@@ -43,21 +43,14 @@ class ArticlesControllerTest < ActionController::TestCase
   test "show" do
     get :show, id: articles('valid').id
 
-    assert assigns(:article)
-    assert assigns(:title)
     assert  cookies[:article_id],
             cookies.instance_variable_get(:@cookies).inspect
-    assert_response :success
-    assert_template 'show'
+    _asserts_for_show
   end
 
   test "ajax show" do
     xhr :get, :show, id: articles('valid').id
-
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
+    _asserts_for_show
   end
 
   test "show: article not found" do
@@ -72,52 +65,42 @@ class ArticlesControllerTest < ActionController::TestCase
     login_as users('admin')
     _put title: "Welcome to my blog!"
 
-    assert_response :redirect
-    assert_redirected_to assigns(:article)
+    _asserts_for_update
   end
 
   test "ajax update" do
     login_as users('admin')
     _xhr_put title: "Welcome to my blog!"
 
-    assert_response :redirect
-    assert_redirected_to assigns(:article)
+    _asserts_for_update
   end
 
   test "update: save error" do
     login_as users('admin')
     _put title: '?' * 257
 
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to edit_article_path( assigns(:article).id )
+    _asserts_for_update_save_error
   end
 
   test "ajax update: save error" do
     login_as users('admin')
     _xhr_put title: '?' * 257
 
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to edit_article_path( assigns(:article).id )
+    _asserts_for_update_save_error
   end
 
   test "update: user not author" do
     login_as users('client')
     _put title: "I hate you!"
 
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to @article
+    _asserts_for_update_not_author
   end
 
   test "ajax update: user not author" do
     login_as users('client')
     _xhr_put title: "I hate you!"
 
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to @article
+    _asserts_for_update_not_author
   end
 
   test "destroy" do
@@ -133,60 +116,40 @@ class ArticlesControllerTest < ActionController::TestCase
 
   test "index" do
     get :index
-
-    assert assigns(:articles)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'index'
+    _asserts_for_index
   end
 
   test "ajax index" do
     xhr :get, :index
-
-    assert assigns(:articles)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'index'
+    _asserts_for_index
   end
 
   test "new" do
     login_as users('admin')
     get :new
 
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'new'
+    _asserts_for_new
   end
 
   test "ajax new" do
     login_as users('admin')
     xhr :get, :new
 
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'new'
+    _asserts_for_new
   end
 
   test "edit" do
     login_as users('admin')
     get :edit, id: articles('valid').id
 
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'edit'
+    _asserts_for_edit
   end
 
   test "ajax edit" do
     login_as users('admin')
     xhr :get, :edit, id: articles('valid').id
 
-    assert assigns(:article)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'edit'
+    _asserts_for_edit
   end
 
   test 'last' do
@@ -223,5 +186,50 @@ class ArticlesControllerTest < ActionController::TestCase
       xhr :put, :update,
         id: articles('valid').id,
         article: params
+    end
+
+    def _asserts_for_show
+      assert assigns(:article)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'show'
+    end
+
+    def _asserts_for_update
+      assert_response :redirect
+      assert_redirected_to assigns(:article)
+    end
+
+    def _asserts_for_update_save_error
+      assert flash.alert
+      assert_response :redirect
+      assert_redirected_to edit_article_path( assigns(:article).id )
+    end
+
+    def _asserts_for_update_not_author
+      assert flash.alert
+      assert_response :redirect
+      assert_redirected_to @article
+    end
+
+    def _asserts_for_index
+      assert assigns(:articles)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'index'
+    end
+
+    def _asserts_for_new
+      assert assigns(:article)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'new'
+    end
+
+    def _asserts_for_edit
+      assert assigns(:article)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'edit'
     end
 end
