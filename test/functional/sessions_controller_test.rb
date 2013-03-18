@@ -6,7 +6,7 @@ class SessionsControllerTest < ActionController::TestCase
     _prepare_request accounts('admin').attributes, users('admin').attributes
 
     assert_no_difference('User.count') { get :create }
-    _assert_for_create
+    _asserts_for_create
   end
 
   test "create: new user" do
@@ -14,7 +14,7 @@ class SessionsControllerTest < ActionController::TestCase
     _prepare_request accounts('admin'), users('admin')
 
     assert_difference( 'User.count', 1 ) { get :create }
-    _assert_for_create
+    _asserts_for_create
   end
 
   test "create: error" do
@@ -40,12 +40,12 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'new' do
     get :new
-    _assert_for_new
+    _asserts_for_new
   end
 
   test 'ajax new' do
     xhr :get, :new
-    _assert_for_new
+    _asserts_for_new
   end
 
   private
@@ -56,13 +56,13 @@ class SessionsControllerTest < ActionController::TestCase
         .merge info: user_hash.slice(:name)
     end
 
-    def _assert_for_create
+    def _asserts_for_create
       assert session[:user_id]
       assert_response :redirect
       assert_redirected_to user_path
     end
 
-    def _assert_for_new
+    def _asserts_for_new
       assert assigns(:title)
       assert_response :success
       assert_template :new
