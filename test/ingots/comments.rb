@@ -3,12 +3,12 @@
 @new =  { title: "Хорошая цитата",
           body: "**Путь программиста** - это осознание существующих абстракций и создание еще более абстрактных абстракций." }
 
-@invalid_new = @new.merge title: '?' * 257
+@invalid_new = @new.merge title: '?' * 43
 
 @valid  = @new.merge  user: users('admin'),
                       article: articles('valid')
 
 @blank_body   = @valid.merge body: ''
-@big_title    = @valid.merge title: '?' * 257
+@big_title    = @valid.merge title: '?' * 43
 @no_article   = @valid.except :article
 @no_user      = @valid.except :user
