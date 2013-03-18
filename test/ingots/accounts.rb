@@ -1,9 +1,11 @@
 #encoding: utf-8
 
-@valid =  { uid: '1234567890',
+@admin =  { uid: '1234567890',
             provider: 'developer',
-            user: users('valid') }
+            user: users('admin') }
 
-@no_uid         = @valid.except :uid
-@blank_provider = @valid.merge provider: ''
-@no_user        = @valid.except :user
+@client = @admin.merge uid: '12345', user: users('client')
+
+@no_uid         = @admin.except :uid
+@blank_provider = @admin.merge provider: ''
+@no_user        = @admin.except :user

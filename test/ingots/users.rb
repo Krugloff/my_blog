@@ -1,4 +1,4 @@
-@valid  = { name: 'Krugloff' }
+@admin  = { name: 'Krugloff' }
 
-@not_admin  = @valid.merge name: 'John'
-@blank_name = @valid.merge name: ''
+@client  = @admin.merge name: 'John'
+@no_name = @admin.except :name

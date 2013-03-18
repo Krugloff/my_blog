@@ -3,24 +3,18 @@ require 'test_helper'
 class SessionsControllerTest < ActionController::TestCase
   test "create: old user" do
     models 'users', 'accounts'
-    _prepare_request accounts('valid').attributes, users('valid').attributes
+    _prepare_request accounts('admin').attributes, users('admin').attributes
 
     assert_no_difference('User.count') { get :create }
-
-    assert session[:user_id]
-    assert_response :redirect
-    assert_redirected_to user_path
+    _asserts_for_create
   end
 
   test "create: new user" do
     ingots 'accounts', 'users'
-    _prepare_request accounts('valid'), users('valid')
+    _prepare_request accounts('admin'), users('admin')
 
     assert_difference( 'User.count', 1 ) { get :create }
-
-    assert session[:user_id]
-    assert_response :redirect
-    assert_redirected_to user_path
+    _asserts_for_create
   end
 
   test "create: error" do
@@ -34,26 +28,24 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
+    models 'users', 'accounts'
+    login_as users('admin')
+
     delete :destroy
 
+    assert_nil session[:user_id]
     assert_response :redirect
     assert_redirected_to root_path
   end
 
   test 'new' do
     get :new
-
-    assert assigns(:title)
-    assert_response :success
-    assert_template :new
+    _asserts_for_new
   end
 
   test 'ajax new' do
     xhr :get, :new
-
-    assert assigns(:title)
-    assert_response :success
-    assert_template :new
+    _asserts_for_new
   end
 
   private
@@ -62,5 +54,17 @@ class SessionsControllerTest < ActionController::TestCase
       request.env['omniauth.auth'] = account_hash
         .slice(:uid, :provider)
         .merge info: user_hash.slice(:name)
+    end
+
+    def _asserts_for_create
+      assert session[:user_id]
+      assert_response :redirect
+      assert_redirected_to user_path
+    end
+
+    def _asserts_for_new
+      assert assigns(:title)
+      assert_response :success
+      assert_template :new
     end
 end

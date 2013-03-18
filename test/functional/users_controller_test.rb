@@ -4,13 +4,17 @@ class UsersControllerTest < ActionController::TestCase
   models 'users'
 
   test "show" do
-    login_as users('valid')
+    login_as users('admin')
     get :show
 
-    assert assigns(:user)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
+    _asserts_for_show
+  end
+
+  test "ajax show" do
+    login_as users('admin')
+    xhr :get, :show
+
+    _asserts_for_show
   end
 
   test "show: user not found" do
@@ -22,20 +26,19 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "destroy" do
-    login_as users('valid')
+    login_as users('admin')
 
     assert_difference( 'User.count', -1 ) { delete :destroy }
     assert_response :redirect
     assert_redirected_to new_session_path
   end
 
-  test "ajax show" do
-    login_as users('valid')
-    xhr :get, :show
+  private
 
-    assert assigns(:user)
-    assert assigns(:title)
-    assert_response :success
-    assert_template 'show'
-  end
+    def _asserts_for_show
+      assert assigns(:user)
+      assert assigns(:title)
+      assert_response :success
+      assert_template 'show'
+    end
 end
