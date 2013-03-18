@@ -27,7 +27,12 @@ body {
 
 a {
   outline: none;
-  &:hover, &:active, &:focus { outline: none; };
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+      outline: none;
+      text-decoration: none;
+    };
 }
 
 .base, aside {
@@ -57,7 +62,6 @@ aside {
       color: black;
       overflow-y: visible;
       height: auto;
-      text-decoration: none;
     };
 
     h6 {
