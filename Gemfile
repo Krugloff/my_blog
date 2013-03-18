@@ -7,6 +7,12 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
+group :view do
+  gem 'jquery-rails'
+  gem 'coderay'
+  gem 'redcarpet'
+end
+
 group :oauth do
   gem 'omniauth-github'
 end
@@ -29,10 +35,9 @@ group :test do
   gem 'smeltery', git: 'http://github.com/Krugloff/smeltery.git'
 end
 
-gem 'jquery-rails'
-
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby'
+# gem 'bcrypt-ruby'
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 

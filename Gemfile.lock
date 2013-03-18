@@ -36,10 +36,10 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -112,6 +112,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    redcarpet (2.2.2)
     ref (1.0.2)
     ruby-prof (0.13.0)
     sass (3.2.7)
@@ -142,12 +143,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt-ruby
   bootstrap-sass
+  coderay
   coffee-rails
   jquery-rails
   omniauth-github
   rails (= 3.2.13)
+  redcarpet
   ruby-prof
   sass-rails
   smeltery!
