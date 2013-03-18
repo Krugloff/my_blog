@@ -18,10 +18,10 @@ module Blinks
     selector = target.values.first.to_s
 
     html = render_to_string(*template)
-    "$('#{selector}').#{js_method}('#{escape_javascript html}');"
+    %| $('#{selector}').#{js_method}('#{escape_javascript html}'); |
   end
 
   def js_function(content)
-    "(function(){#{content}})();"
+    %| (function(){#{content}})(); |
   end
 end

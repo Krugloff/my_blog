@@ -13,7 +13,7 @@ module Ajax
   end
 
   def change_title
-    "$('head > title').html('#{@title}');"
+    %| $('head > title').html('#{@title}'); |
   end
 
   #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.
@@ -24,11 +24,11 @@ module Ajax
   end
 
   def change_comments_count
-    "$('#comments_count').html('#{@article.comments.count}');"
+    %| $('#comments_count').html('#{@article.comments.count}'); |
   end
 
   def delete_old_alerts
-    "$('div.alert').remove();"
+    %| $('div.alert').remove(); |
   end
 
   def add_alerts
@@ -38,6 +38,6 @@ module Ajax
   end
 
   def delete_comment_view
-    "$('#comment_#{@comment.id}').parent().remove();"
+    %| $('#comment_#{@comment.id}').parent().remove(); |
   end
 end
