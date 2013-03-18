@@ -28,7 +28,8 @@ class UsersControllerTest < ActionController::TestCase
   test "destroy" do
     login_as users('admin')
 
-    assert_difference( 'User.count', -1 ) { delete :destroy }
+    assert_no_difference('User.count') { delete :destroy }
+    assert_nil session[:user_id]
     assert_response :redirect
     assert_redirected_to new_session_path
   end

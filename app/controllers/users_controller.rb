@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
+    @user.accounts.destroy_all
+    reset_session
     redirect_to new_session_path
   end
 end
