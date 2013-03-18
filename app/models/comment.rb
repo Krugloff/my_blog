@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
     presence: true
 
   validates :title,
-    length: { maximum: 256 }
+    length: { maximum: 42 }
 
   private
 

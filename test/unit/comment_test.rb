@@ -27,7 +27,7 @@ class CommentTest < ActiveSupport::TestCase
     assert comments('blank_body').invalid?
   end
 
-  test "title: lenght <= 256" do
+  test "title: lenght <= 42" do
     assert comments('big_title').invalid?
   end
 
