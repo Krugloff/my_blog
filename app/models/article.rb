@@ -1,7 +1,9 @@
+require 'redcarpet/krugloff'
+
 class Article < ActiveRecord::Base
   attr_accessible :title, :body
 
-  # TODO: before_save :body_to_html
+  before_save :body_to_html
 
   has_many :comments
   belongs_to :user
@@ -16,8 +18,12 @@ class Article < ActiveRecord::Base
 
   private
 
-  # TODO
-  # def body_to_html
-  #   # Redcarpet.handle(article.body)
-  # end
+  def body_to_html
+    syntax = Redcarpet::Render::Krugloff.new filter_html: true
+    parser = Redcarpet::Markdown.new syntax,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      lax_spacing: true
+    self.body = parser.render(body)
+  end
 end
