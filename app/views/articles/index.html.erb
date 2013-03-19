@@ -21,6 +21,6 @@
         title: pluralize(article.comments.count, 'comment') ) do %>
 
     <h6><%= article.title %></h6>
-    <p><%= truncate( article.body, length: 300 ) %></p>
+    <p><%= strip_tags article.body_as_html.truncate 100 %></p>
   <% end %>
 <% end %>
