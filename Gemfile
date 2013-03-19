@@ -7,8 +7,9 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
+gem 'jquery-rails'
+
 group :view do
-  gem 'jquery-rails'
   gem 'coderay'
   gem 'redcarpet'
 end
