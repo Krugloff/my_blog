@@ -39,4 +39,18 @@ class ArticleTest < ActiveSupport::TestCase
   test "user: must be presence" do
     assert articles('no_user').invalid?
   end
+
+  test 'body_as_html' do
+    assert_no_match %r|```ruby|, articles('valid').body_as_html
+    assert articles('valid').instance_variable_get '@html'
+    assert_not_equal articles('valid').body, articles('valid').body_as_html
+    assert_same articles('valid').body_as_html, articles('valid').body_as_html
+  end
+
+  test 'body_as_html: cache' do
+    old_value = articles('valid').body_as_html
+    articles('valid').update_attribute :title, 'Hello!' # clear cache.
+    new_value = articles('valid').body_as_html
+    assert_not_same old_value, new_value
+  end
 end

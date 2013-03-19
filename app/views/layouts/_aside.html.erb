@@ -2,7 +2,7 @@
   <% @last_articles.each do |article| %>
     <%= link_to( article, remote: true ) do %>
       <h6><%= article.title %></h6>
-      <div><%= truncate( article.body, length: 100 ).html_safe %></div>
+      <section><%= truncate( article.body, length: 100 ) %></section>
     <% end %>
   <% end %>
 </aside>

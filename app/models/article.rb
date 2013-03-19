@@ -3,10 +3,10 @@ require 'redcarpet/krugloff'
 class Article < ActiveRecord::Base
   attr_accessible :title, :body
 
-  before_save :body_to_html
-
   has_many :comments
   belongs_to :user
+
+  after_save :clear_body_cache, if: '@html'
 
   validates :title,
     presence: true,
@@ -16,14 +16,19 @@ class Article < ActiveRecord::Base
   validates :body, :user,
     presence: true
 
-  private
-
-  def body_to_html
+  def body_as_html
+    return @html if @html
     syntax = Redcarpet::Render::Krugloff.new filter_html: true
     parser = Redcarpet::Markdown.new syntax,
       no_intra_emphasis: true,
       fenced_code_blocks: true,
       lax_spacing: true
-    self.body = parser.render(body)
+    @html = parser.render(body).html_safe
   end
+
+  private
+
+    def clear_body_cache
+      @html = nil
+    end
 end
