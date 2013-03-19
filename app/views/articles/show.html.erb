@@ -6,7 +6,7 @@
   <% end %>
 
   <h1><%= @article.title %></h1>
-  <div><%= @article.body %></div>
+  <div><%= @article.body.html_safe %></div>
 </article>
 
 <% if @user.try( 'owner?', @article ) %>
