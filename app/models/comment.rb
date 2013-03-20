@@ -1,21 +1,16 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :title, :body
+  include MarkdownAsHtml
 
-  # before_save :body_to_html
+  attr_accessible :title, :body
 
   belongs_to :article
   belongs_to :user
+
+  may_be_as_html :body
 
   validates :body, :article, :user,
     presence: true
 
   validates :title,
     length: { maximum: 42 }
-
-  private
-
-  # TODO
-  # def body_to_html
-  #   Redcarpet.handle body
-  # end
 end

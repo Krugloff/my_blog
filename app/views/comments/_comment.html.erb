@@ -9,6 +9,6 @@
   <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
   <%= div_for comment do %>
     <h6><%= comment.user.name.titleize %>: <%= comment.title %></h6>
-    <p><%= comment.body %></p>
+    <section><%= comment.body_as_html %></section>
   <% end %>
 </section>
