@@ -3,8 +3,13 @@
 class CommentsController < ApplicationController
   before_filter :require_user,
     except: "index"
+
   before_filter :require_owner,
-    except: %w(create index)
+    except: %w( create index )
+
+  before_filter only: %w( create update ) do
+    params[:comment][:title] = strip_tags params[:comment][:title]
+  end
 
   def index
     @article  = Article.find( params[:article_id] )

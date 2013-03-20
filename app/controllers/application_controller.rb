@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Ajax
+  include ActionView::Helpers::SanitizeHelper
 
   protect_from_forgery
 

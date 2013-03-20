@@ -10,6 +10,10 @@ class ArticlesController < ApplicationController
   before_filter :require_me,
     only: %w( create new )
 
+  before_filter only: %w( create update ) do
+    params[:article][:title] = strip_tags params[:article][:title]
+  end
+
   def create
     @article = @user.articles.new( params[:article] )
     @article.save ? redirect_to(@article) : _errors_to(new_article_path)
