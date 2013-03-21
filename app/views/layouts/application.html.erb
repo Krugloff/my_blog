@@ -11,7 +11,7 @@
 
 <body>
   <section class="row-fluid">
-    <section class="base span7">
+    <section class="base span8">
       <%= logout_link if @user.try('persisted?') %>
       <%= render('layouts/nav') if @article.try('persisted?') %>
 
