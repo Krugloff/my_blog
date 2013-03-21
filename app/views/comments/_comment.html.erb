@@ -1,12 +1,14 @@
 <section>
-  <%= if @user.try( 'owner?', comment )
-        link_to glyphicon('icon-remove'),
-          article_comment_path( @article, comment ),
-          method: 'delete', class: 'delete_comment pull-right',
-          remote: true, title: 'Delete comment'
-      end %>
+  <section class="comment-metadata">
+    <%= if @user.try( 'owner?', comment )
+          link_to glyphicon('icon-remove'),
+            article_comment_path( @article, comment ),
+            method: 'delete', class: 'delete_comment pull-right',
+            remote: true, title: 'Delete comment'
+        end %>
 
-  <span><%= comment.user.name.titleize %>:</span>
+    <span><%= comment.user.name.titleize %>:</span>
+  </section>
   <%= div_for comment do %>
     <span class='pull-right created_at'>
       <%= created_at(comment) %>
