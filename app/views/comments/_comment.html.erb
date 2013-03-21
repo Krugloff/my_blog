@@ -6,9 +6,13 @@
           remote: true, title: 'Delete comment'
       end %>
 
-  <span><%= comment.created_at.getlocal.strftime "%D %R" %></span>
+  <span><%= comment.user.name.titleize %>:</span>
   <%= div_for comment do %>
-    <h6><%= comment.user.name.titleize %>: <%= comment.title %></h6>
+    <span class='pull-right created_at'>
+      <%= comment.created_at.getlocal.strftime "%e.%m.%Y в %R" %>
+    </span>
+
+    <h5 class='comment_title'><%= comment.title %></h6>
     <section><%= comment.body_as_html %></section>
   <% end %>
 </section>

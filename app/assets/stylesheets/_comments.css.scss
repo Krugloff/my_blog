@@ -8,7 +8,11 @@ div.comment {
   padding-top: 1%;
   padding-bottom: 1%;
 
-  h6 { margin-top: 0%; }
+  .created_at {
+    color: #999999;
+    font-size: 12px;
+    font-style: italic;
+  }
 };
 
 // #_new
