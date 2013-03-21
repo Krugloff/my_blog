@@ -26,7 +26,7 @@ $border-shadow: 1px solid rgba(0,0,0,0.1);
 
 body {
   background: url(jeans_pattern.png) #131B40 repeat;
-  padding: 4%;
+  padding: 3%;
 }
 
 a, .btn {
@@ -39,16 +39,26 @@ a, .btn {
     };
 }
 
-.base, aside {
+.row-fluid [class*="span"] {
+  margin-left: 1.12766%;
+}
+
+.body {
   background: $main-color;
   padding: 2%;
-  border-radius: 0px 40px 10px 10px;
+  border-radius: 10px;
   box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
 }
 
+.content {
+  border-right: $border-shadow;
+  padding-right: 1%;
+  padding-top: 1%;
+}
+
 aside {
-  border-radius: 10px;
   padding: 1%;
+  margin-right: -1%;
 
   a {
     display: block;
@@ -75,6 +85,8 @@ aside {
     }
   }
 }
+
+.nav { margin-bottom: 0; }
 
 .nav-tabs {
   li {
