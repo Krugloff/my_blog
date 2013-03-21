@@ -39,11 +39,7 @@ a, .btn {
     };
 }
 
-.row-fluid [class*="span"] {
-  margin-left: 1.12766%;
-}
-
-.body {
+.base, aside {
   background: $main-color;
   padding: 2%;
   border-radius: 10px;
@@ -51,7 +47,6 @@ a, .btn {
 }
 
 .content {
-  // border-right: $border-shadow;
   padding-right: 1%;
   padding-top: 1%;
 }
@@ -64,7 +59,6 @@ span.created_at {
 
 aside {
   padding: 1%;
-  margin-right: -1%;
 
   a {
     display: block;
@@ -72,8 +66,8 @@ aside {
     height: 2em;
     color: $grey;
     padding: {
-      left: 5%;
-      right: 5%;
+      left: 3%;
+      right: 3%;
     };
 
     &:hover {
@@ -85,6 +79,7 @@ aside {
     };
 
     h6 {
+      text-align: right;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
