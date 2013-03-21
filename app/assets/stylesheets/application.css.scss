@@ -1,0 +1,115 @@
+//= require_self
+
+@import 'bootstrap';
+
+$main-color: #EEEEEE;
+$grey: #666666;
+$border-shadow: 1px solid rgba(0,0,0,0.1);
+
+@mixin small-block {
+  border: $border-shadow;
+  border-radius: inherit;
+  margin-bottom: 5%;
+  padding: 2%;
+
+  &:hover {
+    background: white;
+    border: 1px solid black;
+    text-decoration: none;
+  };
+}
+
+@import 'articles';
+@import 'comments';
+@import 'users';
+@import 'sessions';
+
+body {
+  background: url(jeans_pattern.png) #131B40 repeat;
+  padding: 3%;
+}
+
+a, .btn {
+  outline: none;
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+      outline: none;
+      text-decoration: none;
+    };
+}
+
+.base, aside {
+  background: $main-color;
+  padding: 2%;
+  border-radius: 10px;
+  box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
+}
+
+.content {
+  padding-right: 1%;
+  padding-top: 1%;
+}
+
+span.created_at {
+  color: #999999;
+  font-size: 12px;
+  font-style: italic;
+}
+
+aside {
+  padding: 1%;
+
+  a {
+    display: block;
+    overflow: hidden;
+    height: 2em;
+    color: $grey;
+    padding: {
+      left: 3%;
+      right: 3%;
+    };
+
+    &:hover {
+      background: white;
+      border: $border-shadow;
+      color: black;
+      overflow-y: visible;
+      height: auto;
+    };
+
+    h6 {
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.nav { margin-bottom: 0; }
+
+.nav-tabs {
+  li {
+    margin: -1px;
+
+    a {
+      color: $grey;
+
+      &:hover { color: black; };
+    };
+  }
+
+  @mixin tab {
+    background: $main-color;
+    color: green;
+  }
+
+  li.active a {
+    @include tab;
+
+    &:hover, &:active, &:focus { @include tab; };
+  }
+}
+
+div.alert { width: 50%; }
