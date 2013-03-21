@@ -3,7 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // #index
-div.comment { @include small-block; };
+.comments { padding-top: 3% }
+
+.comment-metadata { width: 90%; }
+
+div.comment {
+  @include small-block;
+  border-bottom-color: $main-color;
+  border-left-color: $main-color;
+  border-right-color: $main-color;
+
+  padding-top: 0%;
+  padding-bottom: 0%;
+
+  width: 80%;
+};
 
 // #_new
 .new_comment {

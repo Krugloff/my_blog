@@ -11,16 +11,19 @@
 
 <body>
   <section class="row-fluid">
-    <section class="base span7">
-      <%= logout_link if @user.try('persisted?') %>
-      <%= render('layouts/nav') if @article.try('persisted?') %>
+    <!-- <section class="span12 body"> <section class="row-fluid"> -->
+      <section class="base span8">
+        <%= logout_link if @user.try('persisted?') %>
+        <%= render('layouts/nav') if @article.try('persisted?') %>
 
-      <section class="content">
-        <%= yield %>
+
+        <section class="content">
+          <%= yield %>
+        </section>
       </section>
-    </section>
 
-    <%= render('layouts/aside') if @last_articles %>
+      <%= render('layouts/aside') if @last_articles %>
+    <!-- </section></section> -->
   </section>
 </body>
 
