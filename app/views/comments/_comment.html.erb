@@ -9,7 +9,7 @@
   <span><%= comment.user.name.titleize %>:</span>
   <%= div_for comment do %>
     <span class='pull-right created_at'>
-      <%= comment.created_at.getlocal.strftime "%e.%m.%Y в %R" %>
+      <%= created_at(comment) %>
     </span>
 
     <h5 class='comment_title'><%= comment.title %></h6>

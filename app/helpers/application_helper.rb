@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 module ApplicationHelper
   def logout_link
     link_to glyphicon('icon-off'), session_path,
@@ -15,6 +17,10 @@ module ApplicationHelper
   def tab( content, path, is_remote = true )
     content_tag 'li', link_to( content, path, remote: is_remote ),
       class: _active?(path)
+  end
+
+  def created_at(model)
+    model.created_at.getlocal.strftime "%e.%m.%y в %R"
   end
 
   private

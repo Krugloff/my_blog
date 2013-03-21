@@ -7,12 +7,6 @@ div.comment {
   @include small-block;
   padding-top: 1%;
   padding-bottom: 1%;
-
-  .created_at {
-    color: #999999;
-    font-size: 12px;
-    font-style: italic;
-  }
 };
 
 // #_new

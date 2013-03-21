@@ -13,13 +13,13 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <% @articles.each do |article| %>
-  <span><%= article.created_at.getlocal.strftime "%D %R" %></span>
 
   <%= link_to( article,
         class: 'preview',
         remote: true,
         title: pluralize(article.comments.count, 'comment') ) do %>
 
+    <span class="created_at pull-right"><%= created_at(article) %></span>
     <h6><%= article.title %></h6>
     <p><%= strip_tags article.body_as_html.truncate 100 %></p>
   <% end %>
