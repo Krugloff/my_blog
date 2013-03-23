@@ -1,3 +1,10 @@
+#= require jquery
+#= require jquery_ujs
+#= require bootstrap
+#= require history
+#= require_self
+#= require_tree
+
 # Handle back and forward.
 jQuery ->
   $(window).bind 'popstate', ->
