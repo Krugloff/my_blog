@@ -1,14 +1,21 @@
 #= require jquery
 #= require jquery_ujs
-#= require bootstrap
 #= require history
-#= require_self
+
+#= require bootstrap
+
 #= require_tree
 
-# Handle back and forward.
 jQuery ->
+  # Handle back and forward.
   $(window).bind 'popstate', ->
-    $.getScript history.location || document.location
+    $.getScript ( history.location || document.location ).href
+
+  # Catch redirecting.
+  $(document).ajaxSuccess (event, xhr, options) ->
+    url = xhr.getResponseHeader('X-Blinks-Url')
+    if url != window.location.href
+      history.replaceState( history.state, document.title, url )
 
 jQuery ->
   selectors = '.nav > li > a,
@@ -16,11 +23,10 @@ jQuery ->
               a.new-article,
               aside > a,
               a.preview,
-              a.created_at'
+              a.created_at,
+              form.edit_article,
+              form.change-date'
 
-  $(document).on 'click', selectors, ->
-    history.pushState null, null, this.href
+  $(document).on 'ajax:beforeSend', selectors, (event, data, settings) ->
+    history.pushState null, document.title, settings.url
 
-jQuery ->
-  $(document).on 'ajax:beforeSend', 'form.change-date', (_, __, settings) ->
-    history.pushState null, null, settings.url
