@@ -6,7 +6,7 @@ module Blinks
   def respond_to_xhr(*template, target)
     if request.xhr?
       # For catch redirecting.
-      self.response.headers['X-Blinks-Url'] = request.path
+      self.response.headers['X-Blinks-Url'] = request.base_url + request.path
       with = yield if block_given?
       render js: js_function( render_file(*template, target) + with.to_s )
     end
