@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 @admin =  { uid: '1234567890',
             provider: 'developer',
             user: users('admin') }

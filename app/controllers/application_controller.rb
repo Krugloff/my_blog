@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 class ApplicationController < ActionController::Base
   include Ajax
   include ActionView::Helpers::SanitizeHelper

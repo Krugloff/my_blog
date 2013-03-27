@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 worker_processes Integer(ENV["UNICORN_WORKERS"] || 3)
 timeout 15
 preload_app true

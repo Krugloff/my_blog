@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 module ApplicationHelper
   def logout_link
     link_to glyphicon('icon-off'), session_path,

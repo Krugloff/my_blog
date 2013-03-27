@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 class ArticlesController < ApplicationController
   before_filter :require_user,
     except: %w( show index last )

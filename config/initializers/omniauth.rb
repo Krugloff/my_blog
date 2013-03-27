@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 require 'omniauth'
 require 'omniauth-github'
 
