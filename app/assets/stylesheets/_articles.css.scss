@@ -37,7 +37,7 @@ article {
 }
 
 // #edit and #new
-.edit_article, .new_article {
+form.edit_article, form.new_article {
   padding-right: 10%;
 
   #article_body, #article_title { width: 100%; };

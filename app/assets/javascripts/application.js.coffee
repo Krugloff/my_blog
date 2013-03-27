@@ -19,13 +19,13 @@ jQuery ->
 
 jQuery ->
   selectors = '.nav > li > a,
-              a.edit-article,
+              a.edit_article,
               a.new-article,
               aside > a,
               a.preview,
               a.created_at,
               form.edit_article,
-              form.change-date'
+              form.change_date'
 
   $(document).on 'ajax:beforeSend', selectors, (event, data, settings) ->
     history.pushState null, null, settings.url
