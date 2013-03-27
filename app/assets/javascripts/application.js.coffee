@@ -28,5 +28,11 @@ jQuery ->
               form.change-date'
 
   $(document).on 'ajax:beforeSend', selectors, (event, data, settings) ->
-    history.pushState null, document.title, settings.url
+    history.pushState null, null, settings.url
 
+  # For handle ajax request. Now used remote: true.
+  # for selector in selectors.split(',')
+  #   event_name = if selector.match('form') then 'submit' else 'click'
+  #   $(document).on event_name, selector, (event) ->
+  #     $.rails.handleRemote $(event.currentTarget)
+  #     event.preventDefault()
