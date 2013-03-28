@@ -1,5 +1,5 @@
 <section>
-  <section class="comment-metadata">
+  <section class="comment_metadata">
     <%= if @user.try( 'owner?', comment )
           link_to glyphicon('icon-remove'),
             article_comment_path( @article, comment ),
@@ -9,6 +9,7 @@
 
     <span><%= comment.user.name.titleize %>:</span>
   </section>
+
   <%= div_for comment do %>
     <span class='pull-right created_at'>
       <%= created_at(comment) %>

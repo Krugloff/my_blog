@@ -18,7 +18,7 @@ jQuery ->
       history.replaceState( history.state, document.title, url )
 
 jQuery ->
-  selectors = '.nav > li > a,
+  selectors = 'nav > a,
               a.edit_article,
               a.new-article,
               aside > a,

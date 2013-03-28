@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
 
   def new
     @title = 'Login'
-    respond_to_xhr_for_nav
+    respond_to_xhr prepend: '.content'
   end
 end
 

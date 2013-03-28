@@ -11,8 +11,7 @@
 
 <body>
   <section class="row-fluid">
-    <!-- <section class="span12 body"> <section class="row-fluid"> -->
-      <section class="base span8">
+      <section class="base span7 offset2">
         <%= logout_link if @user.try('persisted?') %>
         <%= render('layouts/nav') if @article.try('persisted?') %>
 
@@ -23,7 +22,6 @@
       </section>
 
       <%= render('layouts/aside') if @last_articles %>
-    <!-- </section></section> -->
   </section>
 </body>
 

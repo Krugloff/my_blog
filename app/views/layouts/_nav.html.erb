@@ -1,5 +1,4 @@
 <nav>
-  <ul class="nav nav-tabs">
     <%= tab 'Article', article_path(@article) %>
 
     <% comments_count = capture do %>
@@ -12,5 +11,4 @@
     <%= @user.try('persisted?') ?
         tab( @user.name, user_path )  :
         tab( 'Login', new_session_path ) %>
-  </ul>
 </nav>

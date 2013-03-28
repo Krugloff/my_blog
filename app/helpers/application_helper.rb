@@ -1,7 +1,7 @@
 module ApplicationHelper
   def logout_link
     link_to glyphicon('icon-off'), session_path,
-      method: 'delete', class: 'pull-right'
+      method: 'delete', class: 'pull-right logout'
   end
 
   def registration_link
@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def tab( content, path, is_remote = true )
-    content_tag 'li', link_to( content, path, remote: is_remote ),
+    link_to content, path, remote: is_remote,
       class: _active?(path)
   end
 

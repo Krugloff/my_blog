@@ -1,11 +1,12 @@
 <article>
-  <%= link_to( articles_path( with_date @article.created_at ),
-        class: 'created_at pull-right', remote: true ) do %>
-    <div><%= @article.created_at.strftime "%^h" %></div>
-    <div><%= @article.created_at.day %></div>
-  <% end %>
+  <h1>
+    <%= @article.title %>
 
-  <h1><%= @article.title %></h1>
+    <%= link_to created_at(@article),
+      articles_path( with_date @article.created_at ),
+       class: 'created_at pull-right', remote: true %>
+  </h1>
+
   <div><%= @article.body_as_html %></div>
 </article>
 

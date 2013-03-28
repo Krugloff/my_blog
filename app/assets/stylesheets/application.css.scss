@@ -6,17 +6,19 @@ $main-color: #EEEEEE;
 $grey: #666666;
 $border-shadow: 1px solid rgba(0,0,0,0.1);
 
-@mixin small-block {
+@mixin hover_block {
+  &:hover {
+    border: 1px solid black;
+    box-shadow: 3px 3px 3px black;
+  };
+}
+
+@mixin small_block {
   border: $border-shadow;
-  border-radius: inherit;
   margin-bottom: 5%;
   padding: 2%;
 
-  &:hover {
-    background: white;
-    border: 1px solid black;
-    text-decoration: none;
-  };
+  @include hover_block;
 }
 
 @import 'articles';
@@ -25,7 +27,13 @@ $border-shadow: 1px solid rgba(0,0,0,0.1);
 @import 'sessions';
 
 body {
-  background: url(jeans_pattern.png) #131B40 repeat;
+  background: {
+    image: url(flower_left.png), url(paper.png);
+    position: left, right;
+    repeat: no-repeat, repeat;
+    attachment: fixed, fixed;
+  };
+
   padding: 3%;
 }
 
@@ -40,10 +48,8 @@ a, .btn {
 }
 
 .base, aside {
-  background: $main-color;
   padding: 2%;
   border-radius: 10px;
-  box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
 }
 
 .content {
@@ -51,13 +57,41 @@ a, .btn {
   padding-top: 1%;
 }
 
-span.created_at {
-  color: #999999;
-  font-size: 12px;
-  font-style: italic;
+@mixin menu_block {
+  padding: 1%;
+  border: 3px solid black;
+  border-radius: 3px;
+  box-shadow: 0px 0px 3px black,
+              inset 0px 0px 3px black;
+
+  a {
+    color: $grey;
+    padding-right: 2%;
+
+    &:hover { color: black; };
+  };
+
+  a.active {
+    color: green;
+
+    &:hover, &:active, &:focus { color: green; };
+  }
 }
 
-aside {
+nav { @include menu_block; }
+
+aside .menu {
+  @include menu_block;
+  border-color: green;
+  box-shadow: 0px 0px 3px green,
+              inset 0px 0px 3px green;
+  padding-left: 3%;
+  margin-top: 20%;
+}
+
+a.logout { padding: 2%; }
+
+section.last_articles {
   padding: 1%;
 
   a {
@@ -70,9 +104,10 @@ aside {
       right: 3%;
     };
 
+    @include hover_block;
     &:hover {
-      background: white;
-      border: $border-shadow;
+      // border: 1px solid black;
+      // box-shadow: 3px 3px 3px black;
       color: black;
       overflow-y: visible;
       height: auto;
@@ -87,29 +122,10 @@ aside {
   }
 }
 
-.nav { margin-bottom: 0; }
-
-.nav-tabs {
-  li {
-    margin: -1px;
-
-    a {
-      color: $grey;
-
-      &:hover { color: black; };
-    };
-  }
-
-  @mixin tab {
-    background: $main-color;
-    color: green;
-  }
-
-  li.active a {
-    @include tab;
-
-    &:hover, &:active, &:focus { @include tab; };
-  }
-}
-
 div.alert { width: 50%; }
+
+.created_at {
+  color: #999999;
+  font-size: 12px;
+  font-style: italic;
+}

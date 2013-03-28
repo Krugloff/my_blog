@@ -1,13 +1,6 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
-<h3>Войти с помощью:</h3>
-
-<%= link_to '/session/new/github', class: 'btn', title: 'GitHub' do
-      image_tag 'github.png', size: '30x30'
-    end %>
-
-<%= unless Rails.env.production?
-      link_to '/session/new/developer', class: 'btn', title: 'Developer' do
-        image_tag 'developer.png', size: '30x30'
-      end
-    end %>
+<section class='badges pull-right'>
+  <%= github_badge %>
+  <%= developer_badge unless Rails.env.production? %>
+</section>

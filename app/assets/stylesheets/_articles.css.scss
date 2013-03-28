@@ -4,7 +4,7 @@
 
 // #index
 a.preview {
-  @include small-block;
+  @include small_block;
 
   display: block;
   color: black;
@@ -14,24 +14,6 @@ a.preview {
 .form_inline .btn { margin-bottom: 10px; }
 
 // # show
-article a.created_at {
-  display: inline-block;
-  background: $grey;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  border-radius: 0 0 10px 10px;
-  margin-top: -2.8%;
-  color: white;
-  font-size: 11px;
-  padding: 3px;
-  text-align: center;
-
-  &:hover {
-    background: #81030A;
-  };
-
-  div:first-child { border-bottom: 1px solid; };
-}
-
 article {
   margin-bottom: 20px;
 }

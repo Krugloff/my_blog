@@ -1,8 +1,14 @@
-<aside class="span4">
-  <% @last_articles.each do |article| %>
-    <%= link_to( article, remote: true ) do %>
-      <h6><%= article.title %></h6>
-      <p><%= strip_tags article.body_as_html.truncate 100 %></p>
+<aside class="span3">
+  <div class='menu'>
+    <%= link_to 'Last Articles', articles_path, remote: true %>
+  </div>
+
+  <section class='last_articles'>
+    <% @last_articles.each do |article| %>
+      <%= link_to( article, remote: true ) do %>
+        <h6><%= article.title %></h6>
+        <p><%= strip_tags article.body_as_html.truncate 100 %></p>
+      <% end %>
     <% end %>
-  <% end %>
+  </section>
 </aside>

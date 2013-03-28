@@ -1,12 +1,10 @@
 module SessionsHelper
-  def control_group(label, *controls)
-    content_tag( :div, {class: 'control-group'}, false ) do
-      control_label_tag(label) +
-      content_tag( :div, controls.join("\n"), {class: 'controls'}, false )
-    end
+  def github_badge
+    link_to image_tag('github.png'), '/session/new/github', title: 'GitHub'
   end
 
-  def control_label_tag(label = '')
-    label_tag( label, nil, class: 'control-label' )
+  def developer_badge
+    link_to image_tag('developer.png'), '/session/new/developer',
+      title: 'Developer'
   end
 end
