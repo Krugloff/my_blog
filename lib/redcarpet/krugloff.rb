@@ -3,7 +3,10 @@ require 'coderay'
 
 module Redcarpet::Render class Krugloff < HTML
   def block_code( code, language )
+    $VERBOSE, verbose = nil, $VERBOSE
     CodeRay.scan( code, language || :text ).div
+  ensure
+    $VERBOSE = verbose
   end
 end end
 
