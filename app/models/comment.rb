@@ -1,3 +1,5 @@
+require 'redcarpet/krugloff'
+
 class Comment < ActiveRecord::Base
   include MarkdownAsHtml
 
