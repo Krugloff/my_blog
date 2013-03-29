@@ -5,15 +5,6 @@ class CommentsController < ApplicationController
   before_filter :require_owner,
     except: %w( create index )
 
-  def index
-    @article  = Article.find( params[:article_id] )
-    @comments = @article.comments
-    @comment  = Comment.new
-    @title    = 'Comments'
-
-    respond_to_xhr_for_nav
-  end
-
   def create
     @comment = Comment.new( params[:comment] )
     @article = @comment.article = Article.find( params[:article_id] )
@@ -46,6 +37,15 @@ class CommentsController < ApplicationController
         render js: delete_comment_view + change_comments_count
       end
     end
+  end
+
+  def index
+    @article ||= Article.find( params[:article_id] )
+    @comments = @article.comments
+    @comment  = Comment.new
+    @title    = 'Comments'
+
+    respond_to_xhr_for_nav
   end
 
   private
