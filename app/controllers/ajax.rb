@@ -21,7 +21,7 @@ module Ajax
 
   #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.
   def add_new_comment
-    respond_to_xhr(@comment, before: '.new_comment') do
+    respond_to_xhr(@comment, before: '#new_comment') do
       change_comments_count + delete_old_alerts
     end
   end

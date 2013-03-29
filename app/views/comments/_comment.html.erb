@@ -1,20 +1,28 @@
-<section>
-  <section class="comment_metadata">
-    <%= if @user.try( 'owner?', comment )
-          link_to glyphicon('icon-remove'),
-            article_comment_path( @article, comment ),
-            method: 'delete', class: 'delete_comment pull-right',
-            remote: true, title: 'Delete comment'
-        end %>
-
-    <span><%= comment.user.name.titleize %>:</span>
-  </section>
-
+<section class='comment_tree'>
   <%= div_for comment do %>
-    <span class='pull-right created_at'>
-      <%= created_at(comment) %>
-    </span>
+    <section class="comment_metadata">
+      <span class='user_name'><%= comment.user.name.titleize %></span>
+      <span class='created_at'><%= created_at(comment) %></span>
+
+      <div class='comment_action pull-right'>
+        <%= if @user.try( 'persisted?' )
+              link_to glyphicon('icon-comment'),
+                new_article_comment_path( @article, parent_id: comment.id ),
+                class: 'reply',
+                title: 'Reply'
+            end %>
+
+        <%= if @user.try( 'owner?', comment )
+              link_to glyphicon('icon-remove'),
+                article_comment_path( @article, comment ),
+                method: 'delete', class: 'delete_comment',
+                remote: true, title: 'Delete comment'
+            end %>
+      </div>
+    </section>
 
     <section><%= comment.body_as_html %></section>
   <% end %>
+
+  <%= render nested_comments_for( comment, from: @comments ) if @comments %>
 </section>

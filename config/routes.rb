@@ -8,7 +8,7 @@ MyBlog::Application.routes.draw do
   end
 
   resources :articles do
-    resources :comments, only: [ :create, :update, :destroy, :index ]
+    resources :comments, except: 'edit'
   end
 
   # The priority is based upon order of creation:

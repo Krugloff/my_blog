@@ -5,15 +5,25 @@
 // #index
 .comments { padding-top: 3% }
 
-div.comment {
-  @include small_block;
-  border-color: transparent;
-  border-top: 1px solid black;
-};
+section.comment_tree {
+  margin-bottom: 0%;
+
+  .comment_tree { padding-left: 4%; padding-right: 0%; }
+
+  div.comment {
+    @include small_block;
+
+    .user_name {
+      color: #997755;
+      font-size: 18px;
+    }
+  };
+}
 
 // #_new
-.new_comment {
+#new_comment {
   padding-right: 5%;
+  padding-top: 5%;
 
   #comment_body { width: 100%; }
 

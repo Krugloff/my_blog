@@ -3,11 +3,11 @@ class CommentsController < ApplicationController
     except: "index"
 
   before_filter :require_owner,
-    except: %w( create index )
+    except: %w( create index new )
 
   def create
     @comment = Comment.new( params[:comment] )
-    @article = @comment.article = Article.find( params[:article_id] )
+    @comment.article = @article ||= Article.find( params[:article_id] )
     @comment.user = @user
 
     respond_to do |format|
@@ -46,6 +46,13 @@ class CommentsController < ApplicationController
     @title    = 'Comments'
 
     respond_to_xhr_for_nav
+  end
+
+  def new
+    @article ||= Article.find( params[:article_id] )
+    @parent_id = params[:parent_id]
+    @comment  = Comment.new
+    @title    = 'Reply to comment'
   end
 
   private

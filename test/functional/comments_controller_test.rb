@@ -21,6 +21,17 @@ class CommentsControllerTest < ActionController::TestCase
     assert_template partial: '_comment'
   end
 
+  test 'create: nested comment' do
+    login_as users('admin')
+
+    comment_params = {  body: comments('new').body,
+                        parent_id: comments('valid').id }
+
+    assert_difference( 'Comment.count', 1 ) { _post comment_params }
+    assert_response :redirect
+    assert_redirected_to article_comments_path( articles 'valid' )
+  end
+
   test "create: save error" do
     ingots 'comments'
     login_as users('admin')
@@ -115,6 +126,18 @@ class CommentsControllerTest < ActionController::TestCase
     assert_raise(::ActiveRecord::RecordNotFound) do
       xhr :get, :index, article_id: 125
     end
+  end
+
+  test 'new nested comment' do
+    login_as users('admin')
+
+    get :new, article_id: articles('valid'), parent_id: comments('valid')
+
+    assert assigns(:title)
+    assert assigns(:comment).new_record?
+    assert assigns(:parent_id)
+    assert_template :new
+    assert_response :success
   end
 
   private
