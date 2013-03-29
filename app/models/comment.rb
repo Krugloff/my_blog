@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   include MarkdownAsHtml
 
-  attr_accessible :body
+  attr_accessible :body, :parent_id
 
   belongs_to :article
   belongs_to :user

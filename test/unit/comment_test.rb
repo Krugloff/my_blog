@@ -50,12 +50,13 @@ class CommentTest < ActiveSupport::TestCase
   test 'may be nested' do
     models 'users', 'articles'
 
-    child = articles('valid').comments.find( comments('valid').id ).childs.new
+    child = Comment.new body: comments('new').body,
+      parent_id: comments('valid').id
+
     child.article = articles('valid')
     child.user = users('admin')
-    child.body = comments('valid').body
 
-    assert_difference( "Comment.count", 1 ) { child.save }
+    assert_difference( "Comment.count", 1, child.inspect ) { child.save }
 
     assert comments('valid').child_ids.include?( child.id )
     assert child.parent.persisted?
