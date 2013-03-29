@@ -6,6 +6,11 @@ class Comment < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
 
+  with_options class_name: 'Comment', foreign_key: 'parent_id' do |comment|
+    comment.has_many :childs
+    comment.belongs_to :parent
+  end
+
   may_be_as_html :body
 
   validates :body, :article, :user,

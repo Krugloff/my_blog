@@ -46,4 +46,18 @@ class CommentTest < ActiveSupport::TestCase
   test "user: must be presence" do
     assert comments('no_user').invalid?
   end
+
+  test 'may be nested' do
+    models 'users', 'articles'
+
+    child = articles('valid').comments.find( comments('valid').id ).childs.new
+    child.article = articles('valid')
+    child.user = users('admin')
+    child.body = comments('valid').body
+
+    assert_difference( "Comment.count", 1 ) { child.save }
+
+    assert comments('valid').child_ids.include?( child.id )
+    assert child.parent.persisted?
+  end
 end
