@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   include MarkdownAsHtml
 
-  attr_accessible :title, :body
+  attr_accessible :body
 
   belongs_to :article
   belongs_to :user
@@ -10,7 +10,4 @@ class Comment < ActiveRecord::Base
 
   validates :body, :article, :user,
     presence: true
-
-  validates :title,
-    length: { maximum: 42 }
 end

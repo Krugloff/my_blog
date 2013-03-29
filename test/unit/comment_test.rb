@@ -13,7 +13,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "update" do
-    assert comments('valid').update_attribute( :title, "Приветствие" )
+    assert comments('valid').update_attribute( :body, "Приветствие" )
   end
 
   test "destroy" do
@@ -34,13 +34,9 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'body_as_html: cache' do
     old_value = comments('valid').body_as_html
-    comments('valid').update_attribute :title, 'Hello!' # clear cache.
+    comments('valid').update_attribute :body, 'Hello!' # clear cache.
     new_value = comments('valid').body_as_html
     assert_not_same old_value, new_value
-  end
-
-  test "title: lenght <= 42" do
-    assert comments('big_title').invalid?
   end
 
   test "article: must be presence" do

@@ -1,7 +1,6 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <%= form_for [@article, @comment], remote: true do |form| %>
-  <%= form.text_field :title, placeholder: 'Title' %>
   <%= form.text_area  :body , placeholder: 'Body' , rows: 5  %>
   <%= form.submit class: 'btn' %>
 <% end %>

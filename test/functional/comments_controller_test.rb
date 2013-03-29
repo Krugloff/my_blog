@@ -45,7 +45,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "update" do
     login_as users('admin')
-    _put title: "Welcome"
+    _put body: "Welcome"
 
     assert_response :redirect
     assert_redirected_to article_comments_path( articles 'valid' )
