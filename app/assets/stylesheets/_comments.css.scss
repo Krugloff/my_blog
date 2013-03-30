@@ -8,6 +8,7 @@
 section.comment_tree {
   margin-bottom: 0%;
 
+  // For nested comments.
   .comment_tree { padding-left: 4%; padding-right: 0%; }
 
   div.comment {
@@ -21,11 +22,9 @@ section.comment_tree {
 }
 
 // #_new
-#new_comment {
-  padding-right: 5%;
+.new_comment {
+  padding-right: 3%;
   padding-top: 5%;
 
   #comment_body { width: 100%; }
-
-  #comment_title { width: 50%; }
 }
