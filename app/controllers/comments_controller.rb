@@ -41,7 +41,8 @@ class CommentsController < ApplicationController
 
   def index
     @article ||= Article.find( params[:article_id] )
-    @comments = @article.comments
+    # For delete nested comments without changed data base.
+    @comments = @article.comments.to_ary
     @comment  = Comment.new
     @title    = 'Comments'
 
