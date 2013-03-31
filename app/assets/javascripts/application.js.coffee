@@ -14,7 +14,7 @@ jQuery ->
   # Catch redirecting.
   $(document).ajaxSuccess (event, xhr, options) ->
     url = xhr.getResponseHeader('X-Blinks-Url')
-    if url != window.location.href
+    if url && ( url != window.location.href )
       history.replaceState( history.state, document.title, url )
 
 jQuery ->
