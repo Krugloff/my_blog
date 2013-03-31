@@ -36,3 +36,7 @@ jQuery ->
   #   $(document).on event_name, selector, (event) ->
   #     $.rails.handleRemote $(event.currentTarget)
   #     event.preventDefault()
+
+jQuery ->
+  $(document).ajaxSend ->
+    $('div.alert').remove()
