@@ -26,6 +26,10 @@ module Ajax
     end
   end
 
+  def nested?
+    !params[:comment][:parent_id].empty?
+  end
+
   def change_comments_count
     %| $('#comments_count').html('#{@article.comments.count}'); |
   end
@@ -35,9 +39,10 @@ module Ajax
   end
 
   def add_alerts
+    selector = nested? ? '#nested_new_comment' : '#new_comment'
     respond_to_xhr( { partial: 'layouts/alert',
                       collection: @comment.errors.full_messages },
-                    before: '.new_comment' )
+                    before: selector )
   end
 
   def delete_comment_view
