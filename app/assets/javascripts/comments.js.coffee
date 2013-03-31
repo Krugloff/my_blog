@@ -13,9 +13,7 @@ jQuery ->
     $('#nested_new_comment').remove()
 
     form.attr('id', 'nested_new_comment')
-    form.children('#comment_parent_id').val (
-      $(this).parents('.comment').attr('id').match /\d+\b/ )
+    form.children('#comment_parent_id').val this.search.match(/\d+\b/)
 
     $(this).parents('.comment').first().append(form)
-    # Добавление скрытого поля.
     event.preventDefault()
