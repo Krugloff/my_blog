@@ -22,14 +22,19 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'create: nested comment' do
-    login_as users('admin')
+    _setup_for_create_nested_comment
 
-    comment_params = {  body: comments('new').body,
-                        parent_id: comments('valid').id }
-
-    assert_difference( 'Comment.count', 1 ) { _post comment_params }
+    assert_difference( 'Comment.count', 1 ) { _post @nested }
     assert_response :redirect
     assert_redirected_to article_comments_path( articles 'valid' )
+  end
+
+  test 'ajax create: nested comment' do
+    _setup_for_create_nested_comment
+
+    assert_difference( 'Comment.count', 1 ) { _xhr_post @nested }
+    assert_response :success
+    assert_template partial: '_comment'
   end
 
   test "create: save error" do
@@ -130,14 +135,16 @@ class CommentsControllerTest < ActionController::TestCase
 
   test 'new nested comment' do
     login_as users('admin')
-
     get :new, article_id: articles('valid'), parent_id: comments('valid')
 
-    assert assigns(:title)
-    assert assigns(:comment).new_record?
-    assert assigns(:parent_id)
-    assert_template :new
-    assert_response :success
+    _asserts_for_new_nested_comment
+  end
+
+  test 'ajax new nested comment' do
+    login_as users('admin')
+    xhr :get, :new, article_id: articles('valid'), parent_id: comments('valid')
+
+    _asserts_for_new_nested_comment
   end
 
   private
@@ -185,5 +192,19 @@ class CommentsControllerTest < ActionController::TestCase
       assert assigns(:title)
       assert_response :success
       assert_template 'index'
+    end
+
+    def _asserts_for_new_nested_comment
+      assert assigns(:title)
+      assert assigns(:comment).new_record?
+      assert assigns(:parent_id)
+      assert_template :new
+      assert_response :success
+    end
+
+    def _setup_for_create_nested_comment
+      ingots 'comments'
+      login_as users('admin')
+      @nested = comments('new').merge parent_id: 1
     end
 end

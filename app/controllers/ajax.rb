@@ -21,13 +21,22 @@ module Ajax
 
   #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.
   def add_new_comment
-    respond_to_xhr(@comment, before: '#new_comment') do
+    target =
+      if nested?
+        parent_id = params[:comment][:parent_id]
+        selector = ".comment_tree:has( div#comment_#{parent_id} )"
+        { append: selector }
+      else
+        { before: '#new_comment' }
+      end
+
+    respond_to_xhr(@comment, target) do
       change_comments_count
     end
   end
 
   def nested?
-    !params[:comment][:parent_id].empty?
+    !params[:comment][:parent_id].blank?
   end
 
   def change_comments_count
