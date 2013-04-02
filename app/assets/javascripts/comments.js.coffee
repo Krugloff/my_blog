@@ -16,6 +16,7 @@ jQuery ->
     else
       form = $('#new_comment').clone()
       $('#new_nested_comment').remove()
+      $('div.alert').remove()
 
       form.attr('id', 'new_nested_comment')
       form.children('#comment_parent_id').val this.search.match(/\d+\b/)
