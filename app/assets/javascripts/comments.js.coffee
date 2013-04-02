@@ -9,11 +9,17 @@
 
 jQuery ->
   $(document).on 'click', '.comment_action > a.reply', (event) ->
-    form = $('#new_comment').clone()
-    $('#nested_new_comment').remove()
+    comment = $(this).parents('.comment')
 
-    form.attr('id', 'nested_new_comment')
-    form.children('#comment_parent_id').val this.search.match(/\d+\b/)
+    if ( form = comment.children('#nested_new_comment') ).size()
+      form.remove()
+    else
+      form = $('#new_comment').clone()
+      $('#nested_new_comment').remove()
 
-    $(this).parents('.comment').first().append(form)
+      form.attr('id', 'nested_new_comment')
+      form.children('#comment_parent_id').val this.search.match(/\d+\b/)
+
+      comment.append(form)
+
     event.preventDefault()
