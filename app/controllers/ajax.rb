@@ -44,7 +44,7 @@ module Ajax
   end
 
   def add_alerts
-    selector = nested? ? '#nested_new_comment' : '#new_comment'
+    selector = nested? ? '#new_nested_comment' : '#new_comment'
     respond_to_xhr( { partial: 'layouts/alert',
                       collection: @comment.errors.full_messages },
                     before: selector )

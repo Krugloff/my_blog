@@ -11,13 +11,13 @@ jQuery ->
   $(document).on 'click', '.comment_action > a.reply', (event) ->
     comment = $(this).parents('.comment')
 
-    if ( form = comment.children('#nested_new_comment') ).size()
+    if ( form = comment.children('#new_nested_comment') ).size()
       form.remove()
     else
       form = $('#new_comment').clone()
-      $('#nested_new_comment').remove()
+      $('#new_nested_comment').remove()
 
-      form.attr('id', 'nested_new_comment')
+      form.attr('id', 'new_nested_comment')
       form.children('#comment_parent_id').val this.search.match(/\d+\b/)
 
       comment.append(form)
