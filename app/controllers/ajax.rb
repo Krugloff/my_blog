@@ -25,13 +25,14 @@ module Ajax
       if nested?
         parent_id = params[:comment][:parent_id]
         selector = ".comment_tree:has( div#comment_#{parent_id} )"
+        delete_form = %| $('#new_nested_comment').remove(); |
         { append: selector }
       else
         { before: '#new_comment' }
       end
 
     respond_to_xhr(@comment, target) do
-      change_comments_count
+      change_comments_count + delete_form.to_s
     end
   end
 
