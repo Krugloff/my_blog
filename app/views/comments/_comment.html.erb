@@ -12,7 +12,7 @@
                 title: 'Reply'
             end %>
 
-        <%= if @user.try( 'owner?', comment )
+        <%= if @user.try( 'owner?', comment ) || me?
               link_to glyphicon('icon-remove'),
                 article_comment_path( @article, comment ),
                 method: 'delete', class: 'delete_comment',
