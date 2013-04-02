@@ -26,7 +26,7 @@ module Ajax
         parent_id = params[:comment][:parent_id]
         selector = ".comment_tree:has( div#comment_#{parent_id} )"
         delete_form = %| $('#new_nested_comment').remove(); |
-        { append: selector }
+        { 'last().append' => selector }
       else
         { before: '#new_comment' }
       end
