@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
     end
 
     def me?
-      @user.me?
+      @user.try :me?
     end
 end
