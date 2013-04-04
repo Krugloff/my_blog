@@ -24,3 +24,14 @@ jQuery ->
       comment.append(form)
 
     event.preventDefault()
+
+jQuery ->
+  $(document).on 'mouseenter', 'a.thread', ->
+    $(this).tooltip placement: 'bottom'
+    $(this).tooltip('show')
+
+  $(document).on 'click', 'a.thread', (event) ->
+    $(this).parents('.comment_tree').first()
+      .children('.comment_tree')
+      .collapse().collapse('toggle')
+    event.preventDefault()

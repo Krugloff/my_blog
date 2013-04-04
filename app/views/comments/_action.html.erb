@@ -1,0 +1,20 @@
+<div class='comment_action pull-right'>
+  <%= if children_count > 0
+        link_to glyphicon('icon-arrow-down'), '#', class: 'thread',
+          title: pluralize( children_count, 'comment' )
+      end %>
+
+  <%= if @user.try( 'persisted?' )
+        link_to glyphicon('icon-comment'),
+          new_article_comment_path( @article, parent_id: comment.id ),
+          class: 'reply',
+          title: 'Reply'
+      end %>
+
+  <%= if @user.try( 'owner?', comment ) || me?
+        link_to glyphicon('icon-remove'),
+          article_comment_path( @article, comment ),
+          method: 'delete', class: 'delete_comment',
+          remote: true, title: 'Delete comment'
+      end %>
+</div>
