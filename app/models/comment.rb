@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   with_options class_name: 'Comment', foreign_key: 'parent_id' do |comment|
-    comment.has_many :childs
+    comment.has_many :children
     comment.belongs_to :parent
   end
 
