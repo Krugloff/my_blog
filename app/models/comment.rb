@@ -13,8 +13,8 @@ class Comment < ActiveRecord::Base
     comment.belongs_to :parent
   end
 
-  may_be_as_html :body
-
-  validates :body, :article, :user,
+  validates :body, :article_id, :user_id,
     presence: true
+
+  may_be_as_html :body
 end

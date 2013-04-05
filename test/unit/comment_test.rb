@@ -3,9 +3,21 @@
 class CommentTest < ActiveSupport::TestCase
   models :comments
 
-  test 'create' do
-    assert comments('valid').persisted?
-    assert comments('child').persisted?
+  test 'create valid' do
+    assert comments('valid').valid?
+    assert comments('child').valid?
+  end
+
+  test 'article must be presence' do
+    assert comments('no_article').invalid?
+  end
+
+  test 'user must be presence' do
+    assert comments('new').invalid?
+  end
+
+  test 'body must be presence' do
+    assert comments('blank_body').invalid?
   end
 
   test 'body as html' do
@@ -20,17 +32,5 @@ class CommentTest < ActiveSupport::TestCase
     new_value = comments('valid').body_as_html
 
     assert_not_same old_value, new_value
-  end
-
-  test 'body must be presence' do
-    assert comments('blank_body').invalid?
-  end
-
-  test 'article must be presence' do
-    assert comments('no_article').invalid?
-  end
-
-  test 'user must be presence' do
-    assert comments('new').invalid?
   end
 end
