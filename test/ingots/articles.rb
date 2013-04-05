@@ -8,5 +8,4 @@
 
 @blank_title  = @valid.merge title: ''
 @blank_body   = @valid.merge title: ''
-@big_title    = @valid.merge title: "?" * 257
-@no_user      = @valid.except :user
+@big_title    = @valid.merge title: "?" * 43
