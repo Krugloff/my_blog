@@ -21,6 +21,16 @@ class CommentTest < ActiveSupport::TestCase
     assert Comment.where( id: comments('valid').id ).empty?
   end
 
+  test 'destroy: nested comment' do
+    models 'users', 'articles'
+    child = _nested_comment
+
+    assert_difference( 'Comment.count', 1 ) { child.save }
+    assert_difference( 'Comment.count', -1 ) { comments('valid').destroy }
+    assert_nil Comment.find(child).parent_id,
+      Comment.find(child).parent_id.to_s
+  end
+
   test "body: must be presence" do
     assert comments('blank_body').invalid?
   end
@@ -50,15 +60,21 @@ class CommentTest < ActiveSupport::TestCase
   test 'may be nested' do
     models 'users', 'articles'
 
-    child = Comment.new body: comments('new').body,
-      parent_id: comments('valid').id
-
-    child.article = articles('valid')
-    child.user = users('admin')
+    child = _nested_comment
 
     assert_difference( "Comment.count", 1, child.inspect ) { child.save }
 
     assert comments('valid').child_ids.include?( child.id )
     assert child.parent.persisted?
   end
+
+  private
+    def _nested_comment
+      child = Comment.new body: comments('new').body,
+        parent_id: comments('valid').id
+
+      child.article = articles('valid')
+      child.user = users('admin')
+      child
+    end
 end
