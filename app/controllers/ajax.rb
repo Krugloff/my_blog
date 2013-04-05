@@ -50,8 +50,4 @@ module Ajax
                       collection: @comment.errors.full_messages },
                     before: selector )
   end
-
-  def delete_comment_view
-    %| $('#comment_#{@comment.id}').parent().remove(); |
-  end
 end

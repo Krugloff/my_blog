@@ -32,10 +32,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.html { _redirect }
-      format.js do
-        @article = @comment.article
-        render js: delete_comment_view + change_comments_count
-      end
+      format.js { head :accepted }
     end
   end
 

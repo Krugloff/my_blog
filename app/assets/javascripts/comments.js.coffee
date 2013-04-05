@@ -35,3 +35,17 @@ jQuery ->
       .children('.comment_tree')
       .collapse().collapse('toggle')
     event.preventDefault()
+
+jQuery ->
+  $(document).on 'ajax:success', 'a.delete_comment', ->
+    comments_count = $('span#comments_count')
+    count = (Number) comments_count.html()
+    comments_count.html(count - 1)
+
+    comment = $(this).parents('.comment')
+    comment_tree = comment.parent()
+
+    comment.remove()
+
+    children = comment_tree.children('.comment_tree')
+    comment_tree.replaceWith children

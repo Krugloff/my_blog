@@ -98,7 +98,7 @@ class CommentsControllerTest < ActionController::TestCase
     login_as users('admin')
 
     assert_difference( "Comment.count", -1 ) { _xhr_delete }
-    assert_response :success
+    assert_response :accepted
   end
 
   test "destroy: user not found" do
