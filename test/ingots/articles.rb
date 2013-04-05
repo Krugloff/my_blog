@@ -7,5 +7,5 @@
 @valid  = @new.merge user: users('admin')
 
 @blank_title  = @valid.merge title: ''
-@blank_body   = @valid.merge title: ''
+@blank_body   = @valid.merge body: ''
 @big_title    = @valid.merge title: "?" * 43

@@ -4,7 +4,11 @@ class ArticleTest < ActiveSupport::TestCase
   models :articles
 
   test 'create' do
-    assert articles('valid').persisted?
+    assert articles('valid').valid?
+  end
+
+  test 'user must be presence' do
+    assert articles('new').invalid?
   end
 
   test 'title must be presence' do
@@ -17,10 +21,6 @@ class ArticleTest < ActiveSupport::TestCase
 
   test 'body must be presence' do
     assert articles('blank_body').invalid?
-  end
-
-  test 'user must be presence' do
-    assert articles('new').invalid?
   end
 
   test 'body as html' do
