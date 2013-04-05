@@ -4,32 +4,36 @@ class CommentTest < ActiveSupport::TestCase
   models :comments
 
   test 'create valid' do
-    assert comments('valid').valid?
-    assert comments('child').valid?
+    assert comments(:valid).valid?
+    assert comments(:child).valid?
   end
 
   test 'article must be presence' do
-    assert comments('no_article').invalid?
+    assert comments(:no_article).invalid?
   end
 
   test 'user must be presence' do
-    assert comments('new').invalid?
+    assert comments(:new).invalid?
   end
 
   test 'body must be presence' do
-    assert comments('blank_body').invalid?
+    assert comments(:blank_body).invalid?
   end
 
   test 'body as html' do
-    assert_not_equal comments('valid').body, comments('valid').body_as_html
-    assert_no_match %r|```ruby|, comments('valid').body_as_html
-    assert_same comments('valid').body_as_html, comments('valid').body_as_html
+    comment = comments :valid
+
+    assert_not_equal comment.body, comment.body_as_html
+    assert_no_match %r|```ruby|, comment.body_as_html
+    assert_same comment.body_as_html, comment.body_as_html
   end
 
   test 'body as html cache' do
-    old_value = comments('valid').body_as_html
-    comments('valid').update_attribute :body, 'Hello!' # clear cache.
-    new_value = comments('valid').body_as_html
+    comment = comments :valid
+
+    old_value = comment.body_as_html
+    comment.update_attribute :body, 'Hello!' # clear cache.
+    new_value = comment.body_as_html
 
     assert_not_same old_value, new_value
   end
