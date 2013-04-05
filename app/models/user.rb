@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def owner?(a_model)
-    a_model.user == self
+    a_model.user_id == self.id
   end
 
   #! Проверка выполняется только один раз. Поэтому требуемый аккаунт к данному моменту уже должен существовать. Его добавление не даст ожидаемого результата.
