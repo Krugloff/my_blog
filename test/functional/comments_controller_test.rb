@@ -1,22 +1,22 @@
 # require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  models 'users', 'comments', 'articles', 'accounts'
+  models :users, :comments, :articles
 
-  test "create" do
-    ingots 'comments'
-    login_as users('admin')
+  test 'create' do
+    ingots :comments
+    login_as :admin
 
-    assert_difference( 'Comment.count', 1 ) { _post comments 'new' }
+    assert_difference( 'Comment.count', 1 ) { _post comments :new }
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path assigns :article
   end
 
-  test "ajax create" do
-    ingots 'comments'
-    login_as users('admin')
+  test 'ajax create' do
+    ingots :comments
+    login_as :admin
 
-    assert_difference( 'Comment.count', 1 ) { _xhr_post comments 'new' }
+    assert_difference( 'Comment.count', 1 ) { _xhr_post comments :new }
     assert_response :success
     assert_template partial: '_comment'
   end
@@ -26,7 +26,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference( 'Comment.count', 1 ) { _post @nested }
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path assigns :article
   end
 
   test 'ajax create: nested comment' do
@@ -37,112 +37,108 @@ class CommentsControllerTest < ActionController::TestCase
     assert_template partial: '_comment'
   end
 
-  test "create: save error" do
-    ingots 'comments'
-    login_as users('admin')
+  test 'create: save error' do
+    ingots :comments
+    login_as :admin
 
-    assert_no_difference( 'Comment.count' ) { _post comments 'invalid_new' }
+    assert_no_difference( 'Comment.count' ) { _post Hash.new }
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path assigns :article
   end
 
-  test "ajax create: save error" do
-    ingots 'comments'
-    login_as users('admin')
+  test 'ajax create: save error' do
+    ingots :comments
+    login_as :admin
 
-    assert_no_difference( 'Comment.count' ) do
-      _xhr_post comments 'invalid_new'
-    end
-    assert !assigns('comment').errors.empty?
+    assert_no_difference( 'Comment.count' ) { _xhr_post Hash.new }
+    assert !assigns(:comment).errors.empty?
     assert_response :success
     assert_template partial: 'layouts/_alert'
   end
 
-  test "update" do
-    login_as users('admin')
-    _put body: "Welcome"
+  test 'update' do
+    login_as :admin
+    _put body: 'Welcome'
 
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path articles :valid
   end
 
-  test "update: save error" do
-    login_as users('admin')
-    _put body: ""
+  test 'update: save error' do
+    login_as :admin
+    _put body: ''
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path articles :valid
   end
 
-  test "update: user not author" do
-    login_as users('client')
-    _put body: "I hate you!"
+  test 'update: user not author' do
+    login_as :client
+    _put body: 'I hate you!'
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path articles :valid
   end
 
-  test "destroy" do
-    login_as users('admin')
+  test 'destroy' do
+    login_as :admin
 
-    assert_difference( "Comment.count", -1 ) { _delete }
+    assert_difference( 'Comment.count', -1 ) { _delete }
 
     assert_response :redirect
-    assert_redirected_to article_comments_path( articles 'valid' )
+    assert_redirected_to article_comments_path articles :valid
   end
 
-  test "ajax destroy" do
-    login_as users('admin')
+  test 'ajax destroy' do
+    login_as :admin
 
-    assert_difference( "Comment.count", -1 ) { _xhr_delete }
+    assert_difference( 'Comment.count', -1 ) { _xhr_delete }
     assert_response :accepted
   end
 
-  test "destroy: user not found" do
-    assert_no_difference("Comment.count") { _delete }
+  test 'destroy: user not found' do
+    assert_no_difference('Comment.count') { _delete }
     _asserts_for_destroy_not_found_user
   end
 
-  test "ajax destroy: user not found" do
-    assert_no_difference("Comment.count") { _xhr_delete }
+  test 'ajax destroy: user not found' do
+    assert_no_difference('Comment.count') { _xhr_delete }
     _asserts_for_destroy_not_found_user
   end
 
-  test "index" do
-    get :index, article_id: articles('valid')
+  test 'index' do
+    get :index, article_id: articles(:valid)
     _asserts_for_index
   end
 
-  test "ajax index" do
-    xhr :get, :index, article_id: articles('valid')
+  test 'ajax index' do
+    xhr :get, :index, article_id: articles(:valid)
     _asserts_for_index
   end
 
-  test "index: article not found" do
-    assert_raise(::ActiveRecord::RecordNotFound) do
-      get :index, article_id: 125
-    end
+  test 'index: article not found' do
+    assert_raise(ActiveRecord::RecordNotFound) { get :index, article_id: 125 }
   end
 
-  test "ajax index: article not found" do
-    assert_raise(::ActiveRecord::RecordNotFound) do
+  test 'ajax index: article not found' do
+    assert_raise(ActiveRecord::RecordNotFound) do
       xhr :get, :index, article_id: 125
     end
   end
 
   test 'new nested comment' do
-    login_as users('admin')
-    get :new, article_id: articles('valid'), parent_id: comments('valid')
+    login_as :admin
+    get :new, article_id: articles(:valid), parent_id: comments(:valid)
 
     _asserts_for_new_nested_comment
   end
 
   test 'ajax new nested comment' do
-    login_as users('admin')
-    xhr :get, :new, article_id: articles('valid'), parent_id: comments('valid')
+    login_as :admin
+    xhr :get, :new, article_id: articles(:valid), parent_id: comments(:valid)
 
     _asserts_for_new_nested_comment
   end
@@ -151,33 +147,33 @@ class CommentsControllerTest < ActionController::TestCase
 
     def _post(params)
       post :create,
-        article_id: articles('valid').id,
+        article_id: articles(:valid).id,
         comment: params
     end
 
     def _put(params)
       put :update,
-        id: comments('valid').id,
-        article_id: articles('valid').id,
+        id: comments(:valid).id,
+        article_id: articles(:valid).id,
         comment: params
     end
 
     def _delete
       delete :destroy,
-        id: comments('valid').id,
-        article_id: articles('valid').id
+        id: comments(:valid).id,
+        article_id: articles(:valid).id
     end
 
     def _xhr_post(params)
       xhr :post, :create,
-        article_id: articles('valid').id,
+        article_id: articles(:valid).id,
         comment: params
     end
 
     def _xhr_delete
       xhr :delete, :destroy,
-        id: comments('valid').id,
-        article_id: articles('valid').id
+        id: comments(:valid).id,
+        article_id: articles(:valid).id
     end
 
     def _asserts_for_destroy_not_found_user
@@ -187,24 +183,24 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     def _asserts_for_index
-      assert assigns(:article)
-      assert assigns(:comments)
-      assert assigns(:title)
+      assert assigns  :article
+      assert assigns  :comments
+      assert assigns  :title
       assert_response :success
-      assert_template 'index'
+      assert_template :index
     end
 
     def _asserts_for_new_nested_comment
-      assert assigns(:title)
       assert assigns(:comment).new_record?
-      assert assigns(:parent_id)
-      assert_template :new
+      assert assigns  :title
+      assert assigns  :parent_id
       assert_response :success
+      assert_template :new
     end
 
     def _setup_for_create_nested_comment
-      ingots 'comments'
-      login_as users('admin')
-      @nested = comments('new').merge parent_id: 1
+      ingots :comments
+      login_as :admin
+      @nested = comments(:child).slice :body, :parent_id
     end
 end

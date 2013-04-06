@@ -1,23 +1,23 @@
 # require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  models 'users'
+  models :users
 
-  test "show" do
-    login_as users('admin')
+  test 'show' do
+    login_as :admin
     get :show
 
     _asserts_for_show
   end
 
-  test "ajax show" do
-    login_as users('admin')
+  test 'ajax show' do
+    login_as :admin
     xhr :get, :show
 
     _asserts_for_show
   end
 
-  test "show: user not found" do
+  test 'show: user not found' do
     get :show
 
     assert flash.alert
@@ -25,8 +25,8 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to new_session_path
   end
 
-  test "destroy" do
-    login_as users('admin')
+  test 'destroy' do
+    login_as :admin
 
     assert_no_difference('User.count') { delete :destroy }
     assert_nil session[:user_id]
@@ -37,9 +37,9 @@ class UsersControllerTest < ActionController::TestCase
   private
 
     def _asserts_for_show
-      assert assigns(:user)
-      assert assigns(:title)
+      assert assigns  :user
+      assert assigns  :title
       assert_response :success
-      assert_template 'show'
+      assert_template :show
     end
 end

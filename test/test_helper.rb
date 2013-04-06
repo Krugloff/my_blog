@@ -7,7 +7,7 @@ class ActiveSupport::TestCase
 
   setup { Rails.logger.debug method_name }
 
-  def login_as(a_user)
-    session[:user_id] = a_user.id
+  def login_as(user)
+    session[:user_id] = users(user).id
   end
 end
