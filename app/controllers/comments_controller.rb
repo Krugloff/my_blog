@@ -37,7 +37,10 @@ class CommentsController < ApplicationController
   end
 
   def index
-    @article ||= Article.find( params[:article_id] )
+    # For handled history.
+    @article = @article.try(:id) == params[:article_id] ?
+      @article : Article.find( params[:article_id] )
+
     # For delete nested comments without changed data base.
     @comments = @article.comments.to_ary
     @comment  = Comment.new
