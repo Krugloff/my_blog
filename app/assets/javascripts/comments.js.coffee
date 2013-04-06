@@ -27,8 +27,7 @@ jQuery ->
 
 jQuery ->
   $(document).on 'mouseenter', 'a.thread', ->
-    $(this).tooltip placement: 'bottom'
-    $(this).tooltip('show')
+    $(this).tooltip(placement: 'bottom').tooltip('show')
 
   $(document).on 'click', 'a.thread', (event) ->
     $(this).parents('.comment_tree').first()
