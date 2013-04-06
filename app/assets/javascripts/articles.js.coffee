@@ -4,8 +4,8 @@
 
 # #index
 jQuery ->
-  $('a.preview').tooltip
-    animation: false
+  $(document).on 'mouseenter', 'a.preview', ->
+    $(this).tooltip().tooltip('show')
 
 # Переключение активной вкладки. В данный момент выполняется в результате Ajax запроса - это позволяет изменять активную вкладку при перемещении по истории.
 # jQuery ->

@@ -15,10 +15,6 @@ module Ajax
     %| $('head > title').html('#{@title}'); |
   end
 
-  def add_tooltip
-    %| $('a.preview').tooltip( {animation: false} ) |
-  end
-
   #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.
   def add_new_comment
     target =

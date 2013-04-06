@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
     @articles = Article.where created_at: @date..@date.end_of_month
     flash.now[:alert] = ['Articles not found'] if @articles.empty?
 
-    respond_to_xhr_for_nav { add_tooltip }
+    respond_to_xhr_for_nav
   end
 
   def new
