@@ -15,35 +15,26 @@ module Ajax
     %| $('head > title').html('#{@title}'); |
   end
 
-  #? В данном случае нельзя обновлять всю панель навигации, потому что метод .current_page? работает только для GET запросов.
   def add_new_comment
     target =
       if nested?
         parent_id = params[:comment][:parent_id]
         selector = ".comment_tree:has( div#comment_#{parent_id} )"
-        delete_form = %| $('#new_nested_comment').remove(); |
         { 'last().append' => selector }
       else
         { before: '#new_comment' }
       end
 
-    respond_to_xhr(@comment, target) do
-      change_comments_count + delete_form.to_s
-    end
+    respond_to_xhr(@comment, target)
   end
 
   def nested?
     !params[:comment][:parent_id].blank?
   end
 
-  def change_comments_count
-    %| $('#comments_count').html('#{@article.comments.count}'); |
-  end
-
   def add_alerts
-    selector = nested? ? '#new_nested_comment' : '#new_comment'
-    respond_to_xhr( { partial: 'layouts/alert',
-                      collection: @comment.errors.full_messages },
-                    before: selector )
+    html = render_to_string partial: 'layouts/alert',
+                            collection: @comment.errors.full_messages
+    render text: html, status: 406
   end
 end

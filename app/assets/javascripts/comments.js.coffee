@@ -48,3 +48,15 @@ jQuery ->
 
     children = comment_tree.children('.comment_tree')
     comment_tree.replaceWith children
+
+jQuery ->
+  $(document)
+  .on 'ajax:success', 'form.new_comment', ->
+    comments_count = $('span#comments_count')
+    count = (Number) comments_count.html()
+    comments_count.html(count + 1)
+
+    $(this).remove() if $(this).attr('id').match 'nested'
+
+  .on 'ajax:error', 'form.new_comment', ( event, xhr, status ) ->
+    $(this).before( xhr.responseText )
