@@ -5,6 +5,9 @@ class CommentsController < ApplicationController
   before_filter :require_owner,
     except: %w( create index new )
 
+  before_filter :require_me,
+    only: 'destroy'
+
   def create
     @comment = Comment.new( params[:comment] )
     @comment.article = @article ||= Article.find( params[:article_id] )

@@ -84,6 +84,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'destroy' do
+    models :accounts
     login_as :admin
 
     assert_difference( 'Comment.count', -1 ) { _delete }
@@ -93,6 +94,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'ajax destroy' do
+    models :accounts
     login_as :admin
 
     assert_difference( 'Comment.count', -1 ) { _xhr_delete }
