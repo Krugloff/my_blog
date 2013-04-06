@@ -1,14 +1,14 @@
 class ArticlesController < ApplicationController
   before_filter :require_user,
-    except: %w( show index last )
+    except: %i( show index last )
 
   before_filter :require_owner,
-    only: %w( update destroy edit )
+    only: %i( update destroy edit )
 
   before_filter :require_me,
-    only: %w( create new )
+    only: %i( create new )
 
-  before_filter only: %w( create update ) do
+  before_filter only: %i( create update ) do
     params[:article][:title] = strip_tags params[:article][:title]
   end
 
@@ -18,17 +18,17 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article = Article.find params[:id]
     @title = @article.title
     cookies[:article_id] = params[:id] if cookies[:article_id] != params[:id]
     respond_to_xhr_for_nav
   end
 
   def update
-    if @article.update_attributes( params[:article] )
+    if @article.update_attributes params[:article]
       redirect_to @article
     else
-      _errors_to edit_article_path(@article.id)
+      _errors_to edit_article_path @article
     end
   end
 
@@ -70,11 +70,11 @@ class ArticlesController < ApplicationController
   private
 
     def require_owner
-      @article = Article.find( params[:id] )
+      @article = Article.find params[:id]
 
       unless ( @user.owner? @article ) || me?
         flash.alert = ["You can't edit this article"]
-        redirect_to article_path( params[:id] )
+        redirect_to article_path params[:id]
       end
     end
 

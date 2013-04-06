@@ -1,15 +1,15 @@
 class CommentsController < ApplicationController
   before_filter :require_user,
-    except: "index"
+    except: 'index'
 
   before_filter :require_owner,
-    except: %w( create index new )
+    except: %i( create index new )
 
   before_filter :require_me,
     only: 'destroy'
 
   def create
-    @comment = Comment.new( params[:comment] )
+    @comment = Comment.new params[:comment]
     @comment.article = @article ||= Article.find( params[:article_id] )
     @comment.user = @user
 
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    _save_errors unless @comment.update_attributes( params[:comment] )
+    _save_errors unless @comment.update_attributes params[:comment]
     _redirect
   end
 
@@ -53,7 +53,7 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @article ||= Article.find( params[:article_id] )
+    @article ||= Article.find params[:article_id]
     @parent_id = params[:parent_id]
     @comment  = Comment.new
     @title    = 'Reply to comment'
@@ -71,7 +71,7 @@ class CommentsController < ApplicationController
     end
 
     def _redirect
-      redirect_to article_comments_path( params[:article_id] )
+      redirect_to article_comments_path params[:article_id]
     end
 
     def _save_errors
