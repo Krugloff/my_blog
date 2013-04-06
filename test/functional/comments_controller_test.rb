@@ -53,7 +53,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_no_difference( 'Comment.count' ) { _xhr_post Hash.new }
     assert !assigns(:comment).errors.empty?
-    assert_response :success
+    assert_response :not_acceptable
     assert_template partial: 'layouts/_alert'
   end
 
