@@ -21,7 +21,7 @@ jQuery ->
   selectors = 'nav > a,
               a.edit_article,
               a.new-article,
-              aside > a,
+              aside a,
               a.preview,
               a.created_at,
               form.edit_article,
