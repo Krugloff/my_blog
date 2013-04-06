@@ -51,12 +51,17 @@ jQuery ->
 
 jQuery ->
   $(document)
-  .on 'ajax:success', 'form.new_comment', ->
+  .on 'ajax:success', 'form.new_comment', ( event, data, status, xhr ) ->
     comments_count = $('span#comments_count')
     count = (Number) comments_count.html()
     comments_count.html(count + 1)
 
-    $(this).remove() if $(this).attr('id').match 'nested'
+    if $(this).attr('id').match 'nested'
+      $(this).parents('.comment_tree').first().append(data)
+      $(this).remove()
+    else
+      $(this).before(data)
+
 
   .on 'ajax:error', 'form.new_comment', ( event, xhr, status ) ->
     $(this).before( xhr.responseText )

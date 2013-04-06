@@ -13,15 +13,11 @@ class CommentsController < ApplicationController
     @comment.article = @article ||= Article.find( params[:article_id] )
     @comment.user = @user
 
-    respond_to do |format|
-      format.html do
-        _save_errors unless @comment.save
-        _redirect
-      end
-
-      format.js do
-        @comment.save ? add_new_comment : add_alerts
-      end
+    if request.xhr?
+      @comment.save ? render_comment : render_alerts
+    else
+      _save_errors unless @comment.save
+      _redirect
     end
   end
 

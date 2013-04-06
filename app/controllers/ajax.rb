@@ -15,24 +15,11 @@ module Ajax
     %| $('head > title').html('#{@title}'); |
   end
 
-  def add_new_comment
-    target =
-      if nested?
-        parent_id = params[:comment][:parent_id]
-        selector = ".comment_tree:has( div#comment_#{parent_id} )"
-        { 'last().append' => selector }
-      else
-        { before: '#new_comment' }
-      end
-
-    respond_to_xhr(@comment, target)
+  def render_comment
+    render @comment, layout: false
   end
 
-  def nested?
-    !params[:comment][:parent_id].blank?
-  end
-
-  def add_alerts
+  def render_alerts
     html = render_to_string partial: 'layouts/alert',
                             collection: @comment.errors.full_messages
     render text: html, status: 406
