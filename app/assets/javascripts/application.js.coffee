@@ -18,14 +18,14 @@ jQuery ->
       history.replaceState( history.state, document.title, url )
 
 jQuery ->
-  selectors = 'nav > a,
+  selectors = "nav > a[href!='/session/new'],
               a.edit_article,
               a.new-article,
               aside a,
               a.preview,
               a.created_at,
               form.edit_article,
-              form.change_date'
+              form.change_date"
 
   $(document).on 'ajax:beforeSend', selectors, (event, data, settings) ->
     history.pushState null, null, settings.url

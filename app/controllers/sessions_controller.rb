@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
   def new
     @title = 'Login'
     respond_to_xhr prepend: '.content'
+    response.headers['X-Blinks-Url'] = ''
   end
 end
 
