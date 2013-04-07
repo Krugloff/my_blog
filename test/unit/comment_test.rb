@@ -8,6 +8,11 @@ class CommentTest < ActiveSupport::TestCase
     assert comments(:child).valid?
   end
 
+  test 'delete parent' do
+    assert_difference( 'Comment.count', -1 ) { comments(:valid).destroy }
+    assert_nil comments(:child).reload.parent_id, comments(:child).inspect
+  end
+
   test 'article must be presence' do
     assert comments(:no_article).invalid?
   end
