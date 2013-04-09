@@ -2,26 +2,47 @@ require 'redcarpet'
 require 'coderay'
 
 module MarkdownAsHtml
-  def self.included(base)
-    base.after_save :clear_body_cache, if: '@html'
+  def self.included(model)
+    model.after_save :clear_body_cache, if: '@html' if MarkdownAsHtml.memory?
 
-    base.cattr_accessor(:markdown_render) do
-      Redcarpet::Render::Article.new  filter_html: true,
-                                      no_images: true,
-                                      safe_links_only: true
+    model.cattr_accessor(:markdown_render) do
+      options = { filter_html: true, no_images: true, safe_links_only: true }
+      Redcarpet::Render::Article.new options
     end
 
-    def base.may_be_as_html(*attr_name)
-      attr_name.each do |name| define_method "#{name}_as_html" do
-        return @html if @html
-        parser = Redcarpet::Markdown.new  markdown_render,
-                                          no_intra_emphasis: true,
-                                          fenced_code_blocks: true,
-                                          lax_spacing: true,
-                                          strikethrough: true
-        @html = parser.render(self.send name).html_safe
-      end end
+    model.cattr_accessor(:markdown_parser) do
+      options =
+        { no_intra_emphasis: true,
+          fenced_code_blocks: true,
+          lax_spacing: true,
+          strikethrough: true }
+      Redcarpet::Markdown.new model.markdown_render, options
     end
+
+    def model.may_be_as_html(*attr_name)
+      if MarkdownAsHtml.db?
+        model.before_save do attr_name.each do |name|
+          html = markdown_parser.render(self.send name).html_safe
+          send "#{name}_as_html=", html
+        end end
+      else
+        attr_name.each do |name| define_method "#{name}_as_html" do
+          return @html if @html
+          @html = markdown_parser.render(self.send name).html_safe
+        end end
+      end
+    end
+  end
+
+  mattr_accessor :storage
+  self.storage = :memory
+
+  def self.db?
+    self.storage == :db
+  end
+
+  def self.memory?
+    self.storage == :memory
   end
 
   private
