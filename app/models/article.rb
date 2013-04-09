@@ -1,4 +1,4 @@
-require 'redcarpet/krugloff'
+require 'redcarpet/markdown_as_html'
 
 class Article < ActiveRecord::Base
   include MarkdownAsHtml

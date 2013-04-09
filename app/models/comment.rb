@@ -1,4 +1,4 @@
-require 'redcarpet/krugloff'
+require 'redcarpet/markdown_as_html'
 
 class Comment < ActiveRecord::Base
   include MarkdownAsHtml
@@ -22,5 +22,6 @@ class Comment < ActiveRecord::Base
   validates :body, :article_id, :user_id,
     presence: true
 
+  self.markdown_render = Redcarpet::Render::Comment.new filter_html: true
   may_be_as_html :body
 end
