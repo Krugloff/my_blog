@@ -129,3 +129,19 @@ div.alert { width: 50%; }
   font-size: 11px;
   font-style: italic;
 }
+
+// Markdown
+hr {
+  color: black;
+  border-color: black;
+}
+
+blockquote {
+  border-left-color: black;
+  border-left-width: 2px;
+
+  p {
+    font-size: 14px;
+    font-style: italic;
+  }
+}
