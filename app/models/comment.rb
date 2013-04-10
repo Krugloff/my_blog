@@ -22,6 +22,7 @@ class Comment < ActiveRecord::Base
   validates :body, :article_id, :user_id,
     presence: true
 
-  self.markdown_render = Redcarpet::Render::Comment.new filter_html: true
+  options = { filter_html: true, no_images: true, safe_links_only: true }
+  self.markdown_render = Redcarpet::Render::Comment.new options
   may_be_as_html :body
 end
