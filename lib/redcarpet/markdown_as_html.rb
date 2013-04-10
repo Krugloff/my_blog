@@ -21,8 +21,8 @@ module MarkdownAsHtml
 
     def model.may_be_as_html(*attr_name)
       if MarkdownAsHtml.db?
-        model.before_save do attr_name.each do |name|
-          html = markdown_parser.render(self.send name).html_safe
+        before_save do attr_name.each do |name|
+          html = markdown_parser.render(self.send name)
           send "#{name}_as_html=", html
         end end
       else
@@ -35,7 +35,7 @@ module MarkdownAsHtml
   end
 
   mattr_accessor :storage
-  self.storage = :memory
+  self.storage = :db
 
   def self.db?
     self.storage == :db
