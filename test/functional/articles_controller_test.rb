@@ -41,6 +41,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test 'show' do
+    articles(:valid).save
     get :show, id: articles(:valid).id
 
     assert  cookies[:article_id],
@@ -49,6 +50,7 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test 'ajax show' do
+    articles(:valid).save
     xhr :get, :show, id: articles(:valid).id
     _asserts_for_show
   end
@@ -108,11 +110,13 @@ class ArticlesControllerTest < ActionController::TestCase
   end
 
   test 'index' do
+    articles(:valid).save
     get :index
     _asserts_for_index
   end
 
   test 'ajax index' do
+    articles(:valid).save
     xhr :get, :index
     _asserts_for_index
   end

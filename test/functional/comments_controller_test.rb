@@ -112,11 +112,13 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'index' do
+    Comment.all.map &:save
     get :index, article_id: articles(:valid)
     _asserts_for_index
   end
 
   test 'ajax index' do
+    Comment.all.map &:save
     xhr :get, :index, article_id: articles(:valid)
     _asserts_for_index
   end
