@@ -29,8 +29,10 @@ jQuery ->
   .on 'click', '.comment_action > a.reply', (event) ->
     parents_comment = comment(this)
 
+    # Remove form.
     if ( form = parents_comment.children('#new_nested_comment') ).size()
       form.remove()
+    # Create form.
     else
       form = $('#new_comment').clone()
       $('#new_nested_comment').remove()
