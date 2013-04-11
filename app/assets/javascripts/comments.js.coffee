@@ -3,10 +3,33 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-  $(document).on 'click', '.comment_action > a.reply', (event) ->
-    comment = $(this).parents('.comment')
+  change_comments_count = (diff) ->
+    comments_count = $('span#comments_count')
+    comments_count.html( ( (Number) comments_count.html() ) + diff )
 
-    if ( form = comment.children('#new_nested_comment') ).size()
+  current_thread = (control) ->
+    $(control).parents('.comment_tree').first()
+
+  children_threads = (comments_tree) ->
+    comments_tree.children('.comment_tree')
+
+  comment = (control) ->
+    $(control).parents('.comment')
+
+  $(document)
+  # Control thread.
+  .on 'mouseenter', 'a.thread', ->
+    $(this).tooltip(placement: 'bottom').tooltip('show')
+
+  .on 'click', 'a.thread', (event) ->
+    ( children_threads current_thread(this) ).collapse().collapse('toggle')
+    event.preventDefault()
+
+  # Reply comment.
+  .on 'click', '.comment_action > a.reply', (event) ->
+    parents_comment = comment(this)
+
+    if ( form = parents_comment.children('#new_nested_comment') ).size()
       form.remove()
     else
       form = $('#new_comment').clone()
@@ -16,47 +39,33 @@ jQuery ->
       form.attr('id', 'new_nested_comment')
       form.children('#comment_parent_id').val this.search.match(/\d+\b/)
 
-      comment.append(form)
+      parents_comment.append(form)
 
     event.preventDefault()
 
-jQuery ->
-  $(document).on 'mouseenter', 'a.thread', ->
-    $(this).tooltip(placement: 'bottom').tooltip('show')
-
-  $(document).on 'click', 'a.thread', (event) ->
-    $(this).parents('.comment_tree').first()
-      .children('.comment_tree')
-      .collapse().collapse('toggle')
-    event.preventDefault()
-
-jQuery ->
-  $(document).on 'ajax:success', 'a.delete_comment', ->
-    comments_count = $('span#comments_count')
-    count = (Number) comments_count.html()
-    comments_count.html(count - 1)
-
-    comment = $(this).parents('.comment')
-    comment_tree = comment.parent()
-
-    comment.remove()
-
-    children = comment_tree.children('.comment_tree')
-    comment_tree.replaceWith children
-
-jQuery ->
-  $(document)
+  # Create comment.
   .on 'ajax:success', 'form.new_comment', ( event, data, status, xhr ) ->
-    comments_count = $('span#comments_count')
-    count = (Number) comments_count.html()
-    comments_count.html(count + 1)
+    change_comments_count(1)
 
+    # Create nested comment.
     if $(this).attr('id').match 'nested'
-      $(this).parents('.comment_tree').first().append(data)
+      current_thread(this).append(data)
       $(this).remove()
+    # Create normal comment.
     else
       $(this).before(data)
 
-
+  # Create coment with error.
   .on 'ajax:error', 'form.new_comment', ( event, xhr, status ) ->
     $(this).before( xhr.responseText )
+
+  # Delete comment.
+  .on 'ajax:success', 'a.delete_comment', ->
+      change_comments_count(-1)
+
+      current_comment = comment(this)
+      comment_tree = current_comment.parent()
+
+      current_comment.remove()
+
+      comment_tree.replaceWith children_threads(comment_tree)
