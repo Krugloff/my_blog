@@ -8,10 +8,10 @@ jQuery ->
     comments_count.html( ( (Number) comments_count.html() ) + diff )
 
   current_thread = (control) ->
-    $(control).parents('.comment_tree').first()
+    $(control).parents('.comments_thread').first()
 
-  children_threads = (comments_tree) ->
-    comments_tree.children('.comment_tree')
+  children_threads = (comments_thread) ->
+    comments_thread.children('.comments_thread')
 
   comment = (control) ->
     $(control).parents('.comment')
