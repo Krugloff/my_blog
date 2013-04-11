@@ -20,4 +20,5 @@ Blinks selectors...
 
 jQuery ->
   $(document).ajaxSend ->
+    #? Возможно стоит удалять сообщения при нажатии на любую ссылку или кнопку.
     $('div.alert').remove()
