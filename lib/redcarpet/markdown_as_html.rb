@@ -1,6 +1,9 @@
 require 'redcarpet'
 require 'coderay'
 
+require 'active_support/core_ext/class/attribute_accessors.rb'
+require 'active_support/core_ext/module/attribute_accessors.rb'
+
 module MarkdownAsHtml
   def self.included(model)
     model.after_save :clear_body_cache, if: '@html' if MarkdownAsHtml.memory?
@@ -24,13 +27,11 @@ module MarkdownAsHtml
     def model.may_be_as_html(*attr_name)
       if MarkdownAsHtml.db?
         before_save do attr_name.each do |name|
-          html = markdown_parser.render(self.send name)
-          send "#{name}_as_html=", html
+          send "#{name}_as_html=", markdown_parser.render(self.send name)
         end end
       else
         attr_name.each do |name| define_method "#{name}_as_html" do
-          return @html if @html
-          @html = markdown_parser.render(self.send name).html_safe
+          @html ||= markdown_parser.render(self.send name).html_safe
         end end
       end
     end
