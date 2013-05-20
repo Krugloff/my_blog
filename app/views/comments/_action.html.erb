@@ -11,7 +11,7 @@
           title: 'Reply'
       end %>
 
-  <%= if me?
+  <%= if admin?
         link_to glyphicon('icon-remove'),
           article_comment_path( @article, comment ),
           method: 'delete', class: 'delete_comment',

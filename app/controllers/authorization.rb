@@ -6,7 +6,7 @@ require_relative 'articles_controller'
 require 'cando'
 
 class ApplicationController
-  helper_method :me?
+  helper_method :admin?
 
   private
 
@@ -17,11 +17,11 @@ class ApplicationController
     end
 
     def require_me
-      redirect_to new_session_path, alert: ["You can't do it"] unless me?
+      redirect_to new_session_path, alert: ["You can't do it"] unless admin?
     end
 
-    def me?
-      @user.try :me?
+    def admin?
+      @user.try :admin?
     end
 end
 
@@ -42,7 +42,7 @@ class CommentsController
   def require_owner
     @comment = Comment.find( params[:id] )
 
-    unless ( @user.owner? @comment ) || me?
+    unless ( @user.owner? @comment ) || admin?
       flash.alert = ["You can't edit this comment"]
       _redirect
     end
@@ -62,7 +62,7 @@ class ArticlesController
   def require_owner
     @article = Article.find params[:id]
 
-    unless ( @user.owner? @article ) || me?
+    unless ( @user.owner? @article ) || admin?
       flash.alert = ["You can't edit this article"]
       redirect_to article_path params[:id]
     end

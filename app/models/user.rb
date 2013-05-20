@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
   end
 
   #! Проверка выполняется только один раз. Поэтому требуемый аккаунт к данному моменту уже должен существовать. Его добавление не даст ожидаемого результата.
-  def me?
-    return @me unless @me.nil?
-    @me = Rails.env.production? ?
+  def admin?
+    return @is_admin unless @is_admin.nil? # may be false.
+    @is_admin = Rails.env.production? ?
     accounts.exists?( uid: '1621036', provider: 'github' ) :
     accounts.exists?( uid: '1234567890', provider: 'developer' )
   end
