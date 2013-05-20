@@ -1,13 +1,4 @@
 class CommentsController < ApplicationController
-  before_filter :require_user,
-    except: 'index'
-
-  before_filter :require_owner,
-    except: %i( create index new )
-
-  before_filter :require_me,
-    only: 'destroy'
-
   def create
     @comment = Comment.new params[:comment]
     @comment.article = @article ||= Article.find( params[:article_id] )
@@ -56,15 +47,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-    def require_owner
-      @comment = Comment.find( params[:id] )
-
-      unless ( @user.owner? @comment ) || me?
-        flash.alert = ["You can't edit this comment"]
-        _redirect
-      end
-    end
 
     def _redirect
       redirect_to article_comments_path params[:article_id]

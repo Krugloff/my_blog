@@ -1,13 +1,4 @@
 class ArticlesController < ApplicationController
-  before_filter :require_user,
-    except: %i( show index last )
-
-  before_filter :require_owner,
-    only: %i( update destroy edit )
-
-  before_filter :require_me,
-    only: %i( create new )
-
   before_filter only: %i( create update ) do
     params[:article][:title] = strip_tags params[:article][:title]
   end
@@ -68,15 +59,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-
-    def require_owner
-      @article = Article.find params[:id]
-
-      unless ( @user.owner? @article ) || me?
-        flash.alert = ["You can't edit this article"]
-        redirect_to article_path params[:id]
-      end
-    end
 
     def _errors_to(path)
       redirect_to path, alert: @article.errors.full_messages
