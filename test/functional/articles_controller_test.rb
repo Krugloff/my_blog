@@ -24,22 +24,6 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to new_article_path
   end
 
-  test 'create: user not found' do
-    ingots :articles
-
-    assert_no_difference( 'Article.count' ) { _post articles :new }
-    assert_redirected_to new_session_path
-  end
-
-  test 'create: user not admin' do
-    ingots :articles
-    login_as :client
-
-    assert_no_difference( 'Article.count' ) { _post articles :new }
-    assert flash.alert
-    assert_redirected_to new_session_path
-  end
-
   test 'show' do
     articles(:valid).save
     get :show, id: articles(:valid).id
@@ -81,20 +65,6 @@ class ArticlesControllerTest < ActionController::TestCase
     _xhr_put title: '?' * 257
 
     _asserts_for_update_save_error
-  end
-
-  test 'update: user not author' do
-    login_as :client
-    _put title: 'I hate you!'
-
-    _asserts_for_update_not_author
-  end
-
-  test 'ajax update: user not author' do
-    login_as :client
-    _xhr_put title: 'I hate you!'
-
-    _asserts_for_update_not_author
   end
 
   test 'destroy' do
@@ -200,12 +170,6 @@ class ArticlesControllerTest < ActionController::TestCase
       assert flash.alert
       assert_response :redirect
       assert_redirected_to edit_article_path assigns :article
-    end
-
-    def _asserts_for_update_not_author
-      assert flash.alert
-      assert_response :redirect
-      assert_redirected_to assigns :article
     end
 
     def _asserts_for_index

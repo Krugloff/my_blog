@@ -17,14 +17,6 @@ class UsersControllerTest < ActionController::TestCase
     _asserts_for_show
   end
 
-  test 'show: user not found' do
-    get :show
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to new_session_path
-  end
-
   test 'destroy' do
     login_as :admin
 

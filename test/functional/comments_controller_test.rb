@@ -74,15 +74,6 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to article_comments_path articles :valid
   end
 
-  test 'update: user not author' do
-    login_as :client
-    _put body: 'I hate you!'
-
-    assert flash.alert
-    assert_response :redirect
-    assert_redirected_to article_comments_path articles :valid
-  end
-
   test 'destroy' do
     models :accounts
     login_as :admin
@@ -99,16 +90,6 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference( 'Comment.count', -1 ) { _xhr_delete }
     assert_response :accepted
-  end
-
-  test 'destroy: user not found' do
-    assert_no_difference('Comment.count') { _delete }
-    _asserts_for_destroy_not_found_user
-  end
-
-  test 'ajax destroy: user not found' do
-    assert_no_difference('Comment.count') { _xhr_delete }
-    _asserts_for_destroy_not_found_user
   end
 
   test 'index' do
@@ -178,12 +159,6 @@ class CommentsControllerTest < ActionController::TestCase
       xhr :delete, :destroy,
         id: comments(:valid).id,
         article_id: articles(:valid).id
-    end
-
-    def _asserts_for_destroy_not_found_user
-      assert flash.alert
-      assert_response :redirect
-      assert_redirected_to new_session_path
     end
 
     def _asserts_for_index
