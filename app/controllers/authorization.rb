@@ -3,6 +3,8 @@ require_relative 'users_controller'
 require_relative 'comments_controller'
 require_relative 'articles_controller'
 
+require 'cando'
+
 class ApplicationController
   helper_method :me?
 

@@ -5,6 +5,11 @@ GIT
     smeltery (0.2.5)
       activesupport (>= 3.2)
 
+PATH
+  remote: vendor/cando
+  specs:
+    cando (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,6 +156,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  cando!
   coderay
   coffee-rails
   jquery-rails
