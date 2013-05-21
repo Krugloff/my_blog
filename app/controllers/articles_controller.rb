@@ -3,13 +3,16 @@ class ArticlesController < ApplicationController
     params[:article][:title] = strip_tags params[:article][:title]
   end
 
+  before_filter only: %i(update destroy edit show) do
+    @article = Article.find params[:id]
+  end
+
   def create
     @article = @user.articles.new( params[:article] )
     @article.save ? redirect_to(@article) : _errors_to(new_article_path)
   end
 
   def show
-    @article = Article.find params[:id]
     @title = @article.title
     cookies[:article_id] = params[:id] if cookies[:article_id] != params[:id]
     respond_to_xhr_for_nav
