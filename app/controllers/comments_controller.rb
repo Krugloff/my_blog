@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+  before_filter only: %i(update destroy) do
+    @comment = Comment.find params[:id]
+  end
+
   def create
     @comment = Comment.new params[:comment]
     @comment.article = @article ||= Article.find( params[:article_id] )
