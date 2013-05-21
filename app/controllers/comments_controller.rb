@@ -48,8 +48,8 @@ class CommentsController < ApplicationController
 
   private
 
-    def _redirect
-      redirect_to article_comments_path params[:article_id]
+    def _redirect(alert = [])
+      redirect_to article_comments_path(params[:article_id]), alert: alert
     end
 
     def _save_errors
