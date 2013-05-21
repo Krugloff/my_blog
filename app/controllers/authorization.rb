@@ -1,70 +1,30 @@
-require_relative 'application_controller'
-require_relative 'users_controller'
-require_relative 'comments_controller'
-require_relative 'articles_controller'
-
 require 'cando'
 
-class ApplicationController
-  helper_method :admin?
-
-  private
-
-    def require_user
-      unless @user
-        redirect_to new_session_path, alert: ['You should be login']
+ApplicationController.class_exec do
+  rescue_from Cando::Authorization::AccessDenied do |exc|
+    path = if exc.type == :owner
+      case controller_name
+      when 'articles'; article_path params[:id]
+      when 'comments'; article_comments_path params[:article_id]
       end
+    else
+      new_session_path
     end
-
-    def require_me
-      redirect_to new_session_path, alert: ["You can't do it"] unless admin?
-    end
-
-    def admin?
-      @user.try :admin?
-    end
-end
-
-class UsersController
-  before_filter :require_user
-end
-
-class CommentsController
-  before_filter :require_user,
-    except: 'index'
-
-  before_filter :require_owner,
-    except: %i( create index new )
-
-  before_filter :require_me,
-    only: 'destroy'
-
-  def require_owner
-    @comment = Comment.find( params[:id] )
-
-    unless ( @user.owner? @comment ) || admin?
-      flash.alert = ["You can't edit this comment"]
-      _redirect
-    end
+    redirect_to path, alert: [exc.message]
   end
 end
 
-class ArticlesController
-  before_filter :require_user,
-    except: %i( show index last )
+Cando.authorize(UsersController) do |auth|
+  auth.for_client *%i(show destroy)
+end
 
-  before_filter :require_owner,
-    only: %i( update destroy edit )
+Cando.authorize(CommentsController) do |auth|
+  auth.for_client *%i(create new)
+  auth.for_owner :update
+  auth.for_admin :destroy
+end
 
-  before_filter :require_me,
-    only: %i( create new )
-
-  def require_owner
-    @article = Article.find params[:id]
-
-    unless ( @user.owner? @article ) || admin?
-      flash.alert = ["You can't edit this article"]
-      redirect_to article_path params[:id]
-    end
-  end
+Cando.authorize(ArticlesController) do |auth|
+  auth.for_owner *%i(update destroy edit)
+  auth.for_admin *%i(create new)
 end
