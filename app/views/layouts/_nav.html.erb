@@ -8,7 +8,6 @@
     <%= tab raw("Comments (#{comments_count.strip})"),
           article_comments_path(@article) %>
 
-    <%= @user.try('persisted?') ?
-        tab( @user.name, user_path )  :
-        tab( 'Login', new_session_path ) %>
+    <%= for_client { tab @user.name, user_path } or
+        tab 'Login', new_session_path %>
 </nav>

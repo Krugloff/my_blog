@@ -10,7 +10,7 @@
   <div><%= @article.body_as_html.html_safe %></div>
 </article>
 
-<% if @user.try( 'owner?', @article ) %>
+<% for_owner do %>
   <%= link_to 'Edit', edit_article_path(@article),
         class: 'btn edit_article', remote: true %>
   <%= link_to 'Delete', @article, method: 'delete', class: 'btn' %>

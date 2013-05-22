@@ -1,4 +1,4 @@
 <section class="comments">
   <%= render @comments %>
-  <%= render file: 'comments/new' if @user %>
+  <%= for_client { render file: 'comments/new' } %>
 </section>

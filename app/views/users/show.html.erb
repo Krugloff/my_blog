@@ -3,7 +3,7 @@
   Welcome to my blog!
 </section>
 
-<%= if admin?
+<%= for_admin do
       link_to 'New Article', new_article_path,
         class: 'btn new_article', remote: true
     end %>
