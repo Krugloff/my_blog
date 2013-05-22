@@ -1,5 +1,3 @@
-require 'cando'
-
 ApplicationController.class_exec do
   rescue_from Cando::Authorization::AccessDenied do |exc|
     path = if exc.type == :owner
