@@ -1,5 +1,5 @@
 ApplicationController.class_exec do
-  rescue_from Cando::Authorization::AccessDenied do |exc|
+  rescue_from Cando::Errors::AccessDenied do |exc|
     path = if exc.type == :owner
       case controller_name
       when 'articles'; article_path params[:id]
