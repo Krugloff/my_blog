@@ -34,7 +34,7 @@ class ArticlesControllerTest < ActionController::TestCase
     def _asserts_for_update_not_author
       assert flash.alert
       assert_response :redirect
-      assert_redirected_to assigns :article
+      assert_redirected_to new_session_path
     end
 end
 
@@ -55,7 +55,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert flash.alert
     assert_response :redirect
-    assert_redirected_to article_comments_path articles :valid
+    assert_redirected_to new_session_path
   end
 
   test 'destroy: user not found' do
