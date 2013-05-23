@@ -19,10 +19,10 @@ class UserTest < ActiveSupport::TestCase
     assert !users(:client).owner?( articles :valid )
   end
 
-  test 'me' do
+  test 'admin' do
     models :accounts
 
-    assert users(:admin).me?
-    assert !users(:client).me?
+    assert users(:admin).admin?
+    assert !users(:client).admin?
   end
 end
