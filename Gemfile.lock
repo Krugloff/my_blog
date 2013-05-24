@@ -1,8 +1,8 @@
 GIT
   remote: http://github.com/Krugloff/cando
-  revision: 117d0feee99a6e4675e7aa0ad64e4f9a118013f6
+  revision: 6f225a7b526e6bccbc07d0cc2cad0919a92f579c
   specs:
-    cando (0.2)
+    cando (0.2.1)
 
 GIT
   remote: http://github.com/Krugloff/smeltery.git

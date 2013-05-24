@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   include Ajax
   include ActionView::Helpers::SanitizeHelper
+
+  # I want move it to authorization.rb but don't know as.
+  helper Cando::Authorization::Helper
   include AuthorizationHelper
 
   protect_from_forgery
