@@ -26,7 +26,7 @@ jQuery ->
     event.preventDefault()
 
   # Reply comment.
-  .on 'click', '.comment_action > a.reply', (event) ->
+  .on 'click', '.comment > .controls > .reply', (event) ->
     parents_comment = comment(this)
 
     # Remove form.
