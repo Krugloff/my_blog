@@ -55,7 +55,7 @@ jQuery ->
       $(this).remove()
     # Create normal comment.
     else
-      $(this).before(data)
+      $('.comments').append(data)
 
   # Create coment with error.
   .on 'ajax:error', 'form.new_comment', ( event, xhr, status ) ->
