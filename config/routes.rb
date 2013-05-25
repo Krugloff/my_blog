@@ -1,9 +1,9 @@
 MyBlog::Application.routes.draw do
   root to: "articles#last"
 
-  resource :user, only: %w( show destroy )
+  resource :user, only: %i(show destroy)
 
-  resource( :session, only: [ :create, :destroy, :new ] ) do
+  resource :session, only: %i(create destroy new) do
     match ':provider/new', :action => 'create', :on => :collection
   end
 
