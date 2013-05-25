@@ -21,6 +21,10 @@ module ApplicationHelper
     model.created_at.getlocal.strftime "%e.%m.%y в %R"
   end
 
+  def use_markdown
+    'Используйте Markdown для форматирования текста. Html разметка не сохраняется. Подробности: http://help.github.com/articles/github-flavored-markdown'
+  end
+
   private
 
     def _active?(path)

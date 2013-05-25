@@ -4,6 +4,6 @@
       html: { autocomplete: 'off', 'data-type' => :html },
       remote: true do |form| %>
   <%= form.hidden_field :parent_id, value: @parent_id %>
-  <%= form.text_area  :body , placeholder: 'Body' , rows: 5  %>
+  <%= form.text_area  :body , placeholder: use_markdown, rows: 5  %>
   <%= form.submit class: 'btn' %>
 <% end %>
