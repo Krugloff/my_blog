@@ -6,6 +6,8 @@ module Ajax
     respond_to_xhr(html: '.content') { reload_nav + change_title + with.to_s }
   end
 
+  #! Меню навигации необходимо обновлять, чтобы все ссылки относились к текущей статье.
+  #? Если статья отсутствует, то возможно стоит удалять меню.
   def reload_nav
     return "" unless @article.try(:persisted?)
     render_file( { partial: 'layouts/nav' }, replaceWith: 'nav' ) if @article
