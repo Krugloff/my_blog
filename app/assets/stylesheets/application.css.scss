@@ -4,6 +4,7 @@
 
 $main-color: #EEEEEE;
 $grey: #666666;
+$light_gray: #999999;
 $border-shadow: 1px solid rgba(0,0,0,0.1);
 
 @mixin hover_block {
@@ -125,7 +126,7 @@ section.last_articles {
 div.alert { width: 50%; }
 
 .created_at {
-  color: #999999;
+  color: $light_gray;
   font-size: 11px;
   font-style: italic;
 }
