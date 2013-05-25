@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title><%= @title || 'MyBlog' %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -23,6 +22,7 @@
 
       <%= render('layouts/aside') if @last_articles %>
   </section>
-</body>
 
+  <%= javascript_include_tag "application", async: true %>
+</body>
 </html>
