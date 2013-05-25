@@ -11,13 +11,13 @@ class CommentsController < ApplicationController
     if request.xhr?
       @comment.save ? render_comment : render_alerts
     else
-      _save_errors unless @comment.save
+      @comment.save || _save_errors
       _redirect
     end
   end
 
   def update
-    _save_errors unless @comment.update_attributes params[:comment]
+    @comment.update_attributes(params[:comment]) || _save_errors
     _redirect
   end
 
