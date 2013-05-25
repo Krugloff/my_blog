@@ -4,8 +4,17 @@
 
 jQuery ->
   change_comments_count = (diff) ->
-    comments_count = $('span#comments_count')
-    comments_count.html( ( (Number) comments_count.html() ) + diff )
+    # In nav.
+    nav_count = $('span#comments_count')
+
+    # In aside.
+    article_link = jQuery.grep $('.last_articles > a'), (element) ->
+      window.location.pathname.indexOf(element.pathname) + 1
+    aside_count = $(article_link...).find '.comments_count'
+
+    nav_count.add(aside_count).each ->
+      count = $(this)
+      count.html( ( (Number) count.html() ) + diff )
 
   current_thread = (control) ->
     $(control).parents('.comments_thread').first()

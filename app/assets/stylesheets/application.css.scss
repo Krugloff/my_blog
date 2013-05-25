@@ -112,6 +112,8 @@ section.last_articles {
       color: black;
       overflow-y: visible;
       height: auto;
+
+      .comments_count { display: block; };
     };
 
     h6 {
@@ -119,6 +121,12 @@ section.last_articles {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .comments_count {
+      float: left;
+      display: none;
+      color: $light_gray;
     }
   }
 }
