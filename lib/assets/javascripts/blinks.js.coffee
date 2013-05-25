@@ -12,7 +12,7 @@ Blinks = (selectors...) ->
   #! Для решения этой проблемы необходимо удалять значение заголовка перед отправкой ответа пользователю.
   .ajaxSuccess (event, xhr, options) ->
     url = xhr.getResponseHeader('X-Blinks-Url')
-    if url && ( url != window.location.href )
+    if url && ( url != window.location.pathname )
       history.replaceState( history.state, document.title, url )
 
   # Handle history.
