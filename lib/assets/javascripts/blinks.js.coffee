@@ -1,4 +1,4 @@
-#= require history
+#= require history.min
 
 #? Возможно стоит добавить методы track и untrack.
 Blinks = (selectors...) ->
