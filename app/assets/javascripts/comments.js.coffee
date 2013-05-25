@@ -48,11 +48,12 @@ jQuery ->
   # Create comment.
   .on 'ajax:success', 'form.new_comment', ( event, data, status, xhr ) ->
     change_comments_count(1)
+    form = $(this)
 
     # Create nested comment.
-    if $(this).attr('id').match 'nested'
+    if form.attr('id').match 'nested'
       current_thread(this).append(data)
-      $(this).remove()
+      form.remove()
     # Create normal comment.
     else
       $('.comments').append(data)
