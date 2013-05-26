@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @title = @user.name
+    @accounts = @user.accounts
     respond_to_xhr_for_nav
   end
 

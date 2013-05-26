@@ -1,7 +1,7 @@
 # require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  models :users
+  models :users, :accounts
 
   test 'show' do
     login_as :admin
@@ -31,7 +31,10 @@ class UsersControllerTest < ActionController::TestCase
     def _asserts_for_show
       assert assigns  :user
       assert assigns  :title
+      assert assigns  :accounts
       assert_response :success
       assert_template :show
+      assert_template 'accounts/index'
+      assert_template 'accounts/new'
     end
 end
