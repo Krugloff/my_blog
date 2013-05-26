@@ -2,7 +2,7 @@ MyBlog::Application.routes.draw do
   root to: "articles#last"
 
   resource :user, only: %i(show destroy) do
-    resources :accounts, only: %i(create destroy)
+    resources :accounts, :only => :destroy
   end
 
   resource :session, only: %i(create destroy new) do
