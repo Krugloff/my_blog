@@ -9,11 +9,12 @@ class SessionsController < ApplicationController
     if @account
       ( @user = @account.user ).update_attribute :name, user_name
     else
-      @user = User.create!(name: user_name)
+      user_id = session[:user_id]
+      @user = user_id ? User.find(user_id) : User.create!(name: user_name)
       @user.accounts.new(account_hash).save!
     end
 
-    session[:user_id] = @user.id
+    session[:user_id] ||= @user.id
     redirect_to user_path
 
     rescue
