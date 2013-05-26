@@ -1,6 +1,5 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <section class='badges pull-right'>
-  <%= github_badge %>
-  <%= developer_badge unless Rails.env.production? %>
+  <%= badges %>
 </section>
