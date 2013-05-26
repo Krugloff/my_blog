@@ -1,4 +1,6 @@
 <h3>Ваши учетные записи:</h3>
 <% @accounts.each do |account| %>
-  <%= send "#{account.provider}_badge" %>
+  <%= link_to image_tag("#{account.provider}.png"),
+        user_account_path(account), :method => :delete, remote: true,
+        title: "#{account.uid}" %>
 <% end %>
