@@ -1,4 +1,4 @@
-require 'test_helper'
+# require 'test_helper'
 
 class ArticlesControllerTest < ActionController::TestCase
   models :users, :accounts, :articles
