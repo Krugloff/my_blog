@@ -20,15 +20,20 @@ class AccountTest < ActiveSupport::TestCase
     assert accounts(:no_uid).invalid?
   end
 
+  test 'name must be presence' do
+    assert accounts(:no_name).invalid?
+  end
+
   test 'find with omniauth' do
-    auth_hash = accounts(:admin).attributes.slice :uid, :provider
+    auth_hash = accounts(:admin).attributes.slice :uid, :provider, :name
     assert Account.find_with_omniauth(auth_hash)
   end
 
   test 'create with omniauth' do
     models :users
     ingots :accounts
-    auth_hash = accounts(:admin)
+    auth_hash =
+      accounts(:new).except(:name).merge info: { name: 'Krugloff' }
 
     assert_difference 'Account.count', 1 do
       account = Account.build_with_omniauth(auth_hash)
