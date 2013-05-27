@@ -1,7 +1,15 @@
-<hr>
-<h3>Ваши учетные записи:</h3>
-<% @accounts.each do |account| %>
-  <%= link_to image_tag("#{account.provider}.png"),
-        user_account_path(account), :method => :delete, remote: true,
-        title: "#{account.uid}" %>
+<% unless @accounts.empty? %>
+  <section class='accounts'>
+    <hr>
+    <h3>Ваши учетные записи:</h3>
+    <% @accounts.each do |account| %>
+      <%= link_to image_tag("#{account.provider}.png"),
+            user_account_path(account), :method => :delete,
+            class: 'destroy', confirm: 'Вы уверены?',
+            title: "#{account.uid}" %>
+    <% end %>
+    <p class='text-warning pull-right'>
+      Выберите учетную запись для удаления.
+    </p>
+  </section>
 <% end %>
