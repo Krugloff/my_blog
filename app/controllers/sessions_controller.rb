@@ -1,17 +1,18 @@
 class SessionsController < ApplicationController
   def create
     auth_hash = request.env['omniauth.auth']
-    account_hash = auth_hash.slice :uid, :provider
-    user_name = auth_hash[:info][:nickname] || auth_hash[:info][:name]
 
-    @account = Account.where(account_hash).first
+    @account =  Account.find_with_omniauth(auth_hash) ||
+                Account.build_with_omniauth(auth_hash)
 
-    if @account
-      ( @user = @account.user ).update_attribute :name, user_name
+    if @account.persisted?
+      ( @user = @account.user ).update_attribute :name, @account.name
     else
-      user_id = session[:user_id]
-      @user = user_id ? User.find(user_id) : User.create!(name: user_name)
-      @user.accounts.new(account_hash).save!
+      @user = session[:user_id] ?
+              User.find(session[:user_id]) :
+              User.create!(name: @account.name)
+
+      @user.accounts << @account
     end
 
     session[:user_id] ||= @user.id
