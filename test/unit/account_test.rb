@@ -19,4 +19,21 @@ class AccountTest < ActiveSupport::TestCase
   test 'uid must be presence' do
     assert accounts(:no_uid).invalid?
   end
+
+  test 'find with omniauth' do
+    auth_hash = accounts(:admin).attributes.slice :uid, :provider
+    assert Account.find_with_omniauth(auth_hash)
+  end
+
+  test 'create with omniauth' do
+    models :users
+    ingots :accounts
+    auth_hash = accounts(:admin)
+
+    assert_difference 'Account.count', 1 do
+      account = Account.build_with_omniauth(auth_hash)
+      account.user = users :admin
+      account.save
+    end
+  end
 end
