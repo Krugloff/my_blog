@@ -22,7 +22,8 @@ class SessionsControllerTest < ActionController::TestCase
     login_as :admin
 
     account_hash = { provider: 'github', uid: 3 }
-    _prepare_request account_hash, users(:client).attributes
+    user_hash = { name: 'Mihel' }
+    _prepare_request account_hash, user_hash
 
     assert_difference( 'users(:admin).accounts.size', 1 ) { get :create }
     _asserts_for_create
