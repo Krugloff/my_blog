@@ -6,7 +6,7 @@
       <%= link_to image_tag("#{account.provider}.png"),
             user_account_path(account), :method => :delete,
             class: 'destroy', confirm: 'Вы уверены?',
-            title: "#{account.uid}" %>
+            title: "#{account.name}" %>
     <% end %>
     <p class='text-warning pull-right'>
       Выберите учетную запись для удаления.
