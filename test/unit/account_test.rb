@@ -25,19 +25,15 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'find with omniauth' do
-    auth_hash =
-      accounts(:admin).attributes.slice(:uid, :provider, :name).stringify_keys
-
+    auth_hash = Hashie::Mash.new accounts(:admin).attributes
     assert Account.find_with_omniauth(auth_hash)
   end
 
   test 'create with omniauth' do
     models :users
     ingots :accounts
-    auth_hash = accounts(:new)
-                  .except(:name)
-                  .merge(info: { 'name' => 'Krugloff' })
-                  .stringify_keys
+    auth_hash = Hashie::Mash.new accounts(:new).except(:name)
+    auth_hash.info!.name = 'Krugloff'
 
     assert_difference 'Account.count', 1 do
       account = Account.build_with_omniauth(auth_hash)

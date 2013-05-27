@@ -63,10 +63,10 @@ class SessionsControllerTest < ActionController::TestCase
   private
 
     def _prepare_request(account_hash, user_hash)
-      request.env['omniauth.auth'] = account_hash
-        .slice(:uid, :provider)
-        .merge(info: user_hash.slice(:name).stringify_keys)
-        .stringify_keys
+      mash = Hashie::Mash.new account_hash
+      mash = Hashie::Mash.new uid: mash.uid, provider: mash.provider
+      mash.info!.name = user_hash[:name]
+      request.env['omniauth.auth'] = mash
     end
 
     def _asserts_for_create
