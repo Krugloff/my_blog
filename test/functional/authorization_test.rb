@@ -76,3 +76,19 @@ class CommentsControllerTest < ActionController::TestCase
       assert_redirected_to new_session_path
     end
 end
+
+class AccountsControllerTest < ActionController::TestCase
+  test 'destroy: not owner' do
+    models :users, :accounts
+
+    login_as :admin
+
+    assert_no_difference 'Account.count' do
+      delete :destroy, id: accounts(:client).id
+    end
+
+    assert flash.alert
+    assert_response :redirect
+    assert_redirected_to user_path
+  end
+end
