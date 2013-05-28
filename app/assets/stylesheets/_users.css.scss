@@ -4,13 +4,3 @@
 
 // #show
 .user { margin-bottom: 20px; }
-
-// #new or #edit
-.new_user, .edit_user {
-  margin-top: 5%;
-
-  #user_name, #user_password, #user_password_confirmation {
-    display: block;
-    width: 40%;
-  }
-}
