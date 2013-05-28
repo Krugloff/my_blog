@@ -1,0 +1,7 @@
+<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+
+<%= form_for @user, url: edit_user_path,
+      html: {class: 'form-horizontal'} do |form| %>
+  <%= form.text_field :email, placeholder: @user.email || 'Email' %>
+  <%= form.submit class: 'btn' %>
+<% end %>

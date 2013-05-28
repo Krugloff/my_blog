@@ -10,6 +10,7 @@ selectors =
   [ "nav > a[href!='/session/new']"
     'a.edit_article'
     'a.new_article'
+    'a.edit_user'
     'aside a'
     'a.preview'
     'a.created_at'

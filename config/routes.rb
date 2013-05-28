@@ -1,7 +1,7 @@
 MyBlog::Application.routes.draw do
   root to: "articles#last"
 
-  resource :user, only: %i(show destroy) do
+  resource :user, except: %i(new create update) do
     resources :accounts, :only => :destroy
   end
 

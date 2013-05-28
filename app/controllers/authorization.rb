@@ -5,7 +5,7 @@ ApplicationController.class_exec do
 end
 
 Cando.authorize(UsersController) do |auth|
-  auth.for_client *%i(show destroy)
+  auth.for_client *%i(show destroy edit)
 end
 
 Cando.authorize(CommentsController) do |auth|

@@ -10,4 +10,9 @@ class UsersController < ApplicationController
     reset_session
     redirect_to new_session_path
   end
+
+  def edit
+    @title = 'Edit user'
+    respond_to_xhr_for_nav
+  end
 end

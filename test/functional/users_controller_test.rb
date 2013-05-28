@@ -26,6 +26,20 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to new_session_path
   end
 
+  test 'edit' do
+    login_as :admin
+
+    get :edit
+    assert_template :edit
+  end
+
+  test 'ajax edit' do
+    login_as :admin
+
+    xhr :get, :edit
+    assert_template :edit
+  end
+
   private
 
     def _asserts_for_show
