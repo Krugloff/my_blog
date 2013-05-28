@@ -5,6 +5,8 @@
   <%= div_for comment do %>
     <%= render 'controls', comment: comment, children_count: nested.size %>
     <div class='metadata'>
+      <%= gravatar_image_tag comment.user.email, class: 'pull-left',
+            gravatar: {size: 18} %>
       <span class='user_name'><%= comment.user.name.titleize %></span>
       <span class='created_at'><%= created_at(comment) %></span>
     </div>

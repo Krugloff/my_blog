@@ -1,7 +1,11 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <section class='user'>
-  <span class='pull-right muted'><%= @user.email %></span>
+  <section class='pull-right info'>
+    <span class='muted'><%= @user.email %></span>
+    <%= gravatar_image_tag @user.email, class: 'gravatar' %>
+  </section>
+
   <h1>
     <%= link_to @user.name, edit_user_path,
           class: 'edit_user', remote: true,

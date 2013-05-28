@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 
 gem 'jquery-rails'
 gem 'cando', git: 'http://github.com/Krugloff/cando'
+gem 'gravatar_image_tag'
 
 group :production do
   gem 'pg'
