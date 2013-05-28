@@ -1,7 +1,15 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <section class='user'>
-  <h1><%= @user.name %></h1>
+  <span class='pull-right muted'><%= @user.email %></span>
+  <h1>
+    <%= link_to @user.name, edit_user_path,
+          class: 'edit_user', remote: true,
+          title: 'Edit user' %>
+
+    <%= link_to glyphicon('icon-remove'), user_path,
+          method: 'delete', title: 'Delete user', confirm: 'Вы уверены?' %>
+  </h1>
   Welcome to my blog!
 </section>
 
@@ -9,9 +17,6 @@
       link_to 'New Article', new_article_path,
         class: 'btn new_article', remote: true
     end %>
-
-<%= link_to 'Delete', user_path, class: 'btn', method: 'delete' %>
-<%= link_to 'Edit', edit_user_path, class: 'btn edit_user', remote: true %>
 
 <%= render template: 'accounts/index' %>
 <%= render template: 'accounts/new' %>
