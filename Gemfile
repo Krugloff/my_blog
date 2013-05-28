@@ -7,8 +7,13 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'jquery-rails'
-gem 'cando', git: 'http://github.com/Krugloff/cando'
 gem 'gravatar_image_tag'
+
+gem 'coderay'
+gem 'redcarpet'
+
+gem 'cando', git: 'http://github.com/Krugloff/cando'
+gem 'omniauth-github'
 
 group :production do
   gem 'pg'
@@ -22,15 +27,6 @@ end
 group :test do
   gem 'ruby-prof'
   gem 'smeltery', git: 'http://github.com/Krugloff/smeltery.git'
-end
-
-group :view do
-  gem 'coderay'
-  gem 'redcarpet'
-end
-
-group :oauth do
-  gem 'omniauth-github'
 end
 
 # Gems used only for assets and not required
