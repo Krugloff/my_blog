@@ -17,6 +17,15 @@ class UsersControllerTest < ActionController::TestCase
     _asserts_for_show
   end
 
+  test 'update' do
+    login_as :admin
+
+    put :update, user: {email: 'mr.krugloff@gmail.com'}
+
+    assert_nil flash.alert
+    assert_redirected_to user_path
+  end
+
   test 'destroy' do
     login_as :admin
 
