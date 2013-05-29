@@ -9,5 +9,5 @@
           article_comments_path(@article) %>
 
     <%= for_client { tab @user.name, user_path } or
-        tab 'Login', new_session_path %>
+        tab 'Login', new_session_path, false %>
 </nav>

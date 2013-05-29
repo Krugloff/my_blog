@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-  $(document).on 'ajax:beforeSend', "nav > a[href='/session/new']", (event) ->
-    if ( badges = $('section.badges') ).size()
-      badges.remove()
-      false
+  $(document).on 'click', "nav > a[href='/session/new']", (event) ->
+    $('section.badges').toggle()
+    event.preventDefault()

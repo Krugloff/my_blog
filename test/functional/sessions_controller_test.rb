@@ -55,11 +55,6 @@ class SessionsControllerTest < ActionController::TestCase
     _asserts_for_new
   end
 
-  test 'ajax new' do
-    xhr :get, :new
-    _asserts_for_new
-  end
-
   private
 
     def _prepare_request(account_hash, user_hash)
