@@ -1,7 +1,8 @@
 <%= render partial: 'layouts/alert', collection: flash[:alert] %>
 
 <%= form_for @user, url: user_path,
-      html: {class: 'form-horizontal'} do |form| %>
+      html: {class: 'edit_user'} do |form| %>
+
   <%= form.email_field :email, placeholder: @user.email || 'Email' %>
-  <%= form.submit class: 'btn' %>
+  <div><%= form.submit class: 'btn' %></div>
 <% end %>
