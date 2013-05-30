@@ -21,10 +21,6 @@ module ApplicationHelper
     model.created_at.getlocal.strftime "%e.%m.%y в %R"
   end
 
-  def use_markdown
-    I18n.t( 'defaults.use_markdown' )
-  end
-
   private
 
     def _active?(path)
