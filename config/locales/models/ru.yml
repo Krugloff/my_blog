@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      article: 'статью'
+      comment: 'комментарий'
+      user: 'пользователя'
+    attributes:
+      article:
+        title: 'Заголовок статьи'
+        body: 'Тело статьи'
+      comment:
+        body: 'Сообщение'
