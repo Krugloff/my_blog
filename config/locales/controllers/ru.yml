@@ -1,0 +1,24 @@
+ru:
+  alerts:
+    for_owner: 'Вы должны быть владельцем'
+    not_login: 'Вы не вошли'
+    not_updated: 'Обновление не выполнено'
+    not_articles: 'Статей не найдено'
+  sessions:
+    new:
+      title: 'Вход'
+  users:
+    edit:
+      title: 'Изменение данных'
+  comments:
+    index:
+      title: 'Обсуждение'
+    new:
+      title: 'Ответ на комментарий'
+  articles:
+    index:
+      title: 'Все статьи'
+    new:
+      title: 'Новая статья'
+    edit:
+      title: 'Изменение статьи'

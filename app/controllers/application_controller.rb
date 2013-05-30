@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
       @article = Article.where( id: cookies[:article_id] ).first
     end
   end
+
+  before_filter only: %i( index new edit ) do
+    @title = I18n.t( "#{controller_name}.#{action_name}.title" )
+  end
 end

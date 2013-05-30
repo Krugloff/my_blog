@@ -33,26 +33,22 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @title = 'Articles'
-
     month = params['month'].to_i
     year  = params['year'].to_i
     @date = ( Date.new year, month rescue Date.current.beginning_of_month )
 
     @articles = Article.where created_at: @date..@date.end_of_month
-    flash.now[:alert] = ['Articles not found'] if @articles.empty?
+    flash.now[:alert] = [ I18n.t( 'alerts.not_articles' ) ] if @articles.empty?
 
     respond_to_xhr_for_nav
   end
 
   def new
     @article = Article.new
-    @title = 'New article'
     respond_to_xhr_for_nav
   end
 
   def edit
-    @title = 'Edit article'
     respond_to_xhr_for_nav
   end
 

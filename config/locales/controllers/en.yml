@@ -1,0 +1,24 @@
+en:
+  alerts:
+    for_owner: 'You should be owner'
+    not_login: "You don't login"
+    not_updated: 'Not updated'
+    not_articles: 'Articles not found'
+  sessions:
+    new:
+      title: 'Login'
+  users:
+    edit:
+      title: 'Edit user'
+  comments:
+    index:
+      title: 'Comments'
+    new:
+      title: 'Reply to comments'
+  articles:
+    index:
+      title: 'Articles'
+    new:
+      title: 'New Article'
+    edit:
+      title: 'Edit Article'

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
     rescue
       @user.try(:delete)
-      flash.alert = ["You don't login"]
+      flash.alert = [ I18n.t( 'alerts.not_login' ) ]
       redirect_to new_session_path
   end
 
@@ -30,7 +30,6 @@ class SessionsController < ApplicationController
   end
 
   def new
-    @title = 'Login'
   end
 end
 

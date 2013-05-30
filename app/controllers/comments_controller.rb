@@ -38,7 +38,6 @@ class CommentsController < ApplicationController
     # For delete nested comments without changed data base.
     @comments = @article.comments.to_ary
     @comment  = Comment.new
-    @title    = 'Comments'
 
     respond_to_xhr_for_nav
   end
@@ -47,7 +46,6 @@ class CommentsController < ApplicationController
     @article ||= Article.find params[:article_id]
     @parent_id = params[:parent_id]
     @comment  = Comment.new
-    @title    = 'Reply to comment'
   end
 
   private

@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
     @user.accounts.destroy params[:id]
 
     rescue ActiveRecord::RecordNotFound
-      flash.alert = ['You should be owner']
+      flash.alert = [ I18n.t( 'alerts.for_owner' ) ]
     ensure
       redirect_to user_path
   end

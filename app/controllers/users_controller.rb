@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def update
     @user.update_attribute( :email, params[:user][:email] ) ||
-    flash.alert = ['Not Updated']
+    flash.alert = [ I18n.t( 'alerts.not_updated' ) ]
     redirect_to user_path
   end
 
@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @title = 'Edit user'
     respond_to_xhr_for_nav
   end
 end
