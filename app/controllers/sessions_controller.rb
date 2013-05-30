@@ -30,6 +30,9 @@ class SessionsController < ApplicationController
   end
 
   def new
+    @title = 'Вход'
+    respond_to_xhr_for_nav
+    response.headers['X-Blinks-Url'] = ''
   end
 end
 

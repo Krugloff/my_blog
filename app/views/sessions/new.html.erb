@@ -1,5 +1,7 @@
-<%= render partial: 'layouts/alert', collection: flash[:alert] %>
+<%= if controller_name == 'sessions'
+      concat render partial: 'layouts/alert', collection: flash[:alert]
+    end %>
 
-<section class='badges pull-right'>
-  <%= badges %>
-</section>
+<style type="text/css">
+  section.badges { display: block; }
+</style>
