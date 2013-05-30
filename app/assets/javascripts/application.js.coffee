@@ -7,7 +7,8 @@
 #= require_tree
 
 selectors =
-  [ 'a.edit_article'
+  [ "nav > a[href!='/session/new']"
+    'a.edit_article'
     'a.new_article'
     'a.edit_user'
     'aside a'
