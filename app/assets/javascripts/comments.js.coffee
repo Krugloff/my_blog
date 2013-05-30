@@ -9,7 +9,7 @@ jQuery ->
 
     # In aside.
     article_link = jQuery.grep $('.last_articles > a'), (element) ->
-      window.location.pathname.indexOf(element.pathname) + 1
+      window.location.pathname.match element.pathname
     aside_count = $(article_link...).find '.comments_count'
 
     nav_count.add(aside_count).each ->
