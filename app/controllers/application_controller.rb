@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper Cando::Authorization::Helper
   include AuthorizationHelper
 
+  use Rack::Locale
+
   protect_from_forgery
 
   before_filter do

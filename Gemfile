@@ -15,6 +15,8 @@ gem 'redcarpet'
 gem 'cando', git: 'http://github.com/Krugloff/cando'
 gem 'omniauth-github'
 
+gem 'rack-contrib'
+
 group :production do
   gem 'pg'
   gem 'unicorn'
