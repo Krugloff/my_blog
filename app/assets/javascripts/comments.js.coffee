@@ -31,7 +31,7 @@ jQuery ->
     $(this).tooltip(placement: 'bottom').tooltip('show')
 
   .on 'click', 'a.thread', (event) ->
-    ( children_threads current_thread(this) ).collapse().collapse('toggle')
+    ( children_threads current_thread(this) ).toggle()
     event.preventDefault()
 
   # Reply comment.
