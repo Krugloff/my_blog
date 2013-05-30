@@ -17,7 +17,7 @@
   <%= link_to( article,
         class: 'preview',
         remote: true,
-        title: pluralize(article.comments.count, 'comment') ) do %>
+        title: t( 'comments.count', count: article.comments.count ) ) do %>
 
     <span class="created_at pull-right"><%= created_at(article) %></span>
     <h6><%= article.title %></h6>

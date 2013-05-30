@@ -9,16 +9,16 @@
   <h1>
     <%= link_to @user.name, edit_user_path,
           class: 'edit_user', remote: true,
-          title: 'Edit user' %>
+          title: t('.edit') %>
 
-    <%= link_to glyphicon('icon-remove'), user_path,
-          method: 'delete', title: 'Delete user', confirm: 'Вы уверены?' %>
+    <%= link_to glyphicon('icon-remove'), user_path, method: 'delete',
+          title: t('.delete'), confirm: t('defaults.confirm') %>
   </h1>
   Welcome to my blog!
 </section>
 
 <%= for_admin do
-      link_to 'New Article', new_article_path,
+      link_to t('.add_article'), new_article_path,
         class: 'btn new_article', remote: true
     end %>
 

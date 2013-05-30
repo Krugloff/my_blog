@@ -1,0 +1,29 @@
+ru:
+  defaults:
+    use_markdown: 'Используйте Markdown для форматирования текста. Html разметка не сохраняется. Подробности: http://help.github.com/articles/github-flavored-markdown'
+    confirm: 'Вы уверены?'
+  nav:
+    article: 'Статья'
+    comments: 'Обсуждение'
+    login: 'Войти'
+    last: 'Последние статьи'
+  comments:
+    count:
+      one: '1 comment'
+      other: '%{count} comments'
+    reply: 'Ответить'
+    delete: 'Удалить'
+  accounts:
+    add: 'Добавить учетную запись:'
+    your: 'Ваши учетные записи:'
+    delete: 'Выберите учетную запись для удаления'
+  articles:
+    title: 'Заголовок статьи'
+    show:
+      edit: 'Изменить'
+      delete: 'Удалить'
+  users:
+    show:
+      edit: 'Изменить данные'
+      delete: 'Удалить пользователя'
+      add_article: 'Добавить статью'

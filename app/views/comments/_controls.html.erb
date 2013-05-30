@@ -1,20 +1,20 @@
 <div class='controls pull-right'>
   <%= if children_count > 0
         link_to glyphicon('icon-arrow-down'), '#', class: 'thread',
-          title: pluralize( children_count, 'comment' )
+          title: t('comments.count', count: children_count)
       end %>
 
   <%= for_client do
         link_to glyphicon('icon-comment'),
           new_article_comment_path( @article, parent_id: comment.id ),
           class: 'reply',
-          title: 'Reply'
+          title: t('comments.reply')
       end %>
 
   <%= for_admin do
         link_to glyphicon('icon-remove'),
           article_comment_path( @article, comment ),
           method: 'delete', class: 'delete_comment',
-          remote: true, title: 'Delete comment'
+          remote: true, title: t('comments.delete')
       end %>
 </div>

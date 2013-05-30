@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def use_markdown
-    'Используйте Markdown для форматирования текста. Html разметка не сохраняется. Подробности: http://help.github.com/articles/github-flavored-markdown'
+    I18n.t( 'defaults.use_markdown' )
   end
 
   private

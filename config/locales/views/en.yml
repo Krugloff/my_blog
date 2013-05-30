@@ -1,0 +1,29 @@
+en:
+  defaults:
+    use_markdown: 'Use Markdown for formatting. HTML NOT SAVED!. Details: http://help.github.com/articles/github-flavored-markdown'
+    confirm: 'Are you sure?'
+  nav:
+    article: 'Article'
+    comments: 'Comments'
+    login: 'Login'
+    last: 'Last Articles'
+  comments:
+    count:
+      one: '1 comment'
+      other: '%{count} comments'
+    reply: 'Reply'
+    delete: 'Delete'
+  accounts:
+    add: 'Add new account:'
+    your: 'Your accounts:'
+    delete: 'Select the account to delete'
+  articles:
+    title: 'Title'
+    show:
+      edit: 'Edit'
+      delete: 'Delete'
+  users:
+    show:
+      edit: 'Edit user'
+      delete: 'Delete user'
+      add_article: 'Add article'

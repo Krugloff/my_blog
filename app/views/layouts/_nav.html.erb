@@ -1,13 +1,13 @@
 <nav>
-    <%= tab 'Article', article_path(@article) %>
+    <%= tab t('nav.article'), article_path(@article) %>
 
     <% comments_count = capture do %>
       <span id=comments_count><%= @article.comments.count %></span>
     <% end %>
 
-    <%= tab raw("Comments (#{comments_count.strip})"),
+    <%= tab raw("#{t 'nav.comments'} (#{comments_count.strip})"),
           article_comments_path(@article) %>
 
     <%= for_client { tab @user.name, user_path } or
-        tab 'Login', new_session_path, false %>
+        tab t('nav.login'), new_session_path, false %>
 </nav>

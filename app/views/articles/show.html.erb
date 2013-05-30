@@ -11,7 +11,7 @@
 </article>
 
 <% for_owner do %>
-  <%= link_to 'Edit', edit_article_path(@article),
+  <%= link_to t('.edit'), edit_article_path(@article),
         class: 'btn edit_article', remote: true %>
-  <%= link_to 'Delete', @article, method: 'delete', class: 'btn' %>
+  <%= link_to t('.delete'), @article, method: 'delete', class: 'btn' %>
 <% end %>
