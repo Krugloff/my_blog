@@ -2,6 +2,7 @@ ru:
   defaults:
     use_markdown: 'Используйте Markdown для форматирования текста. Html разметка не сохраняется. Подробности: http://help.github.com/articles/github-flavored-markdown'
     confirm: 'Вы уверены?'
+    preview: 'Предпросмотр'
   nav:
     article: 'Статья'
     comments: 'Обсуждение'

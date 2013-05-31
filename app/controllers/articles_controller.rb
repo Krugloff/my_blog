@@ -5,10 +5,10 @@ class ArticlesController < ApplicationController
 
   authorize do
     for_owner *%i(update destroy edit)
-    for_admin *%i(create new)
+    for_admin *%i(create new preview)
   end
 
-  before_filter only: %i( create update ) do
+  before_filter only: %i( create update preview ) do
     params[:article][:title] = strip_tags params[:article][:title]
   end
 
@@ -60,6 +60,19 @@ class ArticlesController < ApplicationController
   def last
     @article = Article.last
     redirect_to @article || articles_path
+  end
+
+  def preview
+    @article_body = Article.markdown_parser.render params[:article][:body]
+
+    if request.xhr?
+      render text: @article_body
+    else
+      @article_title = params[:article][:title]
+      @article =  params[:id] ?
+                  Article.find( params[:id] ) :
+                  Article.new( params[:article] )
+    end
   end
 
   private

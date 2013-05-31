@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :last_articles, :current_user, :current_article
 
-  before_filter :current_title, only: %i( index new edit )
+  before_filter :current_title, only: %i( index new edit preview )
 
   protect_from_forgery
 

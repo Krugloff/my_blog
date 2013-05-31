@@ -11,5 +11,7 @@ MyBlog::Application.routes.draw do
 
   resources :articles do
     resources :comments, except: 'edit'
+    post :preview, :on => :collection
+    put :preview, :on => :member
   end
 end

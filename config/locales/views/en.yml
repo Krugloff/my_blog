@@ -2,6 +2,7 @@ en:
   defaults:
     use_markdown: 'Use Markdown for formatting. HTML NOT SAVED!. Details: http://help.github.com/articles/github-flavored-markdown'
     confirm: 'Are you sure?'
+    preview: 'Preview'
   nav:
     article: 'Article'
     comments: 'Comments'

@@ -22,3 +22,5 @@ en:
       title: 'New Article'
     edit:
       title: 'Edit Article'
+    preview:
+      title: 'Preview'

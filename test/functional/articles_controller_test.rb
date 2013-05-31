@@ -136,6 +136,33 @@ class ArticlesControllerTest < ActionController::TestCase
     assert_redirected_to articles_path
   end
 
+  test 'post preview' do
+    login_as :admin
+    post :preview,
+      article: articles(:valid).attributes.slice('title', 'body')
+
+    assert assigns(:article).new_record?
+  end
+
+  test 'put preview' do
+    login_as :admin
+    put :preview,
+      id: articles(:valid).id,
+      article: articles(:valid).attributes.slice('title', 'body')
+
+    assert assigns(:article).persisted?
+  end
+
+  test 'ajax preview' do
+    login_as :admin
+    xhr :put, :preview,
+      id: articles(:valid).id,
+      article: articles(:valid).attributes.slice('title', 'body')
+
+    assert assigns :article_body
+    assert_response :success
+  end
+
   private
 
     def _post(params)
@@ -194,5 +221,12 @@ class ArticlesControllerTest < ActionController::TestCase
     def _assert_assigns
       assert assigns :article
       assert assigns :title
+    end
+
+    def _asserts_for_preview
+      assert assigns :article_title
+      assert assigns :article_body
+      assert_response :success
+      assert_template :preview
     end
 end

@@ -1,0 +1,8 @@
+<article>
+  <h1><%= @article_title %></h1>
+  <div><%= @article_body.html_safe %></div>
+</article>
+<%= render 'form' %>
+<style type="text/css">
+  #article_title, #article_body, input.preview { display: none; }
+</style>

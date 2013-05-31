@@ -6,3 +6,16 @@
 jQuery ->
   $(document).on 'mouseenter', 'a.preview', ->
     $(this).tooltip().tooltip('show')
+
+# #preview
+jQuery ->
+  $(document).on 'click', 'input.preview', (event) ->
+    event.preventDefault()
+
+    $.post 'preview',
+      $('form.new_article, form.edit_article').serialize(),
+      (data) ->
+        unless $('article').size()
+          article = document.createElement 'article'
+          $('.content').prepend article
+        $('article').html data
