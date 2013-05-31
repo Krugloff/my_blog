@@ -1,7 +1,1 @@
-<%= render partial: 'layouts/alert', collection: flash[:alert] %>
-
-<%= form_for @article, remote: true do |form| %>
-  <%= form.text_field :title, placeholder: t('articles.title') %>
-  <%= form.text_area  :body , placeholder: t('defaults.use_markdown') %>
-  <div><%= form.submit class: 'btn' %></div>
-<% end %>
+<%= render 'form' %>
