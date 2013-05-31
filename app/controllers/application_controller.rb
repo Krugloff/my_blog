@@ -10,16 +10,25 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter do
-    @last_articles = Article.last(7) if Article.many?
-    @user ||= User.where( id: session[:user_id] ).first
+  before_filter :last_articles, :current_user, :current_article
 
+  before_filter :current_title, only: %i( index new edit )
+
+  def last_articles
+    @last_articles = Article.last(7) if Article.many?
+  end
+
+  def current_user
+    @user ||= User.where( id: session[:user_id] ).first
+  end
+
+  def current_article
     if @article.try(:id) != cookies[:article_id]
       @article = Article.where( id: cookies[:article_id] ).first
     end
   end
 
-  before_filter only: %i( index new edit ) do
+  def current_title
     @title = I18n.t( "#{controller_name}.#{action_name}.title" )
   end
 end
