@@ -3,6 +3,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find params[:id]
   end
 
+  authorize do
+    for_client *%i(create new)
+    for_owner :update
+    for_admin :destroy
+  end
+
   def create
     @comment = Comment.new params[:comment]
     @comment.article = @article ||= Article.find( params[:article_id] )

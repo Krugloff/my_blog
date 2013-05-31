@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  authorize { for_client *%i(show destroy edit) }
+
   def show
     @title = @user.name
     @accounts = @user.accounts

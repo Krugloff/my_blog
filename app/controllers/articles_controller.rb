@@ -1,10 +1,15 @@
 class ArticlesController < ApplicationController
-  before_filter only: %i( create update ) do
-    params[:article][:title] = strip_tags params[:article][:title]
-  end
-
   before_filter only: %i(update destroy edit show) do
     @article = Article.find params[:id]
+  end
+
+  authorize do
+    for_owner *%i(update destroy edit)
+    for_admin *%i(create new)
+  end
+
+  before_filter only: %i( create update ) do
+    params[:article][:title] = strip_tags params[:article][:title]
   end
 
   def create

@@ -1,18 +1,23 @@
 class ApplicationController < ActionController::Base
-  include Ajax
-  include ActionView::Helpers::SanitizeHelper
+  use Rack::Locale
 
-  # I want move it to authorization.rb but don't know as.
+  # Authorization.
+  extend Cando
   helper Cando::Authorization::Helper
   include AuthorizationHelper
 
-  use Rack::Locale
+  rescue_from Cando::Errors::AccessDenied do |exc|
+    redirect_to new_session_path, alert: [exc.message]
+  end
 
-  protect_from_forgery
+  include Ajax
+  include ActionView::Helpers::SanitizeHelper
 
   before_filter :last_articles, :current_user, :current_article
 
   before_filter :current_title, only: %i( index new edit )
+
+  protect_from_forgery
 
   def last_articles
     @last_articles = Article.last(7) if Article.many?
