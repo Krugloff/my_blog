@@ -27,5 +27,6 @@
   </section>
 
   <%= javascript_include_tag "application" %>
+  <% rescue; concat debug $!.message %>
 </body>
 </html>
