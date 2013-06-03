@@ -9,13 +9,13 @@ jQuery ->
 
 # #preview
 jQuery ->
-  $(document).on 'click', 'input.preview', (event) ->
+  inputs = '.new_article .preview, .edit_article .preview'
+  $(document).on 'click', inputs, (event) ->
     event.preventDefault()
 
-    $.post 'preview',
-      $('form.new_article, form.edit_article').serialize(),
-      (data) ->
-        unless $('article').size()
-          article = document.createElement 'article'
-          $('.content').prepend article
-        $('article').html data
+    forms = 'form.new_article, form.edit_article'
+    $.post 'preview', $(forms).serialize(), (data) ->
+      unless $('article').size()
+        article = document.createElement 'article'
+        $('.content').prepend article
+      $('article').html data
