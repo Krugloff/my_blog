@@ -12,4 +12,4 @@ jQuery ->
   input = '.new_article .preview, .edit_article .preview'
   $(document).on 'click', input, (event) ->
     event.preventDefault()
-    Preview this
+    Preview this, 'preview'

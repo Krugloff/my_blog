@@ -27,6 +27,7 @@ $border-shadow: 1px solid rgba(0,0,0,0.1);
 @import 'users';
 @import 'sessions';
 @import 'accounts';
+@import 'modal';
 
 body {
   background: {
@@ -142,8 +143,10 @@ section.last_articles {
   display: none;
 }
 
-div.preview {
-  margin-top: 5%;
+div.modal {
+  @include small_block;
+  background: inherit;
+  width: 56%;
 }
 
 // Markdown

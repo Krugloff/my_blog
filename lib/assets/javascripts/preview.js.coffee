@@ -1,11 +1,15 @@
-Preview = (input) ->
-  form = $(input).parents 'form'
+#= require modal
 
-  $.post 'preview', form.serialize(), (data) ->
-    unless $('div.preview').size()
-      preview = document.createElement 'div'
-      preview = $(preview).addClass 'preview'
-      form.append preview
-    $('div.preview').html data
+Preview = (input, url = null) ->
+  form = $(input).parents 'form'
+  url ||= window.location.pathname + '/preview'
+
+  $.post url, form.serialize(), (data) ->
+    unless ( preview = $('div.preview') ).size()
+      preview = $(document.createElement 'div')
+      preview.addClass 'preview'
+    preview.html data
+    $.modal.open preview
+    $('.modal-close').html "<i class='icon-remove' />"
 
 window.Preview = Preview
