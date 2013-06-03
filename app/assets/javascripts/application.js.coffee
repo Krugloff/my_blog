@@ -4,6 +4,7 @@
 #= require bootstrap
 #= require blinks
 
+#= require preview
 #= require_tree
 
 selectors =
