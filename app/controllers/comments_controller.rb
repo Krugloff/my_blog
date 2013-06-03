@@ -54,6 +54,10 @@ class CommentsController < ApplicationController
     @comment  = Comment.new
   end
 
+  def preview
+    _preview_for Comment
+  end
+
   private
 
     def _redirect(alert = [])

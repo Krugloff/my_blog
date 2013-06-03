@@ -147,6 +147,12 @@ div.modal {
   @include small_block;
   background: inherit;
   width: 56%;
+  padding-right: 2%;
+}
+
+div.modal-content {
+  overflow: visible;
+  margin-right: 1%;
 }
 
 // Markdown

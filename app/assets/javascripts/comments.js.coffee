@@ -81,3 +81,8 @@ jQuery ->
       current_comment.remove()
 
       comment_tree.replaceWith children_threads(comment_tree)
+
+  # Preview comment
+  .on 'click', 'form.new_comment input.preview', (event) ->
+    event.preventDefault()
+    Preview this

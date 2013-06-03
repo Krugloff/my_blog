@@ -128,6 +128,24 @@ class CommentsControllerTest < ActionController::TestCase
     _asserts_for_new_nested_comment
   end
 
+  test 'post preview' do
+    login_as :admin
+    post :preview,
+      article_id: articles(:valid).id,
+      comment: comments(:valid).attributes.slice('body')
+
+    _asserts_for_preview
+  end
+
+  test 'ajax preview' do
+    login_as :admin
+    xhr :post, :preview,
+      article_id: articles(:valid).id,
+      comment: comments(:valid).attributes.slice('body')
+
+    _asserts_for_preview
+  end
+
   private
 
     def _post(params)
@@ -181,5 +199,11 @@ class CommentsControllerTest < ActionController::TestCase
       ingots :comments
       login_as :admin
       @nested = comments(:child).slice :body, :parent_id
+    end
+
+    def _asserts_for_preview
+      assert assigns(:comment).new_record?
+      assert_response :success
+      assert_template :preview
     end
 end

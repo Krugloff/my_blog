@@ -6,5 +6,10 @@
   <%= form.hidden_field :parent_id, value: @parent_id %>
   <%= form.text_area  :body ,
         placeholder: t('defaults.use_markdown'), rows: 5  %>
-  <%= form.submit class: 'btn' %>
+  <div>
+    <%= form.submit class: 'btn' %>
+    <%= form.submit t('defaults.preview'),
+          formaction: preview_article_comments_path,
+          class: 'btn preview' %>
+  </div>
 <% end %>

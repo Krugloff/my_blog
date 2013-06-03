@@ -10,7 +10,10 @@ MyBlog::Application.routes.draw do
   end
 
   resources :articles do
-    resources :comments, except: 'edit'
+    resources :comments, except: 'edit' do
+      post :preview, :on => :collection
+    end
+
     post :preview, :on => :collection
     put :preview, :on => :member
   end
