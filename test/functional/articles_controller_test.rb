@@ -142,6 +142,7 @@ class ArticlesControllerTest < ActionController::TestCase
       article: articles(:valid).attributes.slice('title', 'body')
 
     assert assigns(:article).new_record?
+    _asserts_for_preview
   end
 
   test 'put preview' do
@@ -151,6 +152,7 @@ class ArticlesControllerTest < ActionController::TestCase
       article: articles(:valid).attributes.slice('title', 'body')
 
     assert assigns(:article).persisted?
+    _asserts_for_preview
   end
 
   test 'ajax preview' do
