@@ -1,8 +1,11 @@
 <article>
-  <h1><%= @article_title %></h1>
-  <div><%= @article_body.html_safe %></div>
+  <h1>
+    <%= link_to created_at(@article),
+      articles_path( with_date @article.created_at ),
+       class: 'created_at pull-right', remote: true %>
+
+    <%= @article.title %>
+  </h1>
+
+  <div><%= @article.body_as_html.html_safe %></div>
 </article>
-<%= render 'form' %>
-<style type="text/css">
-  #article_title, #article_body, input.preview { display: none; }
-</style>

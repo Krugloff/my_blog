@@ -63,16 +63,7 @@ class ArticlesController < ApplicationController
   end
 
   def preview
-    @article_body = Article.markdown_parser.render params[:article][:body]
-
-    if request.xhr?
-      render text: @article_body
-    else
-      @article_title = params[:article][:title]
-      @article =  params[:id] ?
-                  Article.find( params[:id] ) :
-                  Article.new( params[:article] )
-    end
+    _preview_for Article
   end
 
   private
@@ -81,3 +72,4 @@ class ArticlesController < ApplicationController
       redirect_to path, alert: @article.errors.full_messages
     end
 end
+

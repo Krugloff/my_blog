@@ -36,4 +36,24 @@ class ApplicationController < ActionController::Base
   def current_title
     @title = I18n.t( "#{controller_name}.#{action_name}.title" )
   end
+
+  private
+
+    def _preview_for(model)
+      param = model.name.downcase.to_sym
+      var = ?@ + param.to_s
+
+      if params[:id]
+        instance_variable_set var, model.find( params[:id] )
+      else
+        instance_variable_set var, model.new( params[param] )
+        instance_variable_get(var).user = @user
+        instance_variable_get(var).created_at = Time.now
+      end
+
+      instance_variable_get(var).body_as_html =
+        model.markdown_parser.render params[param][:body]
+
+      render 'preview', layout: !request.xhr?
+    end
 end

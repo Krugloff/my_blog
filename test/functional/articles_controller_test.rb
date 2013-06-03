@@ -161,8 +161,7 @@ class ArticlesControllerTest < ActionController::TestCase
       id: articles(:valid).id,
       article: articles(:valid).attributes.slice('title', 'body')
 
-    assert assigns :article_body
-    assert_response :success
+    _asserts_for_preview
   end
 
   private
@@ -226,8 +225,6 @@ class ArticlesControllerTest < ActionController::TestCase
     end
 
     def _asserts_for_preview
-      assert assigns :article_title
-      assert assigns :article_body
       assert_response :success
       assert_template :preview
     end
