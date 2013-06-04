@@ -28,7 +28,7 @@ jQuery ->
   $(document)
   # Control thread.
   .on 'mouseenter', 'a.thread', ->
-    $(this).tooltip(placement: 'bottom').tooltip('show')
+    $(this).tooltip('show')
 
   .on 'click', 'a.thread', (event) ->
     ( children_threads current_thread(this) ).toggle()

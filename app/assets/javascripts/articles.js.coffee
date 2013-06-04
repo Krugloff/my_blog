@@ -5,7 +5,7 @@
 # #index
 jQuery ->
   $(document).on 'mouseenter', 'a.preview', ->
-    $(this).tooltip().tooltip('show')
+    $(this).tooltip('show')
 
 # #preview
 jQuery ->
