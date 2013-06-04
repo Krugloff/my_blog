@@ -127,7 +127,6 @@ section.last_articles {
 
     .comments_count {
       float: left;
-      display: none;
       color: $light_gray;
     }
   }
@@ -137,10 +136,6 @@ section.last_articles {
   color: $light_gray;
   font-size: 11px;
   font-style: italic;
-}
-
-.badges {
-  display: none;
 }
 
 div.modal {

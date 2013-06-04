@@ -6,7 +6,7 @@
   <section class='last_articles'>
     <% @last_articles.each do |article| %>
       <%= link_to( article, remote: true ) do %>
-        <span class='comments_count'>
+        <span class='comments_count hide'>
           <%= article.comments.size %>
         </span>
         <h6><%= article.title %></h6>

@@ -14,7 +14,7 @@
         <%= for_client { logout_link } %>
         <%= render('layouts/nav') if @article.try('persisted?') %>
 
-        <section class='badges pull-right'>
+        <section class='badges pull-right hide'>
           <%= badges %>
         </section>
 
