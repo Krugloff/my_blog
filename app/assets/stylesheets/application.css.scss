@@ -5,6 +5,7 @@
 $main-color: #EEEEEE;
 $grey: #666666;
 $light_gray: #999999;
+$dark_red: #800000;
 $border-shadow: 1px solid rgba(0,0,0,0.1);
 
 @mixin hover_block {
@@ -146,6 +147,13 @@ div.modal {
 div.modal-content {
   overflow: visible;
   margin-right: 1%;
+}
+
+div.alert {
+  @include menu_block($dark_red);
+
+  padding-right: 5%;
+  width: 75%;
 }
 
 // Markdown
