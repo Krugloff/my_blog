@@ -60,12 +60,13 @@ a, .btn {
   padding-top: 1%;
 }
 
-@mixin menu_block {
+@mixin menu_block($color: black) {
+  background: inherit;
   padding: 1%;
-  border: 3px solid black;
+  border: 3px solid $color;
   border-radius: 3px;
-  box-shadow: 0px 0px 3px black,
-              inset 0px 0px 3px black;
+  box-shadow: 0px 0px 3px $color,
+              inset 0px 0px 3px $color;
 
   a {
     color: $grey;
@@ -84,10 +85,7 @@ a, .btn {
 nav { @include menu_block; }
 
 aside .menu {
-  @include menu_block;
-  border-color: green;
-  box-shadow: 0px 0px 3px green,
-              inset 0px 0px 3px green;
+  @include menu_block(green);
   padding-left: 3%;
   margin-top: 20%;
 }
