@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   helper Cando::Authorization::Helper
   include AuthorizationHelper
 
-  rescue_from Cando::Errors::AccessDenied do |exc|
-    redirect_to new_session_path, alert: [exc.message]
-  end
+  rescue_from Cando::Errors::AccessDenied, :with => :show_errors
 
   include Ajax
   include ActionView::Helpers::SanitizeHelper
@@ -18,6 +16,10 @@ class ApplicationController < ActionController::Base
   before_filter :current_title, only: %i( index new edit preview )
 
   protect_from_forgery
+
+  def show_errors(exception)
+    redirect_to new_session_path, alert: [exception.message]
+  end
 
   def last_articles
     @last_articles = Article.last(7) if Article.many?
